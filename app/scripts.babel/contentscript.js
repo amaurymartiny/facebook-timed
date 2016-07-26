@@ -1,19 +1,33 @@
 'use strict';
 
-var idleTimer; // the 5s timer that checks idleness
-window.onload = resetTimer;
-document.onmousemove = resetTimer;
-document.onkeypress = resetTimer;
+var idleTimer; // the 5s timer that checks idleness of user
+var isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook
 
-function logout() {
-    console.log('You are now logged out.');
-    //location.href = 'logout.php'
-};
+// reset idleness on the following events;
+document.addEventListener('load', resetIdleTimer, false);
+document.addEventListener('mousemove', resetIdleTimer, false);
+document.addEventListener('mousedown', resetIdleTimer, false);
+document.addEventListener('keypress', resetIdleTimer, false);
+document.addEventListener('DOMMouseScroll', resetIdleTimer, false);
+document.addEventListener('mousewheel', resetIdleTimer, false);
+document.addEventListener('touchmove', resetIdleTimer, false);
+document.addEventListener('MSPointerMove', resetIdleTimer, false);
 
-function resetTimer() {
-    console.log('Realoding timer');
+function resetIdleTimer() {
     clearTimeout(idleTimer);
-    idleTimer = setTimeout(logout, 5000); // 1000 millisec = 1 sec
+    startTrackTimer();
+    idleTimer = setTimeout(stopTrackTimer, 5000); // 1000 millisec = 1 sec
 };
+
+function startTrackTimer() {
+    if (isTrackingTime) return; // if we're already tracking time then do nothing
+    isTrackingTime = true;
+    console.log('start tracking time');
+}
+
+function stopTrackTimer() {
+    isTrackingTime = false;
+    console.log('stop tracking time');
+}
 
 console.log('\'Allo \'Allo! Content script');
