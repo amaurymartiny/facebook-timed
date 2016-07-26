@@ -7,3 +7,7 @@ chrome.runtime.onInstalled.addListener(details => {
 chrome.browserAction.setBadgeText({text: '\'Allo'});
 
 console.log('\'Allo \'Allo! Event Page for Browser Action');
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    console.log(request.action);
+});
