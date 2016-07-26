@@ -26,6 +26,9 @@
       "matches": [
         "*://www.facebook.com/*"
       ],
+      "css": [
+        "styles/contentscript.css"
+      ],
       "js": [
         "scripts/contentscript.js"
       ],

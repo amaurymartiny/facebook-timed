@@ -30,7 +30,7 @@ window.addEventListener('beforeunload', () => {
  */
 (function() {
   var el = document.querySelector('[role="navigation"]');
-  timeLabel = document.createElement('li');
+  timeLabel = document.createElement('div');
   timeLabel.id = 'facebook-timed-label';
   timeLabel.innerHTML = '00:00:00';
   el.insertBefore(timeLabel, el.firstChild);
