@@ -53,10 +53,18 @@ function updateTime() {
     todayDay = (new Date()).getDay();
   }
 
-  // update time on all ports (to all tabs)
+  // update time on all ports
+  sendToAllPorts();
+}
+
+/**
+ * Send all tracked time information from background to all open ports (popups and tabs)
+ */
+function sendToAllPorts() {
   for (var i = ports.length - 1; i >= 0; i--) {
     ports[i].postMessage({
       action: 'updateTrackedTime',
+      installDate: localStorage.getItem('installDate'),
       timeTrackedToday: timeTrackedToday,
       timeTrackedTotal: timeTrackedTotal
     });
@@ -75,10 +83,17 @@ chrome.runtime.onConnect.addListener(port => {
   // listen to messages from the content scripts
   port.onMessage.addListener(msg => {
     console.log(msg.action)
-    if (msg.action == 'startTrackingTime')
-      startTrackerTimer();
-    if (msg.action == 'stopTrackingTime')
-      stopTrackerTimer();
+    switch(msg.action) {
+      case 'startTrackingTime':
+        startTrackerTimer();
+        break;
+      case 'stopTrackingTime':
+        stopTrackerTimer();
+        break;
+      case 'getTrackedTime':
+        sendToAllPorts();
+        break;
+    }
   });
 
   port.onDisconnect.addListener(port => {
