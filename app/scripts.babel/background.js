@@ -9,7 +9,9 @@ var ports = []; // when multiple facebook tabs, save all the long-lived connecti
 
 var todayDay = (new Date()).getDay(); // get the day number of today, used for tracking day changing
 
-// Check whether new version is installed
+/**
+ * Check whether new version is installed
+ */
 chrome.runtime.onInstalled.addListener(details => {
     if (details.reason == 'install') {
       // save the beginning time of use in localStorage
