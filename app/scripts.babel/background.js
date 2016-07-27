@@ -7,6 +7,8 @@ var timeTrackedTotal = window.localStorage.getItem('timeTrackedTotal') || 0; // 
 
 var ports = []; // when multiple facebook tabs, save all the long-lived connection port inside this array
 
+var todayDay = (new Date()).getDay(); // get the day number of today, used for tracking day changing
+
 // Check whether new version is installed
 chrome.runtime.onInstalled.addListener(details => {
     if (details.reason == 'install') {
@@ -44,7 +46,12 @@ function updateTime() {
   ++timeTrackedTotal;
 
   // reset timeTrackedToday if day changed
+  if ((new Date()).getDay() != todayDay) {
+    timeTrackedToday = 0;
+    todayDay = (new Date()).getDay();
+  }
 
+  // update time on all ports (to all tabs)
   for (var i = ports.length - 1; i >= 0; i--) {
     ports[i].postMessage({
       action: 'updateTrackedTime',
