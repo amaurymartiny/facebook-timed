@@ -53,7 +53,7 @@ function startTrackingTime() {
   isTrackingTime = true;
   // chrome.runtime.sendMessage({action: 'startTrackingTime'}, function(response) {});
   trackingTimePort.postMessage({action: 'startTrackingTime'});
-  console.log('start tracking time');
+  // console.log('start tracking time');
 }
 
 /**
@@ -63,7 +63,7 @@ function stopTrackingTime() {
   isTrackingTime = false;
   trackingTimePort.postMessage({action: 'stopTrackingTime'});
   // chrome.runtime.sendMessage({action: 'stopTrackingTime'}, function(response) {});
-  console.log('stop tracking time');
+  // console.log('stop tracking time');
 }
 
 /**
