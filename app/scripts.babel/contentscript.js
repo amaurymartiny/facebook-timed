@@ -34,7 +34,6 @@ window.addEventListener('beforeunload', () => {
   timeLabel.id = 'facebook-timed-label';
   timeLabel.innerHTML = '00:00:00';
   el.insertBefore(timeLabel, el.firstChild);
-  console.log('done!')
 })();
 
 /**

@@ -15,10 +15,7 @@
     ]
   },
   "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*",
-    "background",
+    "*://www.facebook.com/*",
     "storage"
   ],
   "content_scripts": [

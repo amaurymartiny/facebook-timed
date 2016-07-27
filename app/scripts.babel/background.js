@@ -2,10 +2,20 @@
 
 var trackerTimer = null; // 1s timer that tracks time spent on facebook
 
-var timeTrackedToday = 0; // time spent on facebook today
-var timeTrackedTotal = 0; // time spent on facebook all time
+var timeTrackedToday = window.localStorage.getItem('timeTrackedToday') || 0; // time spent on facebook today
+var timeTrackedTotal = window.localStorage.getItem('timeTrackedTotal') || 0; // time spent on facebook all time
 
 var ports = []; // when multiple facebook tabs, save all the long-lived connection port inside this array
+
+// Check whether new version is installed
+chrome.runtime.onInstalled.addListener(details => {
+    if (details.reason == 'install') {
+      // save the beginning time of use in localStorage
+      window.localStorage.setItem('installDate', new Date());
+    } else if (details.reason == 'update') {
+      console.log('FacebookTimed updated from ' + details.previousVersion + ' to ' + chrome.runtime.getManifest().version + '.');
+    }
+});
 
 /**
  * Start tracking time spent on facebook
@@ -21,16 +31,20 @@ function startTrackerTimer() {
 function stopTrackerTimer() {
   clearInterval(trackerTimer);
   trackerTimer = null;
+  // whenever we stop tracking time, we save the time to localStorage
+  window.localStorage.setItem('timeTrackedToday', timeTrackedToday);
+  window.localStorage.setItem('timeTrackedTotal', timeTrackedTotal);
 }
 
 /**
  * Update time on content scripts label to be shown on Facebook DOM
- * @param  {Port} ports all the opened long-lived connections to send the time to
  */
 function updateTime() {
   ++timeTrackedToday;
   ++timeTrackedTotal;
-  console.log(ports);
+
+  // reset timeTrackedToday if day changed
+
   for (var i = ports.length - 1; i >= 0; i--) {
     ports[i].postMessage({
       action: 'updateTrackedTime',
@@ -41,7 +55,7 @@ function updateTime() {
 }
 
 /**
- * Run when a new long-lived connection is established (i.e. a new Facebook tab opens)
+ * Run when a new long-lived connection is established (i.e. when a new Facebook tab opens)
  */
 chrome.runtime.onConnect.addListener(port => {
 
@@ -59,6 +73,7 @@ chrome.runtime.onConnect.addListener(port => {
   });
 
   port.onDisconnect.addListener(port => {
+    // remove port from the list of all ports
     for (var i = ports.length - 1; i >= 0; i--) {
       if (ports[i].sender.id == port.sender.id) {
         ports.splice(i, 1);
