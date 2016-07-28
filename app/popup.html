@@ -6,14 +6,26 @@
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css styles/main.css -->
+    <!-- build:css styles/popup.css -->
     <link href="styles/popup.css" rel="stylesheet">
     <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
   </head>
   <body>
-    <h1>FacebookTimed</h1>
-    <div>Time spent today: <span id="time-tracked-today-label"></span>s</div>
-    <div>Time spent in total: <span id="time-tracked-total-label"></span>s since <span id="install-date-label"></span></div>
+    <h1>Facebook<strong>Timed</strong></h1>
+    <p class="time-tracked-label">Today:</p>
+    <div class="time-tracked"><span id="time-tracked-today-label"></span></div>
+    <p class="time-tracked-label">Since the beginning:</p>
+    <div class="time-tracked"><span id="time-tracked-total-label"></span></div>
+
+    <!--[if IE 8]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"></script>
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    <script src="https://cdn.auth0.com/js/base64.js"></script>
+    <script src="https://cdn.auth0.com/js/es5-shim.min.js"></script>
+    <![endif]-->
 
     <!-- build:js scripts/popup-vendor.js -->
     <!-- bower:js -->
