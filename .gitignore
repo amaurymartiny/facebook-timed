@@ -9,7 +9,7 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-
+npm-debug.log
 
 ##############################
 # extension
@@ -28,7 +28,4 @@ extension/app/scripts
 # app
 ##############################
 app/build
-app/database.sqlite
 app/node_modules
-app/ncp-debug.log
-app/npm-debug.log
