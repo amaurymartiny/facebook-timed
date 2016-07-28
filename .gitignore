@@ -29,3 +29,4 @@ extension/app/scripts
 ##############################
 app/build
 app/node_modules
+app/typings
