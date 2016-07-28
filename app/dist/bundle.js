@@ -48,7 +48,7 @@
 	const React = __webpack_require__(1);
 	const ReactDOM = __webpack_require__(2);
 	const Footer_1 = __webpack_require__(3);
-	ReactDOM.render(React.createElement(Footer_1.Hello, {compiler: "TypeScript", framework: "React"}), document.getElementById("example"));
+	ReactDOM.render(React.createElement(Footer_1.Footer, {compiler: "TypeScript", framework: "React"}), document.getElementById("example"));
 
 
 /***/ },
@@ -69,12 +69,12 @@
 
 	"use strict";
 	const React = __webpack_require__(1);
-	class Hello extends React.Component {
+	class Footer extends React.Component {
 	    render() {
 	        return React.createElement("h1", null, "Hello from ", this.props.compiler, " and ", this.props.framework, "!");
 	    }
 	}
-	exports.Hello = Hello;
+	exports.Footer = Footer;
 
 
 /***/ }
