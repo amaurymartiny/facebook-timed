@@ -1,10 +1,33 @@
-node_modules
-temp
-.tmp
-dist
-.sass-cache
-app/bower_components
-test/bower_components
-package
-app/scripts
+##############################
+# general
+##############################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
 
+
+##############################
+# extension
+##############################
+extension/node_modules
+extension/.tmp
+extension/temp
+extension/dist
+extension/.sass-cache
+extension/app/bower_components
+extension/test/bower_components
+extension/package
+extension/app/scripts
+
+##############################
+# server
+##############################
+
+##############################
+# client
+##############################
