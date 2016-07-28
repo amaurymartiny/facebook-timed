@@ -25,9 +25,10 @@ extension/package
 extension/app/scripts
 
 ##############################
-# server
+# app
 ##############################
-
-##############################
-# client
-##############################
+app/build
+app/database.sqlite
+app/node_modules
+app/ncp-debug.log
+app/npm-debug.log
