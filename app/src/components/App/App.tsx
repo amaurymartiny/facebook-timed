@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {Footer} from '../Footer';
+import {Footer} from '../Footer/Footer';
 
 ReactDOM.render(
     <Footer compiler="TypeScript" framework="React" />,
