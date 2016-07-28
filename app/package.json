@@ -29,7 +29,9 @@
     "graphql": "^0.6.2"
   },
   "devDependencies": {
+    "source-map-loader": "^0.1.5",
     "stylelint": "^7.0.3",
+    "ts-loader": "^0.8.2",
     "webpack": "^1.13.1"
   }
 }
