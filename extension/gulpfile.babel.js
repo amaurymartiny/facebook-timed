@@ -119,7 +119,7 @@ gulp.task('wiredep', () => {
 gulp.task('package', function () {
   var manifest = require('./dist/manifest.json');
   return gulp.src('dist/**')
-      .pipe($.zip('FacebookTimed-' + manifest.version + '.zip'))
+      .pipe($.zip('Timed-' + manifest.version + '.zip'))
       .pipe(gulp.dest('package'));
 });
 

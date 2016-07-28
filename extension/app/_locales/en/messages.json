@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "FacebookTimed",
+    "message": "Timed",
     "description": "The name of the application"
   },
   "appDescription": {
-    "message": "Track time spent on Facebook and compare with friends.",
+    "message": "Track time spent on Facebook and other websites, and compare with friends.",
     "description": "The description of the application"
   }
 }
