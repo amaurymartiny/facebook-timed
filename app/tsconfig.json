@@ -4,13 +4,6 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "declaration": true,
-    "noImplicitAny": false,
-    "rootDir": "./src",
-    "outDir": "./build",
-    "allowSyntheticDefaultImports": true,
-    "pretty": true,
-    "removeComments": true,
     "jsx": "react"
   },
   "exclude": [

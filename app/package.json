@@ -4,7 +4,17 @@
   "description": "Track time spent on Facebook and other websites, and compare with friends.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "typings install",
+    "clean": "del build",
+    "prebuild": "npm run clean",
+    "build": "webpack --config config/webpack/client.js && webpack --config config/webpack/server.js",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
+    "postbuild": "",
+    "prestart": "npm run build",
+    "start": "node build/server.js",
+    "start:prod": "cross-env NODE_ENV=production npm start",
+    "test": "node_modules/.bin/karma start config/test/karma.conf.js",
+    "lint": "node_modules/.bin/tslint \"src/**/**.ts*\""
   },
   "repository": {
     "type": "git",
@@ -24,16 +34,21 @@
   },
   "homepage": "https://github.com/amaurymartiny/timed#readme",
   "dependencies": {
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "express-graphql": "^0.5.3",
     "graphql": "^0.6.2",
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
+    "del-cli": "^0.2.0",
+    "extend": "^3.0.0",
     "source-map-loader": "^0.1.5",
-    "stylelint": "^7.0.3",
     "ts-loader": "^0.8.2",
+    "tslint": "^3.14.0",
+    "tslint-loader": "^2.1.5",
     "webpack": "^1.13.1"
   }
 }
