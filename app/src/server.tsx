@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 // Launch the server
 // -----------------------------------------------------------------------------
 app.set('port', config.port);
+app.set('host', config.host);
 app.listen(app.get('port'), () => {
-  console.info('Server listening at http://localhost:' + app.get('port'));
+  console.info('Server listening at http://%s:%s/', app.get('host'), app.get('port'));
 });
