@@ -47,10 +47,12 @@
     "del-cli": "^0.2.0",
     "extend": "^3.0.0",
     "json-loader": "^0.5.4",
+    "react-hot-loader": "^3.0.0-beta.5",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
     "tslint": "^3.14.0",
     "tslint-loader": "^2.1.5",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.16.2"
   }
 }

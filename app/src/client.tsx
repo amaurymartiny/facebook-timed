@@ -4,6 +4,8 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
+import App from './components/App/App';
 // import { Provider } from 'react-redux';
 // const { Router, browserHistory } = require('react-router');
 // import { syncHistoryWithStore } from 'react-router-redux';
@@ -19,7 +21,7 @@ import * as ReactDOM from 'react-dom';
 // const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
-  <h1>Hello</h1>,
+  <App name='Typescript'/>,
   // <Provider store={store} key="provider">
   //   <Router
   //     history={history}
