@@ -35,6 +35,10 @@ var config = {
           name: '[hash].[ext]',
           limit: 10000,
         },
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
       }
     ],
   },

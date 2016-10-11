@@ -9,7 +9,7 @@ const clientConfig = extend(true, {}, commonConfig, {
   entry: './client.tsx',
 
   output: {
-    filename: 'bundle.js'
+    filename: 'client.js'
   },
 
   target: 'web',
