@@ -8,13 +8,17 @@ var commonConfig = require('./common');
 
 const clientConfig = extend(true, {}, commonConfig, {
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
+    // Add the client which connects to our middleware
+    // You can use full urls like 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
+    // useful if you run your app from another point like django
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    // And then the actual application
     './client.tsx',
   ],
 
   output: {
-    filename: 'client.js'
+    publicPath: '/',
+    filename: 'client.bundle.js'
   },
 
   target: 'web',
@@ -22,16 +26,13 @@ const clientConfig = extend(true, {}, commonConfig, {
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],
-  module: {
-    loaders: [{
-      test: /\.tsx?$/,
-      loaders: ['react-hot', 'ts']
-    }]
-  },
-
-  // Choose a developer tool to enhance debugging
-  // http://webpack.github.io/docs/configuration.html#devtool
-  devtool: 'source-map',
+  
+  // module: {
+  //   loaders: [{
+  //     test: /\.tsx?$/,
+  //     loaders: ['react-hot', 'ts']
+  //   }]
+  // },
 });
 
 module.exports = clientConfig;

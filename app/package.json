@@ -11,7 +11,7 @@
     "build:prod": "cross-env NODE_ENV=production npm run build",
     "postbuild": "",
     "prestart": "npm run build",
-    "start": "node build/server.js",
+    "start": "node build/server.bundle.js",
     "start:prod": "cross-env NODE_ENV=production npm start",
     "test": "node_modules/.bin/karma start config/test/karma.conf.js",
     "lint": "node_modules/.bin/tslint \"src/**/**.ts*\""
@@ -53,6 +53,7 @@
     "tslint": "^3.14.0",
     "tslint-loader": "^2.1.5",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-hot-middleware": "^2.13.0"
   }
 }

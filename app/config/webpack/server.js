@@ -10,14 +10,19 @@ const serverConfig = extend(true, {}, commonConfig, {
   entry: './server.tsx',
 
   output: {
-    filename: 'server.js',
+    filename: 'server.bundle.js',
   },
 
   target: 'node',
 
-  // Choose a developer tool to enhance debugging
-  // http://webpack.github.io/docs/configuration.html#devtool
-  devtool: 'source-map',
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+    ]
+  }
 });
 
 module.exports = serverConfig;

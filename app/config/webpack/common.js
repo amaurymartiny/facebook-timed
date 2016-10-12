@@ -27,27 +27,15 @@ var config = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader',
-        query: {
-          name: '[hash].[ext]',
-          limit: 10000,
-        },
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
       }
     ],
   },
 
   resolve: {
-    root: path.resolve(__dirname, '../../src'),
-    modulesDirectories: ['node_modules'],
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
-  }
+  },
+
+  devtool: '#source-map',
 };
 
 module.exports = config;
