@@ -1,8 +1,9 @@
 const appConfig = require('../config/main');
 
-import * as e6p from 'es6-promise';
-(e6p as any).polyfill();
-import 'isomorphic-fetch';
+// Don't know what's that for
+// import * as e6p from 'es6-promise';
+// (e6p as any).polyfill();
+// import 'isomorphic-fetch';
 
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
@@ -25,8 +26,16 @@ const favicon = require('serve-favicon');
 
 const app = express();
 
+//
+// Register Node.js middleware
+// -----------------------------------------------------------------------------
 app.use(compression());
+app.use(favicon(path.join(__dirname, '../src/favicon.ico')));
+app.use('/public', express.static(path.join(__dirname, '../build/public')));
 
+//
+// Hot reload for development environment
+// -----------------------------------------------------------------------------
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack');
   const webpackConfig = require('../config/webpack/dev');
@@ -46,10 +55,9 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(require('webpack-hot-middleware')(webpackCompiler));
 }
 
-app.use(favicon(path.join(__dirname, '../src/favicon.ico')));
-
-app.use('/public', express.static(path.join(__dirname, '../build/public')));
-
+//
+// Register server-side rendering middleware
+// -----------------------------------------------------------------------------
 app.get('*', (req, res) => {
   const location = req.url;
   const memoryHistory = createMemoryHistory(req.originalUrl);
@@ -87,6 +95,9 @@ app.get('*', (req, res) => {
     });
 });
 
+//
+// Launch the server
+// -----------------------------------------------------------------------------
 app.listen(appConfig.port, appConfig.host, err => {
   if (err) {
     console.error(Chalk.bgRed(err));
