@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "outDir": "build",
     "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "es5",
     "sourceMap": true,
-    "jsx": "react"
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "typings/main",
+    "typings/main.d.ts"
   ]
 }
