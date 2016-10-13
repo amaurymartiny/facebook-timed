@@ -116,7 +116,6 @@
   },
   "dependencies": {
     "express": "^4.13.4",
-    "history": "^2.1.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
