@@ -3,6 +3,15 @@
 // (e6p as any).polyfill();
 // import 'isomorphic-fetch';
 
+import * as express from 'express';
+import * as path from 'path';
+import * as compression from'compression';
+import * as Chalk from 'chalk';
+import * as favicon from 'serve-favicon';
+import * as bodyParser from 'body-parser';
+import * as passport from 'passport';
+const Auth0Strategy = require('passport-auth0');
+
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
@@ -15,16 +24,35 @@ import routes from './app/routes';
 
 import { Html } from './app/containers';
 const manifest = require('../build/manifest.json');
-
-import * as express from 'express';
-import * as path from 'path';
-import * as compression from'compression';
-import * as Chalk from 'chalk';
-import * as favicon from 'serve-favicon';
-
-import {port, host} from './config';
+import { PORT, HOST, AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } from './config';
 
 const app = express();
+
+//
+// Authentication
+// -----------------------------------------------------------------------------
+var strategy = new Auth0Strategy({
+    domain:       AUTH0_DOMAIN,
+    clientID:     AUTH0_CLIENT_ID,
+    clientSecret: AUTH0_CLIENT_SECRET,
+    callbackURL:  process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
+  }, function(accessToken, refreshToken, extraParams, profile, done) {
+    // accessToken is the token to call Auth0 API (not needed in the most cases)
+    // extraParams.id_token has the JSON Web Token
+    // profile has all the information from the user
+    return done(null, profile);
+  });
+
+passport.use(strategy);
+
+// you can use this section to keep a smaller payload
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 //
 // Register Node.js middleware
@@ -32,6 +60,10 @@ const app = express();
 app.use(compression());
 app.use(favicon(path.join(__dirname, '../src/favicon.ico')));
 app.use('/public', express.static(path.join(__dirname, '../build/public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //
 // Hot reload for development environment
@@ -98,12 +130,12 @@ app.get('*', (req, res) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-app.listen(port, host, err => {
+app.listen(PORT, HOST, err => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
     console.info(Chalk.black.bgGreen(
-      `\n\n💂  Listening at http://${host}:${port}\n`
+      `\n\n💂  Listening at http://${HOST}:${PORT}\n`
     ));
   }
 });

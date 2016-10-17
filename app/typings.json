@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
+    "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "chai": "registry:dt/chai#3.4.0+20160317120654",
     "chalk": "registry:dt/chalk#0.4.0+20160317120654",
     "classnames": "registry:dt/classnames#0.0.0+20160316155526",

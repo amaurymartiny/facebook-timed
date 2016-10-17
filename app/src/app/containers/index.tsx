@@ -2,5 +2,6 @@
 export { Html } from './Html';
 export { App } from './App';
 export { Home } from './Home';
+export { Login } from './Login';
 export { About } from './About';
 export { Counter } from './Counter';
