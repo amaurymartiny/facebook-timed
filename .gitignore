@@ -27,6 +27,4 @@ extension/app/scripts
 ##############################
 # app
 ##############################
-app/build
-app/node_modules
-app/typings
+app/server/node_modules
