@@ -15,6 +15,8 @@
     "express": "^4.13.3",
     "express-graphql": "^0.4.5",
     "graphql": "^0.4.14",
-    "mongoose": "^4.3.5"
+    "mongoose": "^4.3.5",
+    "passport": "^0.3.2",
+    "passport-auth0": "^0.5.2"
   }
 }
