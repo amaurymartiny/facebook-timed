@@ -1,4 +1,3 @@
-const appConfig = require('../../../config/main');
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 // import thunk from 'redux-thunk';
@@ -13,14 +12,14 @@ export function configureStore(history, initialState?: any): Redux.Store {
   ];
 
   /** Add Only Dev. Middlewares */
-  if (appConfig.env !== 'production' && process.env.BROWSER) {
+  if (process.env.NODE_ENV !== 'production' && process.env.BROWSER) {
     const logger = createLogger();
     middlewares.push(logger);
   }
 
   const finalCreateStore = compose(
     applyMiddleware(...middlewares),
-    appConfig.env === 'development' &&
+    process.env.NODE_ENV === 'development' &&
     typeof window === 'object' &&
     typeof window.devToolsExtension !== 'undefined'
       ? window.devToolsExtension() : f => f
@@ -28,7 +27,7 @@ export function configureStore(history, initialState?: any): Redux.Store {
 
   const store: Redux.Store = finalCreateStore(rootReducer, initialState);
 
-  if (appConfig.env === 'development' && (module as any).hot) {
+  if (process.env.NODE_ENV === 'development' && (module as any).hot) {
     (module as any).hot.accept('./reducers', () => {
       store.replaceReducer((require('./reducers')));
     });

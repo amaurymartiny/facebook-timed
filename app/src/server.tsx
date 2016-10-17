@@ -1,5 +1,3 @@
-const appConfig = require('../config/main');
-
 // Don't know what's that for
 // import * as e6p from 'es6-promise';
 // (e6p as any).polyfill();
@@ -18,11 +16,13 @@ import routes from './app/routes';
 import { Html } from './app/containers';
 const manifest = require('../build/manifest.json');
 
-const express = require('express');
-const path = require('path');
-const compression = require('compression');
-const Chalk = require('chalk');
-const favicon = require('serve-favicon');
+import * as express from 'express';
+import * as path from 'path';
+import * as compression from'compression';
+import * as Chalk from 'chalk';
+import * as favicon from 'serve-favicon';
+
+import {port, host} from './config';
 
 const app = express();
 
@@ -98,12 +98,12 @@ app.get('*', (req, res) => {
 //
 // Launch the server
 // -----------------------------------------------------------------------------
-app.listen(appConfig.port, appConfig.host, err => {
+app.listen(port, host, err => {
   if (err) {
     console.error(Chalk.bgRed(err));
   } else {
     console.info(Chalk.black.bgGreen(
-      `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`
+      `\n\n💂  Listening at http://${host}:${port}\n`
     ));
   }
 });
