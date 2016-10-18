@@ -28,3 +28,4 @@ extension/app/scripts
 # app
 ##############################
 app/server/node_modules
+app/client/node_modules
