@@ -1,22 +1,24 @@
 import React from 'react';
 
 import Header from './Header';
-import LoginPage from './LoginPage';
-import AuthService from '../utils/AuthService';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {test: 'foo'};
   }
   render() {
-    const auth = new AuthService('SyZVm6XmXC4JgIBfw1sj3iHTEdmJ59UC', 'timed.auth0.com');
+    let children = null;
+    if (this.props.children) {
+      children = React.cloneElement(this.props.children, {
+        auth: this.props.route.auth //sends auth instance from route to children
+      })
+    }
+
     return (
       <div>
         <Header />
-        bar
+        {children}
         <input type="text" />
-        <LoginPage auth={auth} />
       </div>
     );
   }
