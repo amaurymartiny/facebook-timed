@@ -3,7 +3,13 @@ import Auth0Lock from 'auth0-lock';
 export default class AuthService {
   constructor(clientId, domain) {
     // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, {});
+    const options = {
+      auth: {
+        responseType: 'code',
+        redirectUrl: 'http://localhost:3000/callback'
+      }
+    };
+    this.lock = new Auth0Lock(clientId, domain, options);
     // Add callback for lock `authenticated` event
     this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
@@ -13,6 +19,7 @@ export default class AuthService {
   _doAuthentication(authResult){
     // Saves the user token
     this.setToken(authResult.idToken);
+    console.log('dsaf')
   }
 
   login() {
