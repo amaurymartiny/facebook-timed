@@ -22,13 +22,13 @@
     "test": "",
     "start": "node server",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "eslint": "eslint .",
-    "jscs": "jscs ."
+    "eslint": "eslint ."
   },
   "dependencies": {
-    "babel-cli": "^6.4.0",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "auth0-lock": "^10.4.0",
+    "babel-cli": "^6.16.0",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
