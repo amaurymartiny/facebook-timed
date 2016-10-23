@@ -16,7 +16,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <Header />
+        <Header auth={this.props.route.auth} />
         {children}
         <input type="text" />
       </div>
