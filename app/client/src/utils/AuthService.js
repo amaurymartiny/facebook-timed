@@ -1,31 +1,38 @@
-import Auth0Lock from 'auth0-lock';
-import { EventEmitter } from 'events';
-import { browserHistory } from 'react-router';
+import Auth0Lock from 'auth0-lock'
+// import LogoImg from 'images/test-icon.png';
 
-export default class AuthService extends EventEmitter {
+export default class AuthService {
   constructor(clientId, domain) {
-    super();
     // Configure Auth0
-    const options = {
+    this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        // responseType: 'code',
-        // redirectUrl: 'http://localhost:3000/callback'
+        redirectUrl: 'http://localhost:3000/callback',
+        responseType: 'token'
       }
-    };
-    this.lock = new Auth0Lock(clientId, domain, options);
+      // theme: {
+      //   logo: LogoImg,
+      //   primaryColor: "#b81b1c"
+      // },
+      // languageDictionary: {
+      //   title: "My Company"
+      // }
+    })
     // Add callback for lock `authenticated` event
-    this.lock.on('authenticated', this._doAuthentication.bind(this));
+    this.lock.on('authenticated', this._doAuthentication.bind(this))
     // Add callback for lock `authorization_error` event
-    this.lock.on('authorization_error', this._authorizationError.bind(this));
+    this.lock.on('authorization_error', this._authorizationError.bind(this))
     // binds login functions to keep this context
-    this.login = this.login.bind(this);
+    this.login = this.login.bind(this)
   }
 
-  _doAuthentication(authResult){
+  setOnAuthenticated(callback) {
+    this.onAuthenticated = callback;
+  }
+
+  _doAuthentication(authResult) {
+    console.log('_doAuthentication')
     // Saves the user token
     this.setToken(authResult.idToken)
-    // navigate to the home route
-    browserHistory.replace('/')
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
@@ -38,7 +45,16 @@ export default class AuthService extends EventEmitter {
 
   _authorizationError(error){
     // Unexpected authentication error
-    console.log('Authentication Error', error)
+    console.error('Authentication Error', error)
+  }
+
+  parseHash(hash){
+    // // uses auth0 parseHash method to extract data from url hash
+    // console.log(this.lock)
+    // const authResult = this.lock.parseHash(hash);
+    // if (authResult && authResult.idToken) {
+    //   this.setToken(authResult.idToken)
+    // }
   }
 
   login() {
@@ -49,15 +65,13 @@ export default class AuthService extends EventEmitter {
   loggedIn(){
     // Checks if there is a saved token and it's still valid
     const token = this.getToken()
-    return !!token && !isTokenExpired(token)
+    return !!token// && !isTokenExpired(token)
   }
 
   setProfile(profile){
     // Saves profile data to localStorage
-    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('profile', JSON.stringify(profile))
     // Triggers profile_updated event to update the UI
-    console.log(this);
-    this.emit('profile_updated', profile);
   }
 
   getProfile(){
