@@ -1,12 +1,35 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Auth0Lock from 'auth0-lock'
-import { login, logout } from '../actions'
+import { login, loginSuccess, loginError, logout } from '../actions'
 import Header from '../components/Header'
 
 class App extends Component {
+
+  lock = null; // the Auth0 lock widget will be inside this property
+
   constructor(props) {
     super(props)
+
+    // import AuthService to deal with all the actions related to auth
+    this.lock = new Auth0Lock('SyZVm6XmXC4JgIBfw1sj3iHTEdmJ59UC', 'timed.auth0.com', {
+      auth: {
+        redirectUrl: 'http://localhost:3000/callback',
+        responseType: 'token'
+      }
+    })
+
+    let _this = this //TODO remove this
+    this.lock.on('authenticated', authResult => {
+      console.log('authenticated')
+      console.log(_this.props)
+      _this.props.loginSuccess({})
+    })
+
+    this.lock.on('authorization_error', error => {
+      _this.props.loginError(error)
+    })
+
     this.handleLoginClick = this.handleLoginClick.bind(this)
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
   }
@@ -41,7 +64,7 @@ class App extends Component {
   // }
   
   handleLoginClick() {
-    this.props.login()
+    this.props.login(this.lock)
   }
   
   handleLogoutClick() {
@@ -80,5 +103,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   login,
+  loginSuccess,
+  loginError,
   logout
 })(App)

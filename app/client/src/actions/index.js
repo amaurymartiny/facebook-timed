@@ -1,30 +1,23 @@
-import { CALL_API } from '../middleware/api'
-
-import AuthService from '../utils/AuthService'
-
-// import AuthService to deal with all the actions related to auth
-const auth = new AuthService('SyZVm6XmXC4JgIBfw1sj3iHTEdmJ59UC', 'timed.auth0.com');
+import Auth0Lock from 'auth0-lock'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 
 function loginRequest() {
-  console.log('Request')
   return {
     type: LOGIN_REQUEST
   }
 }
 
-function loginSuccess(profile) {
-  console.log('Success')
+export function loginSuccess(profile) {
   return {
     type: LOGIN_SUCCESS,
     profile
   }
 }
 
-function loginError(error) {
+export function loginError(error) {
   return {
     type: LOGIN_ERROR,
     error
@@ -44,9 +37,9 @@ function loginError(error) {
 //     })
 //   }
 // }
-export function login() {
-  auth.lock.show()
-  dispatch(loginRequest())
+export function login(lock) {
+  lock.show()
+  return dispatch => {return dispatch(loginRequest())}
 }
 
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
