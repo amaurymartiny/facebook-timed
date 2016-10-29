@@ -21,7 +21,7 @@ const HeaderComponent = ({ isAuthenticated, profile, authService, onLoginClick, 
 
 HeaderComponent.propTypes = {
   isAuthenticated: React.PropTypes.bool.isRequired,
-  profile: React.PropTypes.object.isRequired,
+  profile: React.PropTypes.object,
   authService: React.PropTypes.object.isRequired,
   onLoginClick: React.PropTypes.func.isRequired,
   onLogoutClick: React.PropTypes.func.isRequired
