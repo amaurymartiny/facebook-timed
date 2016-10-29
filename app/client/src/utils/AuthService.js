@@ -1,7 +1,10 @@
 import Auth0Lock from 'auth0-lock'
+const jwtDecode = require('jwt-decode')
+
+import { loginSuccess, loginError } from '../actions'
 // import LogoImg from 'images/test-icon.png';
 
-export default class AuthService {
+export class AuthService {
   constructor(clientId, domain) {
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
@@ -25,20 +28,25 @@ export default class AuthService {
     this.login = this.login.bind(this)
   }
 
-  setOnAuthenticated(callback) {
-    this.onAuthenticated = callback;
-  }
-
+  //
+  // Methods
+  // -----------------------------------------------------------------------------
   _doAuthentication(authResult) {
     console.log('_doAuthentication')
     // Saves the user token
-    this.setToken(authResult.idToken)
+    AuthService.setToken(authResult.idToken)
+    // navigate to the home route
+    // browserHistory.replace('/#/home')
     // Async loads the user profile data
     this.lock.getProfile(authResult.idToken, (error, profile) => {
       if (error) {
-        console.log('Error loading the Profile', error)
+        // configure externally a function to fire, here it would be store.dispatch(loginError(error))
+        this.authorizationErrorExternal(error)
+        //
       } else {
-        this.setProfile(profile)
+        AuthService.setProfile(profile)
+        // configure externally a function to fire, here it would be store.dispatch(loginSuccess(profile))
+        this.doAuthenticationExternal(profile)
       }
     })
   }
@@ -46,15 +54,8 @@ export default class AuthService {
   _authorizationError(error){
     // Unexpected authentication error
     console.error('Authentication Error', error)
-  }
-
-  parseHash(hash){
-    // // uses auth0 parseHash method to extract data from url hash
-    // console.log(this.lock)
-    // const authResult = this.lock.parseHash(hash);
-    // if (authResult && authResult.idToken) {
-    //   this.setToken(authResult.idToken)
-    // }
+    // dispatches
+    this.store.dispatch(loginError(error))
   }
 
   login() {
@@ -62,37 +63,90 @@ export default class AuthService {
     this.lock.show()
   }
 
-  loggedIn(){
-    // Checks if there is a saved token and it's still valid
-    const token = this.getToken()
-    return !!token// && !isTokenExpired(token)
+  logout(){
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem('id_token')
+    localStorage.removeItem('profile')
   }
 
-  setProfile(profile){
-    // Saves profile data to localStorage
-    localStorage.setItem('profile', JSON.stringify(profile))
-    // Triggers profile_updated event to update the UI
+  //
+  // Static methods
+  // -----------------------------------------------------------------------------
+  static checkTokenExpiry() {
+    let jwt = localStorage.getItem('id_token')
+    if(jwt) {
+      let jwtExp = jwtDecode(jwt).exp
+      let expiryDate = new Date(0)
+      expiryDate.setUTCSeconds(jwtExp)
+
+      if(new Date() < expiryDate) {
+        return true
+      }
+    }
+    return false
   }
 
-  getProfile(){
+  static getProfile() {
     // Retrieves the profile data from localStorage
     const profile = localStorage.getItem('profile')
     return profile ? JSON.parse(localStorage.profile) : {}
   }
 
-  setToken(idToken){
+  static loggedIn() {
+    // Checks if there is a saved token and it's still valid
+    const token = AuthService.getToken()
+    return !!token && !AuthService.isTokenExpired(token)
+  }
+
+  static setProfile(profile) {
+    // Saves profile data to localStorage
+    localStorage.setItem('profile', JSON.stringify(profile))
+    // Triggers profile_updated event to update the UI
+  }
+
+  // getProfile(){
+  //   // Retrieves the profile data from localStorage
+  //   const profile = localStorage.getItem('profile')
+  //   return profile ? JSON.parse(localStorage.profile) : {}
+  // }
+
+  static setToken(idToken) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken)
   }
 
-  getToken(){
+  static getToken() {
     // Retrieves the user token from localStorage
     return localStorage.getItem('id_token')
   }
 
-  logout(){
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('profile');
+  static getTokenExpirationDate() {
+    const token = AuthService.getToken()
+    const decoded = decode(token)
+    if(!decoded.exp) {
+      return null
+    }
+
+    const date = new Date(0) // The 0 here is the key, which sets the date to the epoch
+    date.setUTCSeconds(decoded.exp)
+    return date
   }
+
+  static isTokenExpired() {
+    const token = AuthService.getToken()
+    const date = AuthService.getTokenExpirationDate(token)
+    const offsetSeconds = 0
+    if (date === null) {
+      return false
+    }
+    console.log(!(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000))))
+    return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)))
+  }
+}
+
+export default function createAuthService(store) {
+  let auth = new AuthService('SyZVm6XmXC4JgIBfw1sj3iHTEdmJ59UC', 'timed.auth0.com')
+  auth.doAuthenticationExternal = (profile) => store.dispatch(loginSuccess(profile))
+  auth.authorizationErrorExternal = (error) => store.dispatch(loginError(error))
+  return auth
 }
