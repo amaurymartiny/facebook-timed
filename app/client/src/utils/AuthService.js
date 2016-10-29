@@ -1,5 +1,5 @@
 import Auth0Lock from 'auth0-lock'
-import * as jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 
 import { loginSuccess, loginError } from '../actions'
 // import LogoImg from 'images/test-icon.png';

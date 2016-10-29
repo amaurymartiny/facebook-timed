@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 const HeaderComponent = ({ isAuthenticated, profile, authService, onLoginClick, onLogoutClick }) =>
   <div>
-    <h1>Timed</h1>
+    <h1>Timesd</h1>
     <ul>
       <li><Link to='/'>Home</Link></li>
       <li><Link to='/about'>About</Link></li>
