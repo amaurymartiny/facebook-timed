@@ -7,4 +7,9 @@ const App = ({ route, children }) =>
     {children}
   </div>
 
+App.propTypes = {
+  route: React.PropTypes.object.isRequired,
+  children: React.PropTypes.element.isRequired
+}
+
 export default App

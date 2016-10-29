@@ -1,5 +1,5 @@
 import Auth0Lock from 'auth0-lock'
-const jwtDecode = require('jwt-decode')
+import * as jwtDecode from 'jwt-decode'
 
 import { loginSuccess, loginError } from '../actions'
 // import LogoImg from 'images/test-icon.png';
@@ -32,7 +32,6 @@ export class AuthService {
   // Methods
   // -----------------------------------------------------------------------------
   _doAuthentication(authResult) {
-    console.log('_doAuthentication')
     // Saves the user token
     AuthService.setToken(authResult.idToken)
     // navigate to the home route
@@ -52,10 +51,8 @@ export class AuthService {
   }
 
   _authorizationError(error){
-    // Unexpected authentication error
-    console.error('Authentication Error', error)
-    // dispatches
-    this.store.dispatch(loginError(error))
+    // configure externally a function to fire, here it would be store.dispatch(loginError(error))
+    this.authorizationErrorExternal(error)
   }
 
   login() {
@@ -122,7 +119,7 @@ export class AuthService {
 
   static getTokenExpirationDate() {
     const token = AuthService.getToken()
-    const decoded = decode(token)
+    const decoded = jwtDecode(token)
     if(!decoded.exp) {
       return null
     }
@@ -139,7 +136,6 @@ export class AuthService {
     if (date === null) {
       return false
     }
-    console.log(!(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000))))
     return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)))
   }
 }

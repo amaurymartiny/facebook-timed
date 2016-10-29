@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loginRequest, loginSuccess, loginError, logoutSuccess } from '../actions'
+import { loginRequest, logoutSuccess } from '../actions'
 import HeaderComponent from '../components/HeaderComponent'
 
 const mapStateToProps = (state, ownProps) => {

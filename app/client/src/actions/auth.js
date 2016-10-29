@@ -12,7 +12,7 @@ export function loginRequest(authService) {
   }
 }
 
-export function loginSuccess(profile, lock) {
+export function loginSuccess(profile) {
   browserHistory.push('/')
   return {
     type: LOGIN_SUCCESS,

@@ -19,4 +19,12 @@ const HeaderComponent = ({ isAuthenticated, profile, authService, onLoginClick, 
     )}
   </div>
 
+HeaderComponent.propTypes = {
+  isAuthenticated: React.PropTypes.boolean.isRequired,
+  profile: React.PropTypes.object.isRequired,
+  authService: React.PropTypes.object.isRequired,
+  onLoginClick: React.PropTypes.func.isRequired,
+  onLogoutClick: React.PropTypes.func.isRequired
+}
+
 export default HeaderComponent

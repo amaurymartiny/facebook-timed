@@ -12,14 +12,11 @@ export default function auth(state = {
       return {...state, isFetching: true}
     case ActionTypes.LOGIN_SUCCESS:
       return {...state, isFetching: false, isAuthenticated: true, profile: action.profile}
-      break;
     case ActionTypes.LOGIN_ERROR:
       return {...state, isFetching: false, isAuthenticated: false, profile: null, error: action.error}
-      break;
     case ActionTypes.LOGOUT_SUCCESS:
       return {...state, isFetching: false, isAuthenticated: false, profile: null}
-      break
     default:
       return state
-    }
+  }
 }
