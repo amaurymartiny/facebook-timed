@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-const HeaderComponent = ({ isAuthenticated, profile, authService, onLoginClick, onLogoutClick }) =>
+const Header = ({ isAuthenticated, profile, authService, onLoginClick, onLogoutClick }) =>
   <div>
     <h1>Timesd</h1>
     <ul>
@@ -19,7 +19,7 @@ const HeaderComponent = ({ isAuthenticated, profile, authService, onLoginClick, 
     )}
   </div>
 
-HeaderComponent.propTypes = {
+Header.propTypes = {
   isAuthenticated: React.PropTypes.bool.isRequired,
   profile: React.PropTypes.object,
   authService: React.PropTypes.object.isRequired,
@@ -27,4 +27,4 @@ HeaderComponent.propTypes = {
   onLogoutClick: React.PropTypes.func.isRequired
 }
 
-export default HeaderComponent
+export default Header

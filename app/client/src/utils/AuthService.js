@@ -141,7 +141,7 @@ export class AuthService {
 }
 
 export default function createAuthService(store) {
-  let auth = new AuthService('SyZVm6XmXC4JgIBfw1sj3iHTEdmJ59UC', 'timed.auth0.com')
+  let auth = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN)
   auth.doAuthenticationExternal = (profile) => store.dispatch(loginSuccess(profile))
   auth.authorizationErrorExternal = (error) => store.dispatch(loginError(error))
   return auth

@@ -60,6 +60,7 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.4",
+    "webpack-dotenv-plugin": "^1.4.0",
     "webpack-hot-middleware": "^2.13.0"
   }
 }

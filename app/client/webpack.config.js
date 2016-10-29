@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -24,8 +25,9 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+    new DotenvPlugin({
+      sample: './.env.example',
+      path: './.env'
     })
   ],
   module: {

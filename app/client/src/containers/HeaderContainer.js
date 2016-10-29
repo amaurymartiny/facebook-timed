@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { loginRequest, logoutSuccess } from '../actions'
-import HeaderComponent from '../components/HeaderComponent'
+import Header from '../components/Header'
 
 const mapStateToProps = (state, ownProps) => {
   const { isAuthenticated, profile } = state.auth
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 const HeaderContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(HeaderComponent)
+)(Header)
 
 export default HeaderContainer

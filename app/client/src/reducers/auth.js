@@ -9,13 +9,13 @@ export default function auth(state = {
 }, action) {
   switch (action.type) {
     case ActionTypes.LOGIN_REQUEST:
-      return {...state, isFetching: true}
+      return {...state, isFetching: true, error: null}
     case ActionTypes.LOGIN_SUCCESS:
       return {...state, isFetching: false, isAuthenticated: true, profile: action.profile}
     case ActionTypes.LOGIN_ERROR:
       return {...state, isFetching: false, isAuthenticated: false, profile: null, error: action.error}
     case ActionTypes.LOGOUT_SUCCESS:
-      return {...state, isFetching: false, isAuthenticated: false, profile: null}
+      return {...state, isAuthenticated: false, profile: null}
     default:
       return state
   }

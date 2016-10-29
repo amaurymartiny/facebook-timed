@@ -30,3 +30,4 @@ extension/app/scripts
 app/server/node_modules
 app/client/node_modules
 app/client/dist
+app/client/.env
