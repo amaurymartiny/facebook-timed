@@ -1,13 +1,13 @@
 import express from 'express';
-import validate from 'express-validation';
-import paramValidation from '../../config/param-validation';
+// import validate from 'express-validation';
 import expressJwt from 'express-jwt';
+// import paramValidation from '../../config/param-validation';
 import config from '../../config/env';
 import userCtrl from '../controllers/user.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
-router.route('/')
+// router.route('/')
   /** GET /api/users - Get list of users */
   // .get(userCtrl.list)
 

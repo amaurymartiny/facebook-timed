@@ -1,14 +1,13 @@
 import express from 'express';
 import validate from 'express-validation';
-import paramValidation from '../../config/param-validation';
 import expressJwt from 'express-jwt';
+import paramValidation from '../../config/param-validation';
 import config from '../../config/env';
 import trackCtrl from '../controllers/track.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/')
-  
   // Needs token as header. Authorization: Bearer {token}
   .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }))
 

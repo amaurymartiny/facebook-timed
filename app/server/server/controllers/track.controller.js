@@ -21,14 +21,6 @@ function get(req, res) {
 }
 
 /**
- * Get track
- * @returns {Track}
- */
-function getOrCreate(req, res, next) {
-  get(req.res)
-}
-
-/**
  * Create new track
  * @property {string} req.body.auth0Id - The auth0Id of track.
  * @returns {Track}

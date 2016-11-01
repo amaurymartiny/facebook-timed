@@ -21,14 +21,6 @@ function get(req, res) {
 }
 
 /**
- * Get website
- * @returns {Website}
- */
-function getOrCreate(req, res, next) {
-  get(req.res)
-}
-
-/**
  * Create new website
  * @property {string} req.body.auth0Id - The auth0Id of website.
  * @returns {Website}

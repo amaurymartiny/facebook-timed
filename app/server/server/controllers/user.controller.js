@@ -21,14 +21,6 @@ function get(req, res) {
 }
 
 /**
- * Get user
- * @returns {User}
- */
-function getOrCreate(req, res, next) {
-  get(req.res)
-}
-
-/**
  * Create new user
  * @property {string} req.body.auth0Id - The auth0Id of user.
  * @returns {User}
