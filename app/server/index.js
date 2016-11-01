@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
+import socket from 'socket.io';
 import config from './config/env';
 import app from './config/express';
 
 const debug = require('debug')('express-mongoose-es6-rest-api:index');
 
+// ======================================================
+// Connect database
+// ======================================================
 // make bluebird default Promise
 Promise = require('bluebird'); // eslint-disable-line no-global-assign
 
@@ -16,13 +20,29 @@ mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${config.db}`);
 });
 
-// module.parent check is required to support mocha watch
-// src: https://github.com/mochajs/mocha/issues/1912
-if (!module.parent) {
-  // listen on port config.port
-  app.listen(config.port, () => {
-    debug(`server started on port ${config.port} (${config.env})`);
+// ======================================================
+// Launch server
+// ======================================================
+// // module.parent check is required to support mocha watch
+// // src: https://github.com/mochajs/mocha/issues/1912
+// if (!module.parent) {
+// listen on port config.port
+const server = app.listen(config.port, () => {
+  debug(`server started on port ${config.port} (${config.env})`);
+});
+// }
+
+// ======================================================
+// Create socket server
+// ======================================================
+export const io = socket(server);
+
+io.on('connection', (socket) => {
+  debug('New socket connection.')
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', (data) => {
+    console.log(data);
   });
-}
+});
 
 export default app;
