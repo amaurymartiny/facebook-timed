@@ -4,7 +4,7 @@ import './Header.css'
 
 const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }) =>
   <div>
-    <h1>React Redux Auth0 Kit</h1>
+    <h1>Timed</h1>
     <ul className="list-inline">
       <li><Link to='/'>Home</Link></li>
       <li><Link to='/about'>About</Link></li>
