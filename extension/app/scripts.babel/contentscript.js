@@ -1,4 +1,6 @@
-'use strict';
+// ======================================================
+// Content script to be injected on the tracked website (facebook.com)
+// ======================================================
 
 let idleTimer; // the 5s timer that checks idleness of user
 let isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook

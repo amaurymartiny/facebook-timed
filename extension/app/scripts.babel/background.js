@@ -9,6 +9,9 @@ let ports = []; // when multiple facebook tabs, save all the long-lived connecti
 
 let lastUsedDay = localStorage.getItem('lastUsedDay'); // date of last usage
 
+// ======================================================
+// Do on install
+// ======================================================
 /**
  * Check whether new version is installed
  */
@@ -21,6 +24,9 @@ chrome.runtime.onInstalled.addListener(details => {
     }
 });
 
+// ======================================================
+// Time tracking
+// ======================================================
 /**
  * Start tracking time spent on facebook
  */
@@ -59,6 +65,9 @@ function updateTime() {
   sendToAllPorts();
 }
 
+// ======================================================
+// Communication with content scripts
+// ======================================================
 /**
  * Send all tracked time information from background to all open ports (popups and tabs)
  */
@@ -109,3 +118,50 @@ chrome.runtime.onConnect.addListener(port => {
     }
   })
 });
+
+// ======================================================
+// Communication with web app (to get token)
+// ======================================================
+/**
+ * Receive new token from Timed web page after authentication
+ */
+chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
+  console.log('New token received.');
+  localStorage.setItem('idToken', request.id_token);
+});
+
+// ======================================================
+// Communication with server (to update times on server)
+// ======================================================
+/**
+ * General helper function to create a XHR object
+ */
+function createXHR(method, endpoint, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://localhost:8080/api' + endpoint, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // JSON.parse does not evaluate the attacker's scripts.
+      return callback(JSON.parse(xhr.responseText));
+    }
+  }
+  xhr.send();
+}
+
+/**
+ * Helper object to do the API requests
+ */
+const callAPI = {
+  get: (endpoint, callback) => createXHR('GET', endpoint, callback),
+  put: (endpoint, callback) => createXHR('PUT', endpoint, callback)
+}
+
+/**
+ * Get the trackId of our website
+ */
+function getTrackId() {
+  callAPI.get('/websites', (res) => {
+    console.log(res)
+  })
+}
+getTrackId();
