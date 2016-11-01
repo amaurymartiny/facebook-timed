@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions'
+import * as AuthActions from '../actions/auth'
 import AuthService from '../utils/AuthService'
 
 export default function authReducer(state = {
@@ -8,13 +8,13 @@ export default function authReducer(state = {
   error: null
 }, action) {
   switch (action.type) {
-    case ActionTypes.LOGIN_REQUEST:
+    case AuthActions.LOGIN_REQUEST:
       return {...state, isFetching: true, error: null}
-    case ActionTypes.LOGIN_SUCCESS:
+    case AuthActions.LOGIN_SUCCESS:
       return {...state, isFetching: false, isAuthenticated: true, profile: action.profile}
-    case ActionTypes.LOGIN_ERROR:
+    case AuthActions.LOGIN_ERROR:
       return {...state, isFetching: false, isAuthenticated: false, profile: {}, error: action.error}
-    case ActionTypes.LOGOUT_SUCCESS:
+    case AuthActions.LOGOUT_SUCCESS:
       return {...state, isAuthenticated: false, profile: {}}
     default:
       return state
