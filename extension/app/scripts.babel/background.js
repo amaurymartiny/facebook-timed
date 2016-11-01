@@ -1,13 +1,13 @@
 'use strict';
 
-var trackerTimer = null; // 1s timer that tracks time spent on facebook
+let trackerTimer = null; // 1s timer that tracks time spent on facebook
 
-var timeTrackedToday = window.localStorage.getItem('timeTrackedToday') || 0; // time spent on facebook today
-var timeTrackedTotal = window.localStorage.getItem('timeTrackedTotal') || 0; // time spent on facebook all time
+let timeTrackedToday = window.localStorage.getItem('timeTrackedToday') || 0; // time spent on facebook today
+let timeTrackedTotal = window.localStorage.getItem('timeTrackedTotal') || 0; // time spent on facebook all time
 
-var ports = []; // when multiple facebook tabs, save all the long-lived connection port inside this array
+let ports = []; // when multiple facebook tabs, save all the long-lived connection port inside this array
 
-var todayDay = (new Date()).getDay(); // get the day number of today, used for tracking day changing
+let lastUsedDay = localStorage.getItem('lastUsedDay'); // date of last usage
 
 /**
  * Check whether new version is installed
@@ -15,9 +15,9 @@ var todayDay = (new Date()).getDay(); // get the day number of today, used for t
 chrome.runtime.onInstalled.addListener(details => {
     if (details.reason == 'install') {
       // save the beginning time of use in localStorage
-      window.localStorage.setItem('installDate', new Date());
+      localStorage.setItem('installDate', new Date());
     } else if (details.reason == 'update') {
-      console.log('FacebookTimed updated from ' + details.previousVersion + ' to ' + chrome.runtime.getManifest().version + '.');
+      console.log('Timed updated from ' + details.previousVersion + ' to ' + chrome.runtime.getManifest().version + '.');
     }
 });
 
@@ -48,9 +48,11 @@ function updateTime() {
   ++timeTrackedTotal;
 
   // reset timeTrackedToday if day changed
-  if ((new Date()).getDay() != todayDay) {
+  const todayDay = (new Date()).getUTCDate(); // what day is today?
+  if (lastUsedDay != todayDay) { // reset tracker is todayDay is not last used day
     timeTrackedToday = 0;
-    todayDay = (new Date()).getDay();
+    lastUsedDay = todayDay;
+    localStorage.setItem('lastUsedDay', lastUsedDay)
   }
 
   // update time on all ports
@@ -61,7 +63,7 @@ function updateTime() {
  * Send all tracked time information from background to all open ports (popups and tabs)
  */
 function sendToAllPorts() {
-  for (var i = ports.length - 1; i >= 0; i--) {
+  for (let i = ports.length - 1; i >= 0; i--) {
     ports[i].postMessage({
       action: 'updateTrackedTime',
       installDate: localStorage.getItem('installDate'),
