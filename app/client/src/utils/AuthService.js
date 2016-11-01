@@ -67,6 +67,11 @@ export default class AuthService {
   static setToken(idToken) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken)
+
+    // Send token to chrome extension
+    if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
+      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', {id_token: idToken}) // eslint-disable-line
+    }
   }
 
   static getToken() {
