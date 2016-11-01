@@ -12,7 +12,7 @@ export default function authReducer(state = {
       return {...state, isFetching: true, error: null}
     case AuthActions.LOGIN_SUCCESS:
       return {...state, isFetching: false, isAuthenticated: true, profile: action.profile}
-    case AuthActions.LOGIN_ERROR:
+    case AuthActions.LOGIN_FAILURE:
       return {...state, isFetching: false, isAuthenticated: false, profile: {}, error: action.error}
     case AuthActions.LOGOUT_SUCCESS:
       return {...state, isAuthenticated: false, profile: {}}

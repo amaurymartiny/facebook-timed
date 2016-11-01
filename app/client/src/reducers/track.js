@@ -8,12 +8,12 @@ export default function fetchTracksReducer(state = {
 }, action) {
   switch (action.type) {
     case TrackActions.FETCH_TRACKS_REQUEST:
-      return {...state, isFetching: true, error: null}
+      return {...state, isFetching: true, error: action.error ? action.payload.name + ': ' + action.payload.message : null}
     case TrackActions.FETCH_TRACKS_SUCCESS:
       console.log(action) // eslint-disable-line
-      return {...state, isFetching: false, tracks: action.payload}
-    case TrackActions.FETCH_TRACKS_ERROR:
-      return {...state, isFetching: false, error: action.payload}
+      return {...state, isFetching: false, tracks: action.payload, error: null}
+    case TrackActions.FETCH_TRACKS_FAILURE:
+      return {...state, isFetching: false, error: action.payload.name + ': ' + action.payload.message}
     case AuthActions.LOGOUT_SUCCESS:
       return {...state, isFetching: false, tracks: []}
     default:

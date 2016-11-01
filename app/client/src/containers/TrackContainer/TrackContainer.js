@@ -13,6 +13,7 @@ class TrackContainer extends React.Component {
     return (
       <div>
         <TrackList tracks={this.props.tracks} />
+        {this.props.error && <p>{this.props.error}</p>}
       </div>
     )
   }
@@ -20,6 +21,7 @@ class TrackContainer extends React.Component {
 
 TrackContainer.propTypes = {
   tracks: React.PropTypes.array.isRequired,
+  error: React.PropTypes.string,
   fetchTracks: React.PropTypes.func.isRequired
 }
 
