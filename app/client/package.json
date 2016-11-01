@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/amaurymartiny/timed",
   "scripts": {
-    "test": "",
+    "test": "mocha --require mock-local-storage --require test/setup.js \"src/**/*.spec.js\"",
     "start": "node server",
     "clean": "rimraf dist",
     "prebuild": "clean",
