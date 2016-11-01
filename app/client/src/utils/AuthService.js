@@ -5,27 +5,27 @@ import jwtDecode from 'jwt-decode'
 
 export default class AuthService {
   constructor(clientId, domain) {
-    // Configure Auth0
+    // Configure Auth0 lock
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
         redirectUrl: 'http://localhost:3000/callback',
         responseType: 'token'
-      }
+      },
       // theme: {
       //   logo: LogoImg,
       //   primaryColor: "#b81b1c"
       // },
-      // languageDictionary: {
-      //   title: "My Company"
-      // }
+      languageDictionary: {
+        title: 'React Redux Auth0 Kit'
+      }
     })
     // binds login functions to keep this context
     this.login = this.login.bind(this)
   }
 
-  //
+  // ======================================================
   // Public methods
-  // -----------------------------------------------------------------------------
+  // ======================================================
   login() {
     // Call the show method to display the widget.
     this.lock.show()
@@ -37,9 +37,9 @@ export default class AuthService {
     localStorage.removeItem('profile')
   }
 
-  //
+  // ======================================================
   // Static methods
-  // -----------------------------------------------------------------------------
+  // ======================================================
   static getProfile() {
     // Retrieves the profile data from localStorage
     const profile = localStorage.getItem('profile')

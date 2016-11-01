@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
-import { loginRequest, logoutSuccess } from '../actions'
-import Header from '../components/Header'
+import { loginRequest, logoutSuccess } from '../../actions'
+import { Header } from '../../components'
 
 const mapStateToProps = (state) => {
-  const { isAuthenticated, profile } = state.auth
+  const { isAuthenticated, profile, error } = state.auth
   return {
     isAuthenticated,
-    profile
+    profile,
+    error
   }
 }
 
