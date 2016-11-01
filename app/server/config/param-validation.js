@@ -4,15 +4,15 @@ export default {
   // POST /api/users
   createUser: {
     body: {
-      username: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
+      auth0Id: Joi.string().required()
+      // mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
     }
   },
 
   // UPDATE /api/users/:userId
   updateUser: {
     body: {
-      username: Joi.string().required(),
+      auth0Id: Joi.string().required(),
       mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
     },
     params: {
@@ -23,8 +23,8 @@ export default {
   // POST /api/auth/login
   login: {
     body: {
-      username: Joi.string().required(),
-      password: Joi.string().required()
+      auth0Id: Joi.string().required()
+      // password: Joi.string().required()
     }
   }
 };

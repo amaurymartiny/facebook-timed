@@ -21,14 +21,21 @@ function get(req, res) {
 }
 
 /**
+ * Get user
+ * @returns {User}
+ */
+function getOrCreate(req, res, next) {
+  get(req.res)
+}
+
+/**
  * Create new user
  * @property {string} req.body.auth0Id - The auth0Id of user.
  * @returns {User}
  */
 function create(req, res, next) {
   const user = new User({
-    auth0Id: req.body.auth0Id,
-    mobileNumber: req.body.mobileNumber
+    auth0Id: req.body.auth0Id
   });
 
   user.save()

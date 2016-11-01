@@ -6,12 +6,12 @@ const config = require('../../config/env');
 
 // sample user, used for authentication
 const user = {
-  username: 'react',
+  auth0Id: 'facebook|992994024131835',
   password: 'express'
 };
 
 /**
- * Returns jwt token if valid username and password is provided
+ * Returns jwt token if valid auth0Id and password is provided
  * @param req
  * @param res
  * @param next
@@ -20,13 +20,13 @@ const user = {
 function login(req, res, next) {
   // Ideally you'll fetch this from the db
   // Idea here was to show how jwt works with simplicity
-  if (req.body.username === user.username && req.body.password === user.password) {
+  if (req.body.auth0Id === user.auth0Id /*&& req.body.password === user.password*/) {
     const token = jwt.sign({
-      username: user.username
+      auth0Id: user.auth0Id
     }, config.jwtSecret);
     return res.json({
       token,
-      username: user.username
+      auth0Id: user.auth0Id
     });
   }
 
@@ -41,6 +41,7 @@ function login(req, res, next) {
  * @returns {*}
  */
 function getRandomNumber(req, res) {
+  console.log(req.user)
   // req.user is assigned by jwt middleware if valid token is provided
   return res.json({
     user: req.user,

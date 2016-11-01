@@ -6,14 +6,15 @@ import APIError from '../helpers/APIError';
 /**
  * Website Schema
  */
-export const WebsiteSchema = new mongoose.Schema({
+const WebsiteSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
   url: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 });
 

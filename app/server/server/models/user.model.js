@@ -2,19 +2,22 @@ import Promise from 'bluebird';
 import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
-import { TrackSchema } from './track.model';
 
 /**
  * User Schema
  */
 const UserSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    unique: true
+  },
   auth0Id: {
     type: String,
     required: true,
     unique: true
   },
   tracks: {
-    type: [TrackSchema]
+    type: [mongoose.Schema.Types.ObjectId]
   }
 });
 

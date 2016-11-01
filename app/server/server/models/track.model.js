@@ -6,9 +6,13 @@ import APIError from '../helpers/APIError';
 /**
  * Track Schema
  */
-export const TrackSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
+const TrackSchema = new mongoose.Schema({
+  // userId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true
+  // },
+  auth0Id: {
+    type: String,
     required: true
   },
   websiteId: {
