@@ -10,7 +10,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.route('/')
   
   // Needs token as header. Authorization: Bearer {token}
-  .all(expressJwt({ secret: config.jwtSecret }))
+  .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }))
 
   /** GET /api/users - Get list of users */
   .get(trackCtrl.list)

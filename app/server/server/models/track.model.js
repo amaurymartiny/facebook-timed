@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
 
+import './website.model'
+
 /**
  * Track Schema
  */
@@ -15,9 +17,10 @@ const TrackSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  websiteId: {
+  website: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Website'
   },
   timeSpentToday: {
     type: Number

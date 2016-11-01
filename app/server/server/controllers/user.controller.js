@@ -52,7 +52,7 @@ function create(req, res, next) {
 function update(req, res, next) {
   const user = req.user;
   user.auth0Id = req.body.auth0Id;
-  user.tracks = req.body.tracks;
+  // user.tracks = req.body.tracks;
 
   user.save()
     .then(savedUser => res.json(savedUser))

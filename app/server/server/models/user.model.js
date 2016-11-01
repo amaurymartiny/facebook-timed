@@ -15,9 +15,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  },
-  tracks: {
-    type: [mongoose.Schema.Types.ObjectId]
   }
 });
 

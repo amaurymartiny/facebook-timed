@@ -64,8 +64,10 @@ function update(req, res, next) {
  * @returns {Track[]}
  */
 function list(req, res, next) {
-  console.log(req.user)
-  Track.find({ auth0Id: req.user.auth0Id })
+  // console.log(req.user) // auth0Id is in sub property, TODO
+  // Track.find({ auth0Id: req.user.auth0Id })
+  Track.find({ auth0Id: req.user.sub })
+    .populate('website')
     .then(tracks => res.json(tracks))
     .catch(e => next(e));
 }
