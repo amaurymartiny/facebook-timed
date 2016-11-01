@@ -28,6 +28,7 @@ extension/app/scripts
 # app
 ##############################
 app/server/node_modules
+app/server/dist
 app/client/node_modules
 app/client/dist
 app/client/.env
