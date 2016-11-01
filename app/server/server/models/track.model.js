@@ -3,8 +3,6 @@ import mongoose from 'mongoose';
 import httpStatus from 'http-status';
 import APIError from '../helpers/APIError';
 
-import './website.model'
-
 /**
  * Track Schema
  */
