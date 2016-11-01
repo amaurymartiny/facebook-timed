@@ -29,6 +29,8 @@ extension/app/scripts
 ##############################
 app/server/node_modules
 app/server/dist
+app/server/lib-cov
+app/server/coverage
 app/client/node_modules
 app/client/dist
 app/client/.env
