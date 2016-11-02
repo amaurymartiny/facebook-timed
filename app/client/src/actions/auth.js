@@ -1,11 +1,17 @@
 import { browserHistory } from 'react-router'
 import AuthService from '../utils/AuthService'
 
+// ======================================================
+// Actions
+// ======================================================
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
+// ======================================================
+// Action creators
+// ======================================================
 const authService = new AuthService(process.env.AUTH0_CLIENT_ID, process.env.AUTH0_DOMAIN)
 
 // Listen to authenticated event from AuthService and get the profile of the user
