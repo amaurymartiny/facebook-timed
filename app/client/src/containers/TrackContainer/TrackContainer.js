@@ -6,6 +6,7 @@ import { TrackList } from '../../components'
 class TrackContainer extends React.Component {
   constructor(props) {
     super(props)
+    console.log(this.props.tracks) //eslint-disable-line
     this.props.fetchTracks()
   }
 
@@ -20,7 +21,7 @@ class TrackContainer extends React.Component {
 }
 
 TrackContainer.propTypes = {
-  tracks: React.PropTypes.array.isRequired,
+  tracks: React.PropTypes.object.isRequired,
   error: React.PropTypes.string,
   fetchTracks: React.PropTypes.func.isRequired
 }

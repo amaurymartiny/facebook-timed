@@ -29,6 +29,7 @@
   "dependencies": {
     "auth0-lock": "^10.4.0",
     "jwt-decode": "^2.1.0",
+    "normalizr": "^2.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",

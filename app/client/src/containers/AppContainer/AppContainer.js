@@ -1,12 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { checkLogin } from '../../actions'
+import { checkLogin, checkTrackMessage } from '../../actions'
 import { HeaderContainer } from '../'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.props.checkLogin() // check is Auth0 lock is authenticating after login callback
+    // check if Auth0 lock is authenticating after login callback
+    this.props.checkLogin() 
+    // check for new HTML5 messages coming from content script
+    this.props.checkTrackMessage()
   }
 
   render() {
@@ -21,12 +24,14 @@ class App extends React.Component {
 
 App.propTypes = {
   children: React.PropTypes.element.isRequired,
-  checkLogin: React.PropTypes.func.isRequired
+  checkLogin: React.PropTypes.func.isRequired,
+  checkTrackMessage: React.PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkLogin: () => dispatch(checkLogin())
+    checkLogin: () => dispatch(checkLogin()),
+    checkTrackMessage: () => dispatch(checkTrackMessage())
   }
 }
 
