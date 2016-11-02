@@ -156,7 +156,7 @@ function createXHR(method, endpoint, data, callback) {
       return callback(JSON.parse(xhr.responseText));
     }
   }
-  xhr.send(data);
+  xhr.send(JSON.stringify(data));
 }
 
 /**
@@ -199,8 +199,6 @@ function putTrackObject(argument) {
   // TODO put up-to-date values inside trackObject
   trackObject.timeTrackedToday = timeTrackedToday;
   trackObject.timeTrackedTotal = timeTrackedToday;
-
-  console.log(JSON.stringify(trackObject))
 
   callAPI.put('/tracks/' + trackObject._id, trackObject, (res) => {
     console.log('Tracked times updated on server.');
