@@ -56,13 +56,15 @@ function receiveTrackMessage(timeTrackedObject) {
 // Listen to new messages coming from the content script
 export function checkTrackMessage() {
   return (dispatch) => {
+    // send message to get lastest tracked times
+    window.postMessage({ action: 'GET_TRACKED_TIME' }, '*')
+
     window.addEventListener('message', (event) => {
-      console.log('message received', event) // eslint-disable-line
       // We only accept messages from ourselves
       if (event.source != window)
         return
 
-      if (event.data.type && (event.data.type === 'TRACK_MESSAGE')) {
+      if (event.data.action && (event.data.action === 'UPDATE_TRACKED_TIME')) {
         dispatch(receiveTrackMessage(event.data.timeTrackedObject))
       }
     }, false)

@@ -1,9 +1,9 @@
 'use strict';
 
-const trackingTimePort = chrome.runtime.connect({name: 'trackingTime'}); // start a long-lived connection with background for time tracking
+const port = chrome.runtime.connect({name: 'Popup'}); // start a long-lived connection with background for time tracking
 
 // get trackedTime from background
-trackingTimePort.postMessage({action: 'getTrackedTime'});
+port.postMessage({action: 'GET_TRACKED_TIME'});
 
 // dom elements
 const timeTrackedTodayLabel = document.getElementById('time-tracked-today-label');
@@ -13,8 +13,8 @@ const installDateLabel = document.getElementById('install-date-label');
 /**
  * Update time in popup when receiving a message from background
  */
-trackingTimePort.onMessage.addListener(msg => {
-  if (msg.action == 'updateTrackedTime') {
+port.onMessage.addListener(msg => {
+  if (msg.action == 'UPDATE_TRACKED_TIME') {
     timeTrackedTodayLabel.innerHTML = readableTime(msg.timeTrackedToday);
     timeTrackedTotalLabel.innerHTML = readableTime(msg.timeTrackedTotal);
     installDateLabel.innerHTML = new Date(msg.installDate);

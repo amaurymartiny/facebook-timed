@@ -9,7 +9,7 @@ let ports = []; // when multiple facebook tabs, save all the long-lived connecti
 
 let lastUsedDay = localStorage.getItem('lastUsedDay'); // date of last usage
 
-let trackObject = {}; // The track object that will be updated to the server
+let timeTrackedObject = {}; // The track object that will be updated to the server
 
 // ======================================================
 // Do on install
@@ -47,8 +47,8 @@ function stopTrackerTimer() {
   localStorage.setItem('timeTrackedToday', timeTrackedToday);
   localStorage.setItem('timeTrackedTotal', timeTrackedTotal);
 
-  // whenever we stop tracking time, we update the time on the server
-  putTrackObject();
+  // // whenever we stop tracking time, we update the time on the server
+  // putTrackObject();
 }
 
 /**
@@ -71,42 +71,59 @@ function updateTime() {
 }
 
 // ======================================================
-// Communication with content scripts
+// Communication via messages
 // ======================================================
+/**
+ * Send tracked time when receive corresponding action
+ */
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (msg.action == 'GET_TRACKED_TIME') {
+    sendToAllPorts();
+  }
+});
+
 /**
  * Send all tracked time information from background to all open ports (popups and tabs)
  */
 function sendToAllPorts() {
   for (let i = ports.length - 1; i >= 0; i--) {
     ports[i].postMessage({
-      action: 'updateTrackedTime',
+      action: 'UPDATE_TRACKED_TIME',
       installDate: localStorage.getItem('installDate'),
-      timeTrackedToday: timeTrackedToday,
-      timeTrackedTotal: timeTrackedTotal
+      timeTrackedToday: timeTrackedToday, // TODO remove, replace by timeTrackedObject
+      timeTrackedTotal: timeTrackedTotal, // TODO remove, replace by timeTrackedObject
+      timeTrackedObject: {
+        ...timeTrackedObject,
+        timeTrackedToday: timeTrackedToday,
+        timeTrackedTotal: timeTrackedTotal
+      }
     });
   }
 }
 
+// ======================================================
+// Communication via long-lived connection (only for start/stop tracking time)
+// ======================================================
 /**
  * Run when a new long-lived connection is established (i.e. when a new Facebook tab opens)
  */
 chrome.runtime.onConnect.addListener(port => {
 
   // add this port to the list of all ports
-  console.log('New port opened.');
+  console.log('New port opened:', port.name);
   ports.push(port);
 
   // listen to messages from the content scripts
   port.onMessage.addListener(msg => {
     console.log(msg.action)
     switch(msg.action) {
-      case 'startTrackingTime':
+      case 'START_TRACKING_TIME':
         startTrackerTimer();
         break;
-      case 'stopTrackingTime':
+      case 'STOP_TRACKING_TIME':
         stopTrackerTimer();
         break;
-      case 'getTrackedTime':
+      case 'GET_TRACKED_TIME':
         sendToAllPorts();
         break;
     }
@@ -117,7 +134,7 @@ chrome.runtime.onConnect.addListener(port => {
     for (var i = ports.length - 1; i >= 0; i--) {
       if (ports[i].sender.id == port.sender.id) {
         ports.splice(i, 1);
-        console.log('Port closed.');
+        console.log('Port closed:', port.name);
         break;
       }
     }
@@ -125,21 +142,28 @@ chrome.runtime.onConnect.addListener(port => {
 });
 
 // ======================================================
-// Communication with web app (to get token)
+// Communication with web app via External message
 // ======================================================
 /**
  * Receive new token from Timed web page after authentication
  */
 chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
-  console.log('New token received.');
-  localStorage.setItem('id_token', request.id_token);
+  switch(request.action) {
+    case 'SET_NEW_TOKEN':
+      localStorage.setItem('id_token', request.id_token);
+      console.log('New token received.');
+      break;
+    case 'SET_NEW_PROFILE':
+      localStorage.setItem('profile', request.profile);
+      break;
+  }
 
   // update the track object
   getTrackObject();
 });
 
 // ======================================================
-// Communication with server (to update times on server)
+// Communication with server 
 // ======================================================
 /**
  * General helper function to create a XHR object
@@ -179,28 +203,28 @@ function getTrackObject() {
   callAPI.get('/websites/find?url=' + query, (res) => {
     let websiteId = res[0]._id;
     callAPI.get('/tracks/find?website=' + websiteId, (res) => {
-      trackObject = res[0];
+      timeTrackedObject = res[0];
     })
   });
 }
 // call it once in the beginning
 getTrackObject();
 
-/**
- * Update (PUT) the track object on the server
- */
-function putTrackObject(argument) {
-  // if we are not logged in, then abort
-  if (!localStorage.getItem('id_token'))
-    return;
+// /**
+//  * Update (PUT) the track object on the server
+//  */
+// function putTrackObject(argument) {
+//   // if we are not logged in, then abort
+//   if (!localStorage.getItem('id_token'))
+//     return;
 
 
-  // update track object from up-to-date values
-  // TODO put up-to-date values inside trackObject
-  trackObject.timeTrackedToday = timeTrackedToday;
-  trackObject.timeTrackedTotal = timeTrackedToday;
+//   // update track object from up-to-date values
+//   // TODO put up-to-date values inside trackObject
+//   trackObject.timeTrackedToday = timeTrackedToday;
+//   trackObject.timeTrackedTotal = timeTrackedToday;
 
-  callAPI.put('/tracks/' + trackObject._id, trackObject, (res) => {
-    console.log('Tracked times updated on server.');
-  })
-}
+//   callAPI.put('/tracks/' + trackObject._id, trackObject, (res) => {
+//     console.log('Tracked times updated on server.');
+//   })
+// }

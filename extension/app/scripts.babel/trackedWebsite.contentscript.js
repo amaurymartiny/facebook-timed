@@ -2,7 +2,7 @@
 
 let idleTimer; // the 5s timer that checks idleness of user
 let isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook
-const trackingTimePort = chrome.runtime.connect({name: 'trackingTime'}); // start a long-lived connection with background for time tracking
+const trackingTimePort = chrome.runtime.connect({name: 'https://facebook.com'}); // start a long-lived connection with background for time tracking
 let timeLabel; // DOM element that contains the time spent on facebook
 
 // ======================================================
@@ -44,7 +44,7 @@ function startTrackingTime() {
   if (isTrackingTime) return; // if we're already tracking time then do nothing
   isTrackingTime = true;
   // chrome.runtime.sendMessage({action: 'startTrackingTime'}, function(response) {});
-  trackingTimePort.postMessage({action: 'startTrackingTime'});
+  trackingTimePort.postMessage({action: 'START_TRACKING_TIME'});
   // console.log('start tracking time');
 }
 
@@ -53,7 +53,7 @@ function startTrackingTime() {
  */
 function stopTrackingTime() {
   isTrackingTime = false;
-  trackingTimePort.postMessage({action: 'stopTrackingTime'});
+  trackingTimePort.postMessage({action: 'STOP_TRACKING_TIME'});
   // chrome.runtime.sendMessage({action: 'stopTrackingTime'}, function(response) {});
   // console.log('stop tracking time');
 }
@@ -76,7 +76,7 @@ function stopTrackingTime() {
  * Update time on facebook page when receiving a message from background
  */
 trackingTimePort.onMessage.addListener(msg => {
-  if (msg.action == 'updateTrackedTime')
+  if (msg.action == 'UPDATE_TRACKED_TIME')
     updateLabel(msg.timeTrackedToday);
 });
 

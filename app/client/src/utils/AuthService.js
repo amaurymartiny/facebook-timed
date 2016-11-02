@@ -58,13 +58,18 @@ export default class AuthService {
 
     // Send profile to chrome extension
     if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
-      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', {profile: profile}) // eslint-disable-line
+      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', {action: 'SET_NEW_PROFILE', profile: profile}) // eslint-disable-line
     }
   }
 
   static setToken(idToken) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken)
+
+    // Send token to chrome extension
+    if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
+      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', {action: 'SET_NEW_TOKEN', id_token: idToken}) // eslint-disable-line
+    }
   }
 
   static getToken() {

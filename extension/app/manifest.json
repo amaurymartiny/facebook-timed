@@ -27,7 +27,17 @@
         "styles/contentscript.css"
       ],
       "js": [
-        "scripts/contentscript.js"
+        "scripts/trackedWebsite.contentscript.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://localhost/*"
+      ],
+      "js": [
+        "scripts/timed.contentscript.js"
       ],
       "run_at": "document_end",
       "all_frames": false

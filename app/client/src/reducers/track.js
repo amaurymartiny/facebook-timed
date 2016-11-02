@@ -10,11 +10,8 @@ export default function tracksReducer(state = {}, action) {
     case TrackActions.RECEIVE_TRACK_MESSAGE:
       return {
         ...state,
-        [action.payload.trackId]: {
-          ...state[action.payload.trackId],
-          timeTrackedToday: action.payload.timeTrackedToday,
-          timeTrackedTotal: action.payload.timeTrackedTotal
-        }}
+        [action.payload._id]: action.payload
+      }
     case AuthActions.LOGOUT_SUCCESS:
       return { }
     default:
