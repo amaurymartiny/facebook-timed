@@ -4,12 +4,18 @@ import AuthService from '../utils/AuthService'
 
 const API_ROOT = 'http://localhost:8080/api'
 
+// ======================================================
+// Actions
+// ======================================================
 export const FETCH_TRACKS_REQUEST = 'FETCH_TRACKS_REQUEST'
 export const FETCH_TRACKS_SUCCESS = 'FETCH_TRACKS_SUCCESS'
 export const FETCH_TRACKS_FAILURE = 'FETCH_TRACKS_FAILURE'
 
 export const RECEIVE_TRACK_MESSAGE = 'RECEIVE_TRACK_MESSAGE'
 
+// ======================================================
+// Action creators
+// ======================================================
 export function fetchTracks() {
   return {
     [CALL_API]: {
@@ -26,12 +32,11 @@ export function fetchTracks() {
             const contentType = res.headers.get('Content-Type')
             // Just making sure res.json() does not raise an error
             if (contentType && ~contentType.indexOf('json')) {
-              // define schema for tracks
-              const trackSchema = new Schema('tracks')
-              // trackSchema.define({
-
-              // })
-              return res.json().then((json) => normalize(json, { tracks: arrayOf(trackSchema) }))
+              // define track schema for normalizr
+              const trackSchema = new Schema('tracks', {
+                idAttribute: track => track._id
+              })
+              return res.json().then((json) => normalize(json, arrayOf(trackSchema)))
             }
           }
         },

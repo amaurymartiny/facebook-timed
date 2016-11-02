@@ -3,12 +3,18 @@
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import auth from './auth'
-import track from './track'
+import errorMessage from './errorMessage'
+import tracks from './track'
+
+const entities = combineReducers({
+  tracks
+})
 
 const rootReducer = combineReducers({
   routing,
   auth,
-  track
+  entities,
+  errorMessage
 })
 
 export default rootReducer

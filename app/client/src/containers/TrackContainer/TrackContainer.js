@@ -14,7 +14,6 @@ class TrackContainer extends React.Component {
     return (
       <div>
         <TrackList tracks={this.props.tracks} />
-        {this.props.error && <p>{this.props.error}</p>}
       </div>
     )
   }
@@ -22,16 +21,13 @@ class TrackContainer extends React.Component {
 
 TrackContainer.propTypes = {
   tracks: React.PropTypes.object.isRequired,
-  error: React.PropTypes.string,
   fetchTracks: React.PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching, tracks, error } = state.track
+  const { tracks } = state.entities
   return {
-    isFetching,
-    tracks,
-    error
+    tracks
   }
 }
 

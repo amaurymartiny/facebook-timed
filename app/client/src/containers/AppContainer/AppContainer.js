@@ -17,6 +17,7 @@ class App extends React.Component {
       <div>
         <HeaderContainer />
         {this.props.children}
+        {this.props.errorMessage && <p>{this.props.errorMessage}</p>}
       </div>
     )
   }
@@ -24,8 +25,16 @@ class App extends React.Component {
 
 App.propTypes = {
   children: React.PropTypes.element.isRequired,
+  errorMessage: React.PropTypes.string,
   checkLogin: React.PropTypes.func.isRequired,
   checkTrackMessage: React.PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+  const errorMessage = state.errorMessage
+  return {
+    errorMessage
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -35,9 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const AppContainer = connect(
-  null, // no mapStateToProps
-  mapDispatchToProps
-)(App)
-
-export default AppContainer
+export default connect(mapStateToProps,mapDispatchToProps)(App)
