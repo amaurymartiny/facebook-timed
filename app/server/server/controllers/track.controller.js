@@ -42,13 +42,11 @@ function create(req, res, next) {
  * @returns {Track}
  */
 function update(req, res, next) {
-  let track = req.track;
-  
-  console.log(req.body.timeTrackedToday)
-  track.timeTrackedToday = req.body.timeTrackedToday;
-  track.timeTrackedTotal = req.body.timeTrackedTotal;
+  var track = req.track;
 
-  console.log(track);
+  // to understand strict: false, see http://stackoverflow.com/questions/20211970/i-cant-modify-an-array-in-node#answer-20215360
+  track.set('timeTrackedToday',req.body.timeTrackedToday, { strict: false });
+  track.set('timeTrackedTotal', req.body.timeTrackedTotal, { strict: false });
 
   track.save()
     .then(savedtrack => res.json(savedtrack))
