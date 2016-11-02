@@ -11,23 +11,32 @@ router.route('/')
   // Needs token as header. Authorization: Bearer {token}
   .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }))
 
-  /** GET /api/users - Get list of users */
+  /** GET /api/tracks - Get list of tracks */
   .get(trackCtrl.list)
 
-  /** POST /api/users - Create new user */
-  .post(validate(paramValidation.createUser), trackCtrl.create);
+  /** POST /api/tracks - Create new track */
+  // .post(validate(paramValidation.createtrack), trackCtrl.create);
+  .post(trackCtrl.create)
 
-router.route('/:userId')
-  /** GET /api/users/:userId - Get user */
+router.route('/find')
+  // Needs token as header. Authorization: Bearer {token}
+  .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }))
+
+  /** GET /api/tracks/find - Find tracks by query */
+  .get(trackCtrl.find)
+
+router.route('/:trackId')
+  /** GET /api/tracks/:trackId - Get track */
   .get(trackCtrl.get)
 
-  /** PUT /api/users/:userId - Update user */
-  .put(validate(paramValidation.updateUser), trackCtrl.update)
+  /** PUT /api/tracks/:trackId - Update track */
+  // .put(validate(paramValidation.updatetrack), trackCtrl.update)
+  .put(trackCtrl.update)
 
-  /** DELETE /api/users/:userId - Delete user */
+  /** DELETE /api/tracks/:trackId - Delete track */
   .delete(trackCtrl.remove);
 
-/** Load user when API with userId route parameter is hit */
-router.param('userId', trackCtrl.load);
+/** Load track when API with trackId route parameter is hit */
+router.param('trackId', trackCtrl.load);
 
 export default router;

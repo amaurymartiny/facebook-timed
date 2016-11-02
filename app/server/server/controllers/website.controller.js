@@ -52,13 +52,22 @@ function update(req, res, next) {
 }
 
 /**
- * Get user's website list.
+ * Get website list.
  * @returns {Website[]}
  */
 function list(req, res, next) {
-  // console.log(req.user) // auth0Id is in sub property, TODO
-  Website.find()
-    .populate('website')
+  const { limit = 50, skip = 0 } = req.query;
+  Website.list({ limit, skip })
+    .then(websites => res.json(websites))
+    .catch(e => next(e));
+}
+
+/**
+ * Find websites matching query.
+ * @returns {Website[]}
+ */
+function find(req, res, next) {
+  Website.find(req.query.url ? {url: req.query.url} : {})
     .then(websites => res.json(websites))
     .catch(e => next(e));
 }
@@ -74,4 +83,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, find };

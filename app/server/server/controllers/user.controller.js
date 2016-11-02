@@ -42,7 +42,7 @@ function create(req, res, next) {
  * @returns {User}
  */
 function update(req, res, next) {
-  const user = req.user;
+  let user = req.user;
   user.auth0Id = req.body.auth0Id;
   // user.tracks = req.body.tracks;
 

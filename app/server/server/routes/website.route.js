@@ -12,6 +12,10 @@ router.route('/')
   /** POST /api/websites - Create new website */
   // .post(validate(paramValidation.createwebsite), websiteCtrl.create);
 
+router.route('/find')
+  /** GET /api/websites/find - Find websites by query */
+  .get(websiteCtrl.find);
+
 router.route('/:websiteId')
 
   /** GET /api/websites/:websiteId - Get website */

@@ -37,14 +37,18 @@ function create(req, res, next) {
 
 /**
  * Update existing track
- * @property {string} req.body.auth0Id - The auth0Id of track.
- * @property {array} req.body.tracks - The tracks of track.
+ * @property {string} req.body.timeTrackedToday - Time tracked today.
+ * @property {string} req.body.timeTrackedTotal - Time tracked since the beginning.
  * @returns {Track}
  */
 function update(req, res, next) {
-  const track = req.track;
-  track.auth0Id = req.body.auth0Id;
-  track.tracks = req.body.tracks;
+  let track = req.track;
+  
+  console.log(req.body.timeTrackedToday)
+  track.timeTrackedToday = req.body.timeTrackedToday;
+  track.timeTrackedTotal = req.body.timeTrackedTotal;
+
+  console.log(track);
 
   track.save()
     .then(savedtrack => res.json(savedtrack))
@@ -56,10 +60,26 @@ function update(req, res, next) {
  * @returns {Track[]}
  */
 function list(req, res, next) {
-  // console.log(req.user) // auth0Id is in sub property, TODO
-  // Track.find({ auth0Id: req.user.auth0Id })
+  // console.log(req.user) // auth0Id is in sub property
+  // Track.find({ auth0Id: req.user.auth0Id }) // TODO
   Track.find({ auth0Id: req.user.sub })
     .populate('website')
+    .then(tracks => res.json(tracks))
+    .catch(e => next(e));
+}
+
+/**
+ * Find user's track list with query.
+ * @returns {Track[]}
+ */
+function find(req, res, next) {
+  // console.log(req.user) // auth0Id is in sub property
+  // Track.find({ auth0Id: req.user.auth0Id }) // TODO
+  console.log(req.user)
+  let query = { auth0Id: req.user.sub };
+  if (req.query.website)
+    query.website = req.query.website;
+  Track.find(query)
     .then(tracks => res.json(tracks))
     .catch(e => next(e));
 }
@@ -75,4 +95,4 @@ function remove(req, res, next) {
     .catch(e => next(e));
 }
 
-export default { load, get, create, update, list, remove };
+export default { load, get, create, update, list, remove, find };
