@@ -9,6 +9,8 @@ let ports = []; // when multiple facebook tabs, save all the long-lived connecti
 
 let lastUsedDay = localStorage.getItem('lastUsedDay'); // date of last usage
 
+let trackObject = {}; // The track object that will be updated to the server
+
 // ======================================================
 // Do on install
 // ======================================================
@@ -42,8 +44,11 @@ function stopTrackerTimer() {
   clearInterval(trackerTimer);
   trackerTimer = null;
   // whenever we stop tracking time, we save the time to localStorage
-  window.localStorage.setItem('timeTrackedToday', timeTrackedToday);
-  window.localStorage.setItem('timeTrackedTotal', timeTrackedTotal);
+  localStorage.setItem('timeTrackedToday', timeTrackedToday);
+  localStorage.setItem('timeTrackedTotal', timeTrackedTotal);
+
+  // whenever we stop tracking time, we update the time on the server
+  putTrackObject();
 }
 
 /**
@@ -127,7 +132,10 @@ chrome.runtime.onConnect.addListener(port => {
  */
 chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
   console.log('New token received.');
-  localStorage.setItem('idToken', request.id_token);
+  localStorage.setItem('id_token', request.id_token);
+
+  // update the track object
+  getTrackObject();
 });
 
 // ======================================================
@@ -136,32 +144,65 @@ chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => 
 /**
  * General helper function to create a XHR object
  */
-function createXHR(method, endpoint, callback) {
+function createXHR(method, endpoint, data, callback) {
   let xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://localhost:8080/api' + endpoint, true);
+  xhr.open(method, 'http://localhost:8080/api' + endpoint, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  if (localStorage.getItem('id_token'))
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('id_token'));
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       // JSON.parse does not evaluate the attacker's scripts.
       return callback(JSON.parse(xhr.responseText));
     }
   }
-  xhr.send();
+  xhr.send(data);
 }
 
 /**
  * Helper object to do the API requests
  */
-const callAPI = {
-  get: (endpoint, callback) => createXHR('GET', endpoint, callback),
-  put: (endpoint, callback) => createXHR('PUT', endpoint, callback)
+let callAPI = {
+  get: (endpoint, callback) => createXHR('GET', endpoint, null, callback),
+  put: (endpoint, data, callback) => createXHR('PUT', endpoint, data, callback)
 }
 
 /**
- * Get the trackId of our website
+ * Get the track object of our website
  */
-function getTrackId() {
-  callAPI.get('/websites', (res) => {
-    console.log(res)
+function getTrackObject() {
+  // if we are not logged in, then abort
+  if (!localStorage.getItem('id_token'))
+    return;
+
+  let query = encodeURIComponent('https://facebook.com'); //TODO future: get this from contentscript.
+  callAPI.get('/websites/find?url=' + query, (res) => {
+    let websiteId = res[0]._id;
+    callAPI.get('/tracks/find?website=' + websiteId, (res) => {
+      trackObject = res[0];
+    })
+  });
+}
+// call it once in the beginning
+getTrackObject();
+
+/**
+ * Update (PUT) the track object on the server
+ */
+function putTrackObject(argument) {
+  // if we are not logged in, then abort
+  if (!localStorage.getItem('id_token'))
+    return;
+
+
+  // update track object from up-to-date values
+  // TODO put up-to-date values inside trackObject
+  trackObject.timeTrackedToday = timeTrackedToday;
+  trackObject.timeTrackedTotal = timeTrackedToday;
+
+  console.log(JSON.stringify(trackObject))
+
+  callAPI.put('/tracks/' + trackObject._id, trackObject, (res) => {
+    console.log('Tracked times updated on server.');
   })
 }
-getTrackId();

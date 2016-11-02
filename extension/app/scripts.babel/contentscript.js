@@ -1,12 +1,13 @@
-// ======================================================
 // Content script to be injected on the tracked website (facebook.com)
-// ======================================================
 
 let idleTimer; // the 5s timer that checks idleness of user
 let isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook
 const trackingTimePort = chrome.runtime.connect({name: 'trackingTime'}); // start a long-lived connection with background for time tracking
 let timeLabel; // DOM element that contains the time spent on facebook
 
+// ======================================================
+// Time tracking with event detection
+// ======================================================
 /**
  * Reset idleness on the following events
  */
@@ -26,17 +27,6 @@ window.addEventListener('beforeunload', () => {
   stopTrackingTime();
   trackingTimePort.disconnect();
 }, false);
-
-/**
- * Modify Facebook DOM to add label with time tracked
- */
-(function() {
-  let el = document.querySelector('[role="navigation"]');
-  timeLabel = document.createElement('div');
-  timeLabel.id = 'timed-label';
-  timeLabel.innerHTML = '00:00:00';
-  el.insertBefore(timeLabel, el.firstChild);
-})();
 
 /**
  * Resets the idle timer, triggered when a user event (click, mousemove) is detected
@@ -67,6 +57,20 @@ function stopTrackingTime() {
   // chrome.runtime.sendMessage({action: 'stopTrackingTime'}, function(response) {});
   // console.log('stop tracking time');
 }
+
+// ======================================================
+// Showing time on label
+// ======================================================
+/**
+ * Modify Facebook DOM to add label with time tracked
+ */
+(function() {
+  let el = document.querySelector('[role="navigation"]');
+  timeLabel = document.createElement('div');
+  timeLabel.id = 'timed-label';
+  timeLabel.innerHTML = '00:00:00';
+  el.insertBefore(timeLabel, el.firstChild);
+})();
 
 /**
  * Update time on facebook page when receiving a message from background
