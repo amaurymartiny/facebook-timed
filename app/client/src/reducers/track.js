@@ -11,6 +11,7 @@ export default function tracksReducer(state = {}, action) {
       return {
         ...state,
         [action.payload.trackId]: {
+          ...state[action.payload.trackId],
           timeTrackedToday: action.payload.timeTrackedToday,
           timeTrackedTotal: action.payload.timeTrackedTotal
         }}
