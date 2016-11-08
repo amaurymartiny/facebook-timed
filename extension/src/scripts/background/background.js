@@ -1,5 +1,7 @@
 'use strict';
 
+// Background script
+
 var trackerTimer = null; // 1s timer that tracks time spent on facebook
 
 var ports = []; // when multiple facebook tabs, save all the long-lived connection port inside this array

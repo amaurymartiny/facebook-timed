@@ -1,4 +1,4 @@
-'use strict';
+// Background script
 
 let trackerTimer = null; // 1s timer that tracks time spent on facebook
 
