@@ -57,9 +57,7 @@ export default class AuthService {
     localStorage.setItem('profile', JSON.stringify(profile))
 
     // Send profile to chrome extension
-    if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
-      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', { action: 'SET_NEW_PROFILE', profile: profile }) // eslint-disable-line
-    }
+    window.postMessage({ action: 'SET_NEW_PROFILE', profile: profile }, 'http://localhost:3000')
   }
 
   static setToken(idToken) {
@@ -67,9 +65,7 @@ export default class AuthService {
     localStorage.setItem('id_token', idToken)
 
     // Send token to chrome extension
-    if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
-      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', { action: 'SET_NEW_TOKEN', id_token: idToken }) // eslint-disable-line
-    }
+    window.postMessage({ action: 'SET_NEW_TOKEN', id_token: idToken }, 'http://localhost:3000')
   }
 
   static getToken() {
