@@ -58,7 +58,7 @@ export default class AuthService {
 
     // Send profile to chrome extension
     if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
-      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', {action: 'SET_NEW_PROFILE', profile: profile}) // eslint-disable-line
+      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', { action: 'SET_NEW_PROFILE', profile: profile }) // eslint-disable-line
     }
   }
 
@@ -68,7 +68,7 @@ export default class AuthService {
 
     // Send token to chrome extension
     if(chrome && chrome.runtime && chrome.runtime.sendMessage) { // eslint-disable-line
-      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', {action: 'SET_NEW_TOKEN', id_token: idToken}) // eslint-disable-line
+      chrome.runtime.sendMessage('fhgmhomlaahbppddinmcepjbaebdfhld', { action: 'SET_NEW_TOKEN', id_token: idToken }) // eslint-disable-line
     }
   }
 
