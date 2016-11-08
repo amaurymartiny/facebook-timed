@@ -45,9 +45,9 @@ function update(req, res, next) {
   var track = req.track;
 
   // to understand strict: false, see http://stackoverflow.com/questions/20211970/i-cant-modify-an-array-in-node#answer-20215360
-  track.set('timeTrackedToday',req.body.timeTrackedToday, { strict: false });
+  track.set('timeTrackedToday', req.body.timeTrackedToday, { strict: false });
   track.set('timeTrackedTotal', req.body.timeTrackedTotal, { strict: false });
-
+  //TODO param validation
   track.save()
     .then(savedtrack => res.json(savedtrack))
     .catch(e => next(e));
