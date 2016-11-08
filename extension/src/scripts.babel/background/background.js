@@ -72,31 +72,6 @@ function updateTime() {
 }
 
 // ======================================================
-// Communication via messages
-// ======================================================
-/**
- * Send tracked time when receive corresponding action
- */
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (msg.action == 'GET_TRACKED_TIME') {
-    sendToAllPorts();
-  }
-});
-
-/**
- * Send all tracked time information from background to all open ports (popups and tabs)
- */
-function sendToAllPorts() {
-  for (let i = ports.length - 1; i >= 0; i--) {
-    ports[i].postMessage({
-      action: 'UPDATE_TRACKED_TIME',
-      installDate: localStorage.getItem('installDate'),
-      trackObject: trackObject
-    });
-  }
-}
-
-// ======================================================
 // Communication via long-lived connection (only for start/stop tracking time)
 // ======================================================
 /**
@@ -118,6 +93,15 @@ chrome.runtime.onConnect.addListener(port => {
       case 'STOP_TRACKING_TIME':
         stopTrackerTimer();
         break;
+      case 'SET_NEW_TOKEN':
+        localStorage.setItem('id_token', msg.id_token);
+        console.log('New token received.');
+        // update the track object
+        getTrackObject();
+        break;
+      case 'SET_NEW_PROFILE':
+        localStorage.setItem('profile', JSON.stringify(msg.profile));
+        break;
       case 'GET_TRACKED_TIME':
         sendToAllPorts();
         break;
@@ -136,26 +120,18 @@ chrome.runtime.onConnect.addListener(port => {
   })
 });
 
-// ======================================================
-// Communication with web app via External message
-// ======================================================
 /**
- * Receive new token from Timed web page after authentication
+ * Send all tracked time information from background to all open ports (popups and tabs)
  */
-chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
-  switch(request.action) {
-    case 'SET_NEW_TOKEN':
-      localStorage.setItem('id_token', request.id_token);
-      console.log('New token received.');
-      break;
-    case 'SET_NEW_PROFILE':
-      localStorage.setItem('profile', JSON.stringify(request.profile));
-      break;
+function sendToAllPorts() {
+  for (let i = ports.length - 1; i >= 0; i--) {
+    ports[i].postMessage({
+      action: 'UPDATE_TRACKED_TIME',
+      installDate: localStorage.getItem('installDate'),
+      trackObject: trackObject
+    });
   }
-
-  // update the track object
-  getTrackObject();
-});
+}
 
 // ======================================================
 // Communication with server 

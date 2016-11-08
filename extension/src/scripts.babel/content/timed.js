@@ -2,7 +2,7 @@
 
 console.log('content script loaded');
 
-const port = chrome.runtime.connect({name: 'Timed'}); // start a long-lived connection with background for time tracking
+const port = chrome.runtime.connect({name: 'Timed'}); // start a long-lived connection with background
 
 /**
  * Send trackObject to Timed webapp when receiving it from background script
@@ -20,7 +20,17 @@ port.onMessage.addListener(msg => {
  * Ask for tracked time if Timed webapp is requesting it 
  */
 window.addEventListener('message', (event) => {
-  if (event.data.action === 'GET_TRACKED_TIME')
-    // get trackedTime from background
-    port.postMessage({action: event.data.action});
+  switch (event.data.action) {
+    case 'GET_TRACKED_TIME':
+      // get trackObject from background.js
+      port.postMessage({action: event.data.action});
+      break;
+    case 'SET_NEW_TOKEN':
+      port.postMessage({action: event.data.action, id_token: event.data.id_token});
+
+      break;
+    case 'SET_NEW_PROFILE':
+      port.postMessage({action: event.data.action, profile: event.data.profile})
+      break;
+  } 
 });

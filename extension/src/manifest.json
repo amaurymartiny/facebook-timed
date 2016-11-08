@@ -10,8 +10,8 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/chromereload.js",
-      "scripts/background.js"
+      "scripts/utils/chromereload.js",
+      "scripts/background/background.js"
     ],
     "persistent": false
   },
@@ -24,10 +24,10 @@
         "*://www.facebook.com/*"
       ],
       "css": [
-        "styles/contentscript.css"
+        "styles/content/trackedWebsite.css"
       ],
       "js": [
-        "scripts/trackedWebsite.contentscript.js"
+        "scripts/content/trackedWebsite.js"
       ],
       "run_at": "document_end",
       "all_frames": false
@@ -37,17 +37,12 @@
         "*://localhost/*"
       ],
       "js": [
-        "scripts/timed.contentscript.js"
+        "scripts/content/timed.js"
       ],
       "run_at": "document_end",
       "all_frames": false
     }
   ],
-  "externally_connectable": {
-    "matches": [
-      "http://localhost/*"
-    ]
-  },
   "browser_action": {
     "default_icon": {
       "19": "images/icon-19.png",

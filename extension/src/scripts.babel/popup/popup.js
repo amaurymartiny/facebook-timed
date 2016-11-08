@@ -1,5 +1,3 @@
-'use strict';
-
 const port = chrome.runtime.connect({name: 'Popup'}); // start a long-lived connection with background for time tracking
 
 // get trackedTime from background
