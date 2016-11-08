@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { checkLogin, checkTrackMessage } from '../../actions'
-import { HeaderContainer } from '../'
+import { Header } from '../../components'
+import './AppContainer.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <HeaderContainer />
+        <Header />
         {this.props.children}
         {this.props.errorMessage && <p>{this.props.errorMessage}</p>}
       </div>
