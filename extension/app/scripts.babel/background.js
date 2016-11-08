@@ -2,14 +2,16 @@
 
 let trackerTimer = null; // 1s timer that tracks time spent on facebook
 
-let timeTrackedToday = window.localStorage.getItem('timeTrackedToday') || 0; // time spent on facebook today
-let timeTrackedTotal = window.localStorage.getItem('timeTrackedTotal') || 0; // time spent on facebook all time
-
 let ports = []; // when multiple facebook tabs, save all the long-lived connection port inside this array
 
 let lastUsedDay = localStorage.getItem('lastUsedDay'); // date of last usage
 
-let timeTrackedObject = {}; // The track object that will be updated to the server
+// The track object that will be updated to the server
+let trackObject = JSON.parse(localStorage.getItem('trackObject')) || {
+  // there are other properties when the extension is connected to the web app (_id, auth0Id, website)
+  today: 0, // time spent on facebook today
+  total: 0 // time spent on facebook all time
+};
 
 // ======================================================
 // Do on install
@@ -44,8 +46,7 @@ function stopTrackerTimer() {
   clearInterval(trackerTimer);
   trackerTimer = null;
   // whenever we stop tracking time, we save the time to localStorage
-  localStorage.setItem('timeTrackedToday', timeTrackedToday);
-  localStorage.setItem('timeTrackedTotal', timeTrackedTotal);
+  localStorage.setItem('trackObject', JSON.stringify(trackObject))
 
   // // whenever we stop tracking time, we update the time on the server
   // putTrackObject();
@@ -55,13 +56,13 @@ function stopTrackerTimer() {
  * Update time on content scripts label to be shown on Facebook DOM
  */
 function updateTime() {
-  ++timeTrackedToday;
-  ++timeTrackedTotal;
+  trackObject.today = trackObject.today + 1;
+  trackObject.total = trackObject.total + 1;
 
-  // reset timeTrackedToday if day changed
+  // reset time tracked today if day changed
   const todayDay = (new Date()).getUTCDate(); // what day is today?
   if (lastUsedDay != todayDay) { // reset tracker is todayDay is not last used day
-    timeTrackedToday = 0;
+    trackObject.today = 0;
     lastUsedDay = todayDay;
     localStorage.setItem('lastUsedDay', lastUsedDay)
   }
@@ -90,13 +91,7 @@ function sendToAllPorts() {
     ports[i].postMessage({
       action: 'UPDATE_TRACKED_TIME',
       installDate: localStorage.getItem('installDate'),
-      timeTrackedToday: timeTrackedToday, // TODO remove, replace by timeTrackedObject
-      timeTrackedTotal: timeTrackedTotal, // TODO remove, replace by timeTrackedObject
-      timeTrackedObject: {
-        ...timeTrackedObject,
-        timeTrackedToday: timeTrackedToday,
-        timeTrackedTotal: timeTrackedTotal
-      }
+      trackObject: trackObject
     });
   }
 }
@@ -154,7 +149,7 @@ chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => 
       console.log('New token received.');
       break;
     case 'SET_NEW_PROFILE':
-      localStorage.setItem('profile', request.profile);
+      localStorage.setItem('profile', JSON.stringify(request.profile));
       break;
   }
 
@@ -171,9 +166,9 @@ chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => 
 function createXHR(method, endpoint, data, callback) {
   let xhr = new XMLHttpRequest();
   xhr.open(method, 'http://localhost:8080/api' + endpoint, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader('Content-Type', 'application/json');
   if (localStorage.getItem('id_token'))
-    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('id_token'));
+    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       // JSON.parse does not evaluate the attacker's scripts.
@@ -203,7 +198,13 @@ function getTrackObject() {
   callAPI.get('/websites/find?url=' + query, (res) => {
     let websiteId = res[0]._id;
     callAPI.get('/tracks/find?website=' + websiteId, (res) => {
-      timeTrackedObject = res[0];
+      // don't update today and total
+      trackObject._id = res[0]._id;
+      trackObject.auth0Id = res[0].auth0Id;
+      trackObject.website = res[0].website;
+
+      // we save these data to localStorage
+      localStorage.setItem('trackObject', JSON.stringify(trackObject))
     })
   });
 }

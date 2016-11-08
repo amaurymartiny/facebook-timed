@@ -7,8 +7,8 @@ const TrackList = ({ tracks }) =>
       {Object.keys(tracks).map(key =>
         <li key={key}>
           <a href={tracks[key].website.url} target="_blank"><h4>{tracks[key].website.name}</h4></a>
-          <p>Today: {tracks[key].timeTrackedToday}</p>
-          <p>Total: {tracks[key].timeTrackedTotal}</p>
+          <p>Today: {tracks[key].today}</p>
+          <p>Total: {tracks[key].total}</p>
         </li>
       )}
     </ul>

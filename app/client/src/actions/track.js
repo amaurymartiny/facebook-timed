@@ -35,25 +35,24 @@ export function fetchTracks() {
  * Save the tracked times to the server
  * @return {[type]} [description]
  */
-export function updateTrack(timeTrackedObject) {
-  console.log(timeTrackedObject) // eslint-disable-line
+export function updateTrack(trackObject) {
   return {
     [CALL_API]: {
-      endpoint: `/tracks/${timeTrackedObject._id}`,
+      endpoint: `/tracks/${trackObject._id}`,
       method: 'PUT',
       body: JSON.stringify({
-        timeTrackedToday: timeTrackedObject.timeTrackedToday,
-        timeTrackedTotal: timeTrackedObject.timeTrackedTotal
+        today: trackObject.today,
+        total: trackObject.total
       }),
       types: [UPDATE_TRACK_REQUEST, UPDATE_TRACK_SUCCESS, UPDATE_TRACK_FAILURE]
     }
   }
 }
 
-function receiveTrackMessage(timeTrackedObject) {
+function receiveTrackMessage(trackObject) {
   return {
     type: RECEIVE_TRACK_MESSAGE,
-    payload: timeTrackedObject
+    payload: trackObject
   }
 }
 
@@ -69,10 +68,10 @@ export function checkTrackMessage() {
         return
 
       if (event.data.action && (event.data.action === 'UPDATE_TRACKED_TIME')) {
-        dispatch(receiveTrackMessage(event.data.timeTrackedObject))
+        dispatch(receiveTrackMessage(event.data.trackObject))
 
         // TODO is it correct to put it here, or anti-pattern?
-        dispatch(updateTrack(event.data.timeTrackedObject))
+        dispatch(updateTrack(event.data.trackObject))
       }
     }, false)
   }

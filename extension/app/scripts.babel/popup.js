@@ -15,8 +15,8 @@ const installDateLabel = document.getElementById('install-date-label');
  */
 port.onMessage.addListener(msg => {
   if (msg.action == 'UPDATE_TRACKED_TIME') {
-    timeTrackedTodayLabel.innerHTML = readableTime(msg.timeTrackedToday);
-    timeTrackedTotalLabel.innerHTML = readableTime(msg.timeTrackedTotal);
+    timeTrackedTodayLabel.innerHTML = readableTime(msg.trackObject.today);
+    timeTrackedTotalLabel.innerHTML = readableTime(msg.trackObject.total);
     installDateLabel.innerHTML = new Date(msg.installDate);
   }
     

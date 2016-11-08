@@ -20,10 +20,10 @@ const TrackSchema = new mongoose.Schema({
     required: true,
     ref: 'Website'
   },
-  timeSpentToday: {
+  today: {
     type: Number
   },
-  timeSpentTotal: {
+  total: {
     type: Number
   }
 });

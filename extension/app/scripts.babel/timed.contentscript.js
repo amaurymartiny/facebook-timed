@@ -5,13 +5,13 @@ console.log('content script loaded');
 const port = chrome.runtime.connect({name: 'Timed'}); // start a long-lived connection with background for time tracking
 
 /**
- * Send timeTrackedObject to Timed webapp when receiving it from background script
+ * Send trackObject to Timed webapp when receiving it from background script
  */
 port.onMessage.addListener(msg => {
   switch (msg.action) {
     case 'UPDATE_TRACKED_TIME':
-      // checks also that the timeTrackedObject has a track id
-      if (msg.timeTrackedObject._id)
+      // checks also that the trackObject has a track id
+      if (msg.trackObject._id)
         window.postMessage(msg, 'http://localhost:3000');
   }    
 });

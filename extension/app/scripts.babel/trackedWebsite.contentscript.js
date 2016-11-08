@@ -77,7 +77,7 @@ function stopTrackingTime() {
  */
 trackingTimePort.onMessage.addListener(msg => {
   if (msg.action == 'UPDATE_TRACKED_TIME')
-    updateLabel(msg.timeTrackedToday);
+    updateLabel(msg.trackObject.today);
 });
 
 /**
