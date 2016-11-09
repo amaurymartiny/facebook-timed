@@ -12,7 +12,7 @@ class TrackContainer extends React.Component {
   render() {
     return (
       <div>
-        <TrackList tracks={this.props.tracks} />
+        <TrackList tracks={this.props.tracks} websites={this.props.websites} />
       </div>
     )
   }
@@ -20,13 +20,15 @@ class TrackContainer extends React.Component {
 
 TrackContainer.propTypes = {
   tracks: React.PropTypes.object.isRequired,
+  websites: React.PropTypes.object.isRequired,
   fetchTracks: React.PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
-  const { tracks } = state.entities
+  const { tracks, websites } = state.entities
   return {
-    tracks
+    tracks,
+    websites
   }
 }
 

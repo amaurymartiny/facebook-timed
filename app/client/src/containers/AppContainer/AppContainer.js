@@ -22,7 +22,7 @@ class App extends React.Component {
         <Snackbar
           open={!!this.props.errorMessage}
           message={this.props.errorMessage || ''}
-          action="Got it!"
+          action="Got it."
           onRequestClose={this.props.resetErrorMessage}
           onActionTouchTap={this.props.resetErrorMessage}
         />

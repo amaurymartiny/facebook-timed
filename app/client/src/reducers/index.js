@@ -5,9 +5,11 @@ import { combineReducers } from 'redux'
 import auth from './auth'
 import errorMessage from './errorMessage'
 import tracks from './track'
+import websites from './website'
 
 const entities = combineReducers({
-  tracks
+  tracks,
+  websites
 })
 
 const rootReducer = combineReducers({
