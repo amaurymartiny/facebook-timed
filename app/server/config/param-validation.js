@@ -5,26 +5,37 @@ export default {
   createUser: {
     body: {
       auth0Id: Joi.string().required()
-      // mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
     }
   },
 
-  // UPDATE /api/users/:userId
+  // PUT /api/users/:userId
   updateUser: {
     body: {
-      auth0Id: Joi.string().required(),
-      mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/).required()
+      auth0Id: Joi.string().required()
     },
     params: {
       userId: Joi.string().hex().required()
     }
   },
 
-  // POST /api/auth/login
-  login: {
+  // POST /api/tracks
+  createTrack: {
     body: {
-      auth0Id: Joi.string().required()
-      // password: Joi.string().required()
+      auth0Id: Joi.string().required(),
+      websiteId: Joi.string().hex().required(),
+      today: Joi.number().required(),
+      total: Joi.number().required()
+    }
+  },
+
+  // PUT /api/tracks/:trackId
+  updateTrack: {
+    body: {
+      today: Joi.number().required(),
+      total: Joi.number().required()
+    },
+    params: {
+      trackId: Joi.string().hex().required()
     }
   }
 };

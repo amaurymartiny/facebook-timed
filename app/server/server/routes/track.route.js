@@ -7,21 +7,18 @@ import trackCtrl from '../controllers/track.controller';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
-router.route('/')
-  // Needs token as header. Authorization: Bearer {token}
-  .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }))
+router.route('*')
+// Needs token as header. Authorization: Bearer {token}
+  .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }));
 
+router.route('/')
   /** GET /api/tracks - Get list of tracks */
   .get(trackCtrl.list)
 
   /** POST /api/tracks - Create new track */
-  // .post(validate(paramValidation.createtrack), trackCtrl.create);
-  .post(trackCtrl.create)
+  .post(validate(paramValidation.createTrack), trackCtrl.create);
 
 router.route('/find')
-  // Needs token as header. Authorization: Bearer {token}
-  .all(expressJwt({ secret: new Buffer(config.jwtSecret, 'base64'), audience: config.jwtAudience }))
-
   /** GET /api/tracks/find - Find tracks by query */
   .get(trackCtrl.find)
 
@@ -30,8 +27,7 @@ router.route('/:trackId')
   .get(trackCtrl.get)
 
   /** PUT /api/tracks/:trackId - Update track */
-  // .put(validate(paramValidation.updatetrack), trackCtrl.update)
-  .put(trackCtrl.update)
+  .put(validate(paramValidation.updateTrack), trackCtrl.update)
 
   /** DELETE /api/tracks/:trackId - Delete track */
   .delete(trackCtrl.remove);
