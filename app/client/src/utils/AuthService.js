@@ -40,16 +40,16 @@ export default class AuthService {
   // ======================================================
   // Static methods
   // ======================================================
+  static isAuthenticated() {
+    // Checks if there is a saved token and it's still valid
+    const token = AuthService.getToken()
+    return !!token && !AuthService.isTokenExpired(token)
+  }
+
   static getProfile() {
     // Retrieves the profile data from localStorage
     const profile = localStorage.getItem('profile')
     return profile ? JSON.parse(localStorage.profile) : {}
-  }
-
-  static loggedIn() {
-    // Checks if there is a saved token and it's still valid
-    const token = AuthService.getToken()
-    return !!token && !AuthService.isTokenExpired(token)
   }
 
   static setProfile(profile) {
