@@ -2,7 +2,7 @@ import { CALL_API, apiMiddleware, isRSAA, getJSON } from 'redux-api-middleware'
 import { Schema, arrayOf, normalize } from 'normalizr'
 import AuthService from '../utils/AuthService'
 
-const API_ROOT = 'http://localhost:8080/api'
+const API_ROOT = process.env.API_ROOT
 
 // ======================================================
 // Define schemas for normalizr

@@ -8,7 +8,7 @@ export default class AuthService {
     // Configure Auth0 lock
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'http://localhost:3000/callback',
+        redirectUrl: process.env.HOST + '/callback',
         responseType: 'token'
       },
       // theme: {
@@ -57,7 +57,7 @@ export default class AuthService {
     localStorage.setItem('profile', JSON.stringify(profile))
 
     // Send profile to chrome extension
-    window.postMessage({ action: 'SET_NEW_PROFILE', profile: profile }, 'http://localhost:3000')
+    window.postMessage({ action: 'SET_NEW_PROFILE', profile: profile }, process.env.HOST)
   }
 
   static setToken(idToken) {
@@ -65,7 +65,7 @@ export default class AuthService {
     localStorage.setItem('id_token', idToken)
 
     // Send token to chrome extension
-    window.postMessage({ action: 'SET_NEW_TOKEN', id_token: idToken }, 'http://localhost:3000')
+    window.postMessage({ action: 'SET_NEW_TOKEN', id_token: idToken }, process.env.HOST)
   }
 
   static getToken() {
