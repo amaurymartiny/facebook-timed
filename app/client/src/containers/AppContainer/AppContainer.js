@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Snackbar from 'material-ui/Snackbar'
 import { checkLogin, checkTrackMessage, resetErrorMessage } from '../../actions'
 import { Header } from '../../components'
-import './AppContainer.css'
 
 class App extends React.Component {
   constructor(props) {
