@@ -20,7 +20,7 @@ router.route('/')
 
 router.route('/find')
   /** GET /api/tracks/find - Find tracks by query */
-  .get(trackCtrl.find)
+  .get(trackCtrl.find);
 
 router.route('/:trackId')
   /** GET /api/tracks/:trackId - Get track */

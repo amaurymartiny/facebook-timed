@@ -42,6 +42,7 @@ function create(req, res, next) {
  * @returns {Track}
  */
 function update(req, res, next) {
+  const track = req.track;
   // to understand strict: false, see http://stackoverflow.com/questions/20211970/i-cant-modify-an-array-in-node#answer-20215360
   track.set('today', req.body.today, { strict: false });
   track.set('total', req.body.total, { strict: false });
@@ -68,12 +69,10 @@ function list(req, res, next) {
  * @returns {Track[]}
  */
 function find(req, res, next) {
-  // console.log(req.user) // auth0Id is in sub property
-  // Track.find({ auth0Id: req.user.auth0Id }) // TODO
-  console.log(req.user)
-  let query = { auth0Id: req.user.sub };
-  if (req.query.website)
+  const query = { auth0Id: req.user.sub }; // auth0Id is in sub property
+  if (req.query.website) {
     query.website = req.query.website;
+  }
   Track.find(query)
     .then(tracks => res.json(tracks))
     .catch(e => next(e));

@@ -67,7 +67,7 @@ function list(req, res, next) {
  * @returns {Website[]}
  */
 function find(req, res, next) {
-  Website.find(req.query.url ? {url: req.query.url} : {})
+  Website.find(req.query.url ? { url: req.query.url } : {})
     .then(websites => res.json(websites))
     .catch(e => next(e));
 }
