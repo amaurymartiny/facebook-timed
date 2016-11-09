@@ -54,7 +54,6 @@
     "method-override": "^2.3.5",
     "mongoose": "4.6.5",
     "morgan": "1.7.0",
-    "socket.io": "^1.5.1",
     "winston": "2.2.0"
   },
   "devDependencies": {

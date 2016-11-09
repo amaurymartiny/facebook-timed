@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import socket from 'socket.io';
 import config from './config/env';
 import app from './config/express';
 
@@ -31,18 +30,5 @@ const server = app.listen(config.port, () => {
   debug(`server started on port ${config.port} (${config.env})`);
 });
 // }
-
-// ======================================================
-// Create socket server
-// ======================================================
-export const io = socket(server);
-
-io.on('connection', (socket) => {
-  debug('New socket connection.')
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', (data) => {
-    console.log(data);
-  });
-});
 
 export default app;
