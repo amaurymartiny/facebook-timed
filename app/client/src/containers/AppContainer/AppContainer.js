@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { checkLogin, checkTrackMessage } from '../../actions'
+import Snackbar from 'material-ui/Snackbar'
+import { checkLogin, checkTrackMessage, resetErrorMessage } from '../../actions'
 import { Header } from '../../components'
 import './AppContainer.css'
 
@@ -18,7 +19,13 @@ class App extends React.Component {
       <div>
         <Header />
         {this.props.children}
-        {this.props.errorMessage && <p>{this.props.errorMessage}</p>}
+        <Snackbar
+          open={!!this.props.errorMessage}
+          message={this.props.errorMessage || ''}
+          action="Got it!"
+          onRequestClose={this.props.resetErrorMessage}
+          onActionTouchTap={this.props.resetErrorMessage}
+        />
       </div>
     )
   }
@@ -28,7 +35,8 @@ App.propTypes = {
   children: React.PropTypes.element.isRequired,
   errorMessage: React.PropTypes.string,
   checkLogin: React.PropTypes.func.isRequired,
-  checkTrackMessage: React.PropTypes.func.isRequired
+  checkTrackMessage: React.PropTypes.func.isRequired,
+  resetErrorMessage: React.PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -41,7 +49,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     checkLogin: () => dispatch(checkLogin()),
-    checkTrackMessage: () => dispatch(checkTrackMessage())
+    checkTrackMessage: () => dispatch(checkTrackMessage()),
+    resetErrorMessage: () => dispatch(resetErrorMessage())
   }
 }
 
