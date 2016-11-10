@@ -8,13 +8,13 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     // check if Auth0 lock is authenticating after login callback
-    this.props.checkLogin() 
+    this.props.checkLogin()
     // check for new HTML5 messages coming from content script
     this.props.checkTrackMessage()
   }
 
   render() {
-    return(
+    return (
       <div>
         <Header />
         {this.props.children}
@@ -53,4 +53,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

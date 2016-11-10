@@ -24,10 +24,12 @@
     "clean": "rimraf dist",
     "prebuild": "clean",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "eslint": "eslint ."
+    "lint": "eslint ."
   },
   "dependencies": {
     "auth0-lock": "^10.4.0",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
     "jwt-decode": "^2.1.0",
     "material-ui": "^0.16.1",
     "normalizr": "^2.2.1",

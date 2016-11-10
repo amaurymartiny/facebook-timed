@@ -5,7 +5,7 @@ import { AppContainer } from './containers'
 import { HomePage, AboutPage, NotFoundPage } from './components'
 
 export default function createRoutes() {
-  return(
+  return (
     <Route path='/' component={AppContainer}>
       <IndexRoute component={HomePage} />
       <Route path='/about' component={AboutPage} />

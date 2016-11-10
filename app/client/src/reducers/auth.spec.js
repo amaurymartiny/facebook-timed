@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS} from '../actions'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS } from '../actions'
 import reducer from './auth'
 
 describe('(Reducer) auth', () => {

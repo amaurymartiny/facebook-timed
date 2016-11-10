@@ -64,8 +64,9 @@ export function checkTrackMessage() {
 
     window.addEventListener('message', (event) => {
       // We only accept messages from ourselves
-      if (event.source != window)
+      if (event.source !== window) {
         return
+      }
 
       if (event.data.action && (event.data.action === 'UPDATE_TRACKED_TIME')) {
         dispatch(receiveTrackMessage(event.data.trackObject))
@@ -75,5 +76,4 @@ export function checkTrackMessage() {
       }
     }, false)
   }
-
 }

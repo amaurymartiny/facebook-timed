@@ -8,7 +8,7 @@ export default function authReducer(state = {
   switch (action.type) {
     case AuthActions.LOGIN_SUCCESS:
       return {
-        ...state, 
+        ...state,
         isAuthenticated: true,
         profile: action.profile
       }

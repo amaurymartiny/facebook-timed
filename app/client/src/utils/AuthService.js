@@ -8,7 +8,7 @@ export default class AuthService {
     // Configure Auth0 lock
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: process.env.HOST + '/callback',
+        redirectUrl: `${process.env.HOST}/callback`,
         responseType: 'token'
       },
       // theme: {
@@ -31,7 +31,7 @@ export default class AuthService {
     this.lock.show()
   }
 
-  logout(){
+  logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token')
     localStorage.removeItem('profile')
@@ -76,7 +76,7 @@ export default class AuthService {
   static getTokenExpirationDate() {
     const token = AuthService.getToken()
     const decoded = jwtDecode(token)
-    if(!decoded.exp) {
+    if (!decoded.exp) {
       return null
     }
 

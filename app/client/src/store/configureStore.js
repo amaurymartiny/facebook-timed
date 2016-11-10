@@ -1,5 +1,11 @@
+import configureStoreDev from './configureStore.dev'
+import configureStoreProd from './configureStore.prod'
+
+let configureStore
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
-  module.exports = require('./configureStore.prod')
+  configureStore = configureStoreProd
 } else {
-  module.exports = require('./configureStore.dev')
+  configureStore = configureStoreDev
 }
+
+export default configureStore

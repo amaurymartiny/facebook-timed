@@ -11,13 +11,9 @@ import Download from 'material-ui/svg-icons/file/file-download'
 import { loginRequest, logoutSuccess } from '../../actions'
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
-    if (this.props.isAuthenticated)
-      return(
+    if (this.props.isAuthenticated) {
+      return (
         <IconMenu
           iconButtonElement={
             <IconButton>
@@ -27,17 +23,17 @@ class Login extends React.Component {
               />
             </IconButton>
           }
-          targetOrigin={{horizontal: 'right', vertical: 'top'}}
-          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
           <MenuItem primaryText='Profile' disabled={true} leftIcon={<Download />} />
           <MenuItem primaryText='Sign out' onClick={this.props.onLogoutClick} leftIcon={<Download />} />
         </IconMenu>
       )
-    else
-      return(
-        <FlatButton onClick={this.props.onLoginClick} label='Login' />
-      )
+    }
+    return (
+      <FlatButton onClick={this.props.onLoginClick} label='Login' />
+    )
   }
 
   static muiName = 'FlatButton'
