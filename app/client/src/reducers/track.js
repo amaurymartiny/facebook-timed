@@ -3,10 +3,6 @@ import * as AuthActions from '../actions/auth'
 
 export default function tracksReducer(state = {}, action) {
   switch (action.type) {
-    case TrackActions.FETCH_TRACKS_SUCCESS:
-      return {
-        ...action.payload.entities.tracks // using .entities.tracks because of normalizr
-      }
     case TrackActions.RECEIVE_TRACK_MESSAGE:
       // only update time if there's already an entity
       if (!state[action.payload._id]) {

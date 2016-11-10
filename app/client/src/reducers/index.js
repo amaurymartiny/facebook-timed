@@ -1,16 +1,8 @@
-// reducers/index.js
-
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
+import entities from './entities'
 import auth from './auth'
 import errorMessage from './errorMessage'
-import tracks from './track'
-import websites from './website'
-
-const entities = combineReducers({
-  tracks,
-  websites
-})
 
 const rootReducer = combineReducers({
   routing,
