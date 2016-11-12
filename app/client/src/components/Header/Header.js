@@ -1,13 +1,10 @@
 import React from 'react'
-// import { Link } from 'react-router'
-import AppBar from 'material-ui/AppBar'
-import { LoginContainer } from '../../containers'
-import './Header.css'
+import Button from 'react-bootstrap/lib/Button'
+
+// import { LoginContainer } from '../../containers'
+import './Header.less'
 
 const Header = () =>
-  <AppBar
-    title='Timed'
-    iconElementRight={<LoginContainer />}
-  />
+  <Button>Default</Button>
 
 export default Header

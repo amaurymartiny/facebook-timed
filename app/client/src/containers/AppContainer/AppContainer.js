@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Snackbar from 'material-ui/Snackbar'
 import { checkLogin, checkTrackMessage, resetErrorMessage } from '../../actions'
 import { Header } from '../../components'
+import './AppContainer.less'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,13 +18,7 @@ class App extends React.Component {
       <div>
         <Header />
         {this.props.children}
-        <Snackbar
-          open={!!this.props.errorMessage}
-          message={this.props.errorMessage || ''}
-          action="Got it."
-          onRequestClose={this.props.resetErrorMessage}
-          onActionTouchTap={this.props.resetErrorMessage}
-        />
+        {/*handle error*/}
       </div>
     )
   }
