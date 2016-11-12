@@ -29,6 +29,7 @@
   "dependencies": {
     "auth0-lock": "^10.4.0",
     "bootstrap": "^3.3.7",
+    "bootswatch": "^3.3.7",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
     "jwt-decode": "^2.1.0",
