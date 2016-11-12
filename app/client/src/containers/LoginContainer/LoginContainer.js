@@ -5,13 +5,12 @@ import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import { loginRequest, logoutSuccess } from '../../actions'
 
-const Login = ({ isAuthenticated, profile, onLoginClick }) => {
+const Login = ({ isAuthenticated, profile, onLoginClick, onLogoutClick }) => {
   if (isAuthenticated) {
     return (
       <NavDropdown title={profile.name}>
-        <MenuItem>Profile</MenuItem>
-        <MenuItem divider />
-        <MenuItem>Sign out</MenuItem>
+        <MenuItem disabled>Profile</MenuItem>
+        <MenuItem onClick={onLogoutClick}>Sign out</MenuItem>
       </NavDropdown>
     )
   }

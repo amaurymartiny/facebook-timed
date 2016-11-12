@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Grid from 'react-bootstrap/lib/Grid'
 import { checkLogin, checkTrackMessage, resetErrorMessage } from '../../actions'
 import { Header } from '../../components'
-import './AppContainer.less'
+import './App.less'
 
 class App extends React.Component {
   constructor(props) {
@@ -17,8 +18,10 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        {this.props.children}
-        {/*handle error*/}
+        <Grid fluid>
+          {this.props.children}
+          {/*handle error*/}
+        </Grid>
       </div>
     )
   }
