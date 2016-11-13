@@ -1,30 +1,37 @@
 import React from 'react'
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card'
+import Col from 'react-bootstrap/lib/Col'
+import Panel from 'react-bootstrap/lib/Panel'
+import './TrackList.less'
+
+/**
+ * Transform seconds to hh:mm:ss format
+ */
+const readableTime = (totalSec) => {
+  const hours = parseInt( totalSec / 3600 ) % 24
+  const minutes = parseInt( totalSec / 60 ) % 60
+  const seconds = totalSec % 60
+  return <div className="track">
+    <span className="big-number">{(hours < 10 ? '0' + hours : hours)}</span>h
+    <span className="big-number">{(minutes < 10 ? '0' + minutes : minutes)}</span>m
+    <span className="big-number">{(seconds  < 10 ? '0' + seconds : seconds)}</span>s
+  </div>
+}
 
 const TrackList = ({ tracks, websites }) =>
   <div>
     {Object.keys(tracks).map(key =>
-      <Card>
-        <CardHeader
-          title={tracks[key].website}
-          subtitle="Subtitle"
-          avatar="images/jsa-128.jpg"
-        />
-        <CardMedia
-          overlay={<CardTitle title={websites[tracks[key].website]} subtitle="Overlay subtitle" />}
+      <Col key={key} md={6} sm={12}>
+        <Panel
+          header={<a href={websites[tracks[key].website].url} target="_blank"><h4>{websites[tracks[key].website].name}</h4></a>}
+          className="text-center"
         >
-          <img src="images/nature-600-337.jpg" />
-        </CardMedia>
-        <CardTitle title="Card title" subtitle="Card subtitle" />
-        <CardText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-        <CardActions>
-        </CardActions>
-      </Card>
+          <span>Today:</span>
+          {readableTime(tracks[key].today)}
+          <hr />
+          <span>Since the beginning:</span>
+          {readableTime(tracks[key].total)}
+        </Panel>
+      </Col>
     )}
   </div>
 
