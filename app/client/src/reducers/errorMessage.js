@@ -7,7 +7,7 @@ export default function errorMessage(state = null, action) {
   if (type === ActionTypes.RESET_ERROR_MESSAGE) {
     return null
   } else if (error && payload.name && payload.message) {
-    return `${payload.name}:${payload.message}`
+    return `${payload.name}: ${payload.message}`
   } else if (error) {
     return `Error: ${error.toString()}`
   }
