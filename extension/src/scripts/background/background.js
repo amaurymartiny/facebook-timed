@@ -12,7 +12,8 @@ var lastUsedDay = localStorage.getItem('lastUsedDay'); // date of last usage
 var trackObject = JSON.parse(localStorage.getItem('trackObject')) || {
   // there are other properties when the extension is connected to the web app (_id, auth0Id, website)
   today: 0, // time spent on facebook today
-  total: 0 // time spent on facebook all time
+  total: 0, // time spent on facebook all time
+  startDate: new Date().toString() // date of beginning of usage
 };
 
 // ======================================================
@@ -23,8 +24,7 @@ var trackObject = JSON.parse(localStorage.getItem('trackObject')) || {
  */
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason == 'install') {
-    // save the beginning time of use in localStorage
-    localStorage.setItem('installDate', new Date());
+    // do nothing
   } else if (details.reason == 'update') {
     console.log('Timed updated from ' + details.previousVersion + ' to ' + chrome.runtime.getManifest().version + '.');
   }
@@ -183,6 +183,7 @@ function getTrackObject() {
       trackObject._id = res[0]._id;
       trackObject.auth0Id = res[0].auth0Id;
       trackObject.website = res[0].website;
+      trackObject.startDate = res[0].startDate;
 
       // we save these data to localStorage
       localStorage.setItem('trackObject', JSON.stringify(trackObject));

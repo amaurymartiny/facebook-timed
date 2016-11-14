@@ -42,7 +42,8 @@ export function updateTrack(trackObject) {
       method: 'PUT',
       body: JSON.stringify({
         today: trackObject.today,
-        total: trackObject.total
+        total: trackObject.total,
+        startDate: trackObject.startDate
       }),
       types: [UPDATE_TRACK_REQUEST, UPDATE_TRACK_SUCCESS, UPDATE_TRACK_FAILURE]
     }

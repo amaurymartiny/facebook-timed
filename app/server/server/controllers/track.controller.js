@@ -46,6 +46,7 @@ function update(req, res, next) {
   // to understand strict: false, see http://stackoverflow.com/questions/20211970/i-cant-modify-an-array-in-node#answer-20215360
   track.set('today', req.body.today, { strict: false });
   track.set('total', req.body.total, { strict: false });
+  track.set('startDate', req.body.startDate, { strict: false });
   track.save()
     .then(savedtrack => res.json(savedtrack))
     .catch(e => next(e));

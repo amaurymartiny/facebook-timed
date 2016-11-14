@@ -21,10 +21,16 @@ const TrackSchema = new mongoose.Schema({
     ref: 'Website'
   },
   today: {
-    type: Number
+    type: Number,
+    required: true
   },
   total: {
-    type: Number
+    type: Number,
+    required: true
+  },
+  startDate: {
+    type: Date,
+    required: true
   }
 });
 

@@ -24,7 +24,8 @@ export default {
       auth0Id: Joi.string().required(),
       websiteId: Joi.string().hex().required(),
       today: Joi.number().required(),
-      total: Joi.number().required()
+      total: Joi.number().required(),
+      startDate: Joi.date().required()
     }
   },
 
@@ -32,7 +33,8 @@ export default {
   updateTrack: {
     body: {
       today: Joi.number().required(),
-      total: Joi.number().required()
+      total: Joi.number().required(),
+      startDate: Joi.date().required()
     },
     params: {
       trackId: Joi.string().hex().required()

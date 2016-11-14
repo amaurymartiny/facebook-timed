@@ -2,6 +2,7 @@ import React from 'react'
 import Col from 'react-bootstrap/lib/Col'
 import Panel from 'react-bootstrap/lib/Panel'
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger'
+import Tooltip from 'react-bootstrap/lib/Tooltip'
 import Popover from 'react-bootstrap/lib/Popover'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import './TrackList.less'
@@ -18,6 +19,15 @@ const readableTime = (totalSec) => {
     <span className="big-number">{(minutes < 10 ? '0' + minutes : minutes)}</span>m
     <span className="big-number">{(seconds  < 10 ? '0' + seconds : seconds)}</span>s
   </div>
+}
+
+/**
+ * Format date string to dd/mm/yyyy
+ */
+const formatDate = (dateString) => {
+  const date = new Date(dateString)
+  //TODO: 01/11/2016 instead of 1/11/2016, too lazy now
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` // months are 0-11
 }
 
 /**
@@ -48,7 +58,14 @@ const TrackList = ({ tracks, websites }) =>
           <span>Today:</span>
           {readableTime(tracks[key].today)}
           <hr />
-          <span>Since the beginning:</span>
+          <span>Since the&nbsp;
+          <OverlayTrigger
+            trigger={['hover', 'focus']}
+            placement="top"
+            overlay={<Tooltip id={`tooltip-${key}`}>{formatDate(tracks[key].startDate)}</Tooltip>}
+          >
+            <span>beginning</span>
+          </OverlayTrigger>:</span>
           {readableTime(tracks[key].total)}
         </Panel>
       </Col>
