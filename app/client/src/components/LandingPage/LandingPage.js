@@ -7,7 +7,7 @@ import './LandingPage.less'
 const LandingPage = () =>
   <Col md={10} mdOffset={1} sm={12} smOffset={0}>
     <Jumbotron>
-      <h1>Track the time spent<br />on your favorite webites.</h1>
+      <h1>Track the time spent<br />on your favorite websites.</h1>
       <p>With a simple Chrome extension. No configuration, no sign-up necessary, and all for free.</p>
       <p className="text-center"><Button href="http://todo.com" bsSize="large" bsStyle="primary">Download the Chrome Extension</Button></p>
     </Jumbotron>
