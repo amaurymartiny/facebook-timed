@@ -1,14 +1,14 @@
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import entities from './entities'
+import app from './app'
 import auth from './auth'
-import errorMessage from './errorMessage'
 
 const rootReducer = combineReducers({
   routing,
+  app,
   auth,
-  entities,
-  errorMessage
+  entities
 })
 
 export default rootReducer

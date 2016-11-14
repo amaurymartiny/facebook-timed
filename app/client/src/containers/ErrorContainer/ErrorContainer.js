@@ -17,7 +17,7 @@ ErrorContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const errorMessage = state.errorMessage
+  const errorMessage = state.app.errorMessage
   return {
     errorMessage
   }
