@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Grid from 'react-bootstrap/lib/Grid'
 import { checkTrackMessage, resetErrorMessage } from '../../actions'
-import { Header } from '../../components'
+import { Header, Footer } from '../../components'
 import { ErrorContainer } from '../'
 import './App.less'
 
@@ -20,6 +20,7 @@ class App extends React.Component {
           <ErrorContainer />
           {this.props.children}
         </Grid>
+        <Footer />
       </div>
     )
   }
