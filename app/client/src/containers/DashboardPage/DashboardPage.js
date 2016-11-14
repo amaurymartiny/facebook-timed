@@ -7,8 +7,6 @@ class DashboardPage extends React.Component {
   componentWillMount() {
     // fetch tracks from the server
     this.props.fetchTracks()
-    // check for new HTML5 messages coming from content script
-    this.props.checkTrackMessage()
   }
 
   render() {

@@ -11,7 +11,8 @@ export const UPDATE_TRACK_REQUEST = 'UPDATE_TRACK_REQUEST'
 export const UPDATE_TRACK_SUCCESS = 'UPDATE_TRACK_SUCCESS'
 export const UPDATE_TRACK_FAILURE = 'UPDATE_TRACK_FAILURE'
 
-export const RECEIVE_TRACK_MESSAGE = 'RECEIVE_TRACK_MESSAGE'
+export const RECEIVE_EXTENSION_MESSAGE = 'RECEIVE_EXTENSION_MESSAGE'
+export const RECEIVE_EXTENSION_TRACK_MESSAGE = 'RECEIVE_EXTENSION_TRACK_MESSAGE'
 
 // ======================================================
 // Action creators
@@ -50,15 +51,21 @@ export function updateTrack(trackObject) {
   }
 }
 
+function receiveExtensionMessage() {
+  return {
+    type: RECEIVE_EXTENSION_MESSAGE
+  }
+}
+
 function receiveTrackMessage(trackObject) {
   return {
-    type: RECEIVE_TRACK_MESSAGE,
+    type: RECEIVE_EXTENSION_TRACK_MESSAGE,
     payload: trackObject
   }
 }
 
 // Listen to new messages coming from the content script
-export function checkTrackMessage() {
+export function checkExtensionMessages() {
   return (dispatch) => {
     // send message to get lastest tracked times
     window.postMessage({ action: 'GET_TRACKED_TIME' }, '*')
@@ -69,11 +76,20 @@ export function checkTrackMessage() {
         return
       }
 
-      if (event.data.action && (event.data.action === 'UPDATE_TRACKED_TIME')) {
-        dispatch(receiveTrackMessage(event.data.trackObject))
+      // we abort if there's no action
+      if (!event.data.action) {
+        return
+      }
 
-        // TODO is it correct to put it here, or anti-pattern?
-        dispatch(updateTrack(event.data.trackObject))
+      // dispatch the fact that we can communicat with the extension
+      dispatch(receiveExtensionMessage())
+
+      switch(event.data.action) {
+        case 'UPDATE_TRACKED_TIME':
+          dispatch(receiveTrackMessage(event.data.trackObject))
+          dispatch(updateTrack(event.data.trackObject))
+          break
+        default:
       }
     }, false)
   }
