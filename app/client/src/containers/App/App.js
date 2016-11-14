@@ -1,15 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Grid from 'react-bootstrap/lib/Grid'
-import { checkLogin, checkTrackMessage, resetErrorMessage } from '../../actions'
+import { checkTrackMessage, resetErrorMessage } from '../../actions'
 import { Header } from '../../components'
 import './App.less'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    // check if Auth0 lock is authenticating after login callback
-    this.props.checkLogin()
+  componentWillMount() {
     // check for new HTML5 messages coming from content script
     this.props.checkTrackMessage()
   }
@@ -30,7 +27,6 @@ class App extends React.Component {
 App.propTypes = {
   children: React.PropTypes.element.isRequired,
   errorMessage: React.PropTypes.string,
-  checkLogin: React.PropTypes.func.isRequired,
   checkTrackMessage: React.PropTypes.func.isRequired,
   resetErrorMessage: React.PropTypes.func.isRequired
 }
@@ -44,7 +40,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkLogin: () => dispatch(checkLogin()),
     checkTrackMessage: () => dispatch(checkTrackMessage()),
     resetErrorMessage: () => dispatch(resetErrorMessage())
   }

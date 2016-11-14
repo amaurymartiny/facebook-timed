@@ -1,5 +1,3 @@
-export AboutPage from './AboutPage/AboutPage'
 export Header from './Header/Header'
 export HomePage from './HomePage/HomePage'
-export NotFoundPage from './NotFoundPage/NotFoundPage'
 export TrackList from './TrackList/TrackList'
