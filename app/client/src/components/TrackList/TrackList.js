@@ -36,6 +36,9 @@ const websitesPopover = (
 
 const TrackList = ({ tracks, websites }) =>
   <div>
+    <div className="page-header">
+      <h1 className="text-center">My Websites</h1>
+    </div>
     {Object.keys(tracks).map(key =>
       <Col key={key} md={6} sm={12}>
         <Panel
