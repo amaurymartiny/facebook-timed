@@ -4,8 +4,7 @@ import { fetchTracks } from '../../actions'
 import { TrackList } from '../../components'
 
 class TrackContainer extends React.Component {
-  constructor(props) {
-    super(props)
+  componentWillMount() {
     this.props.fetchTracks()
   }
 

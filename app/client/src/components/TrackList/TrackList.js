@@ -20,6 +20,20 @@ const readableTime = (totalSec) => {
   </div>
 }
 
+/**
+ * Popover to show future tracked websites
+ */
+const websitesPopover = (
+  <Popover id="popover-new-websites" title="New websites to be added in the next release">
+    You can choose to track other websites in the future, including YouTube, Wikipedia, 
+    Yahoo!, Amazon, Reddit, 9GAG, or&nbsp;
+    <a href="mailto:amaury.martiny@gmail.com?subject=Add a new website to track&body=Hello, please add the following website to be tracked: ">
+      any website you would like to see tracked
+    </a>.
+  </Popover>
+)
+
+
 const TrackList = ({ tracks, websites }) =>
   <div>
     {Object.keys(tracks).map(key =>
@@ -37,23 +51,21 @@ const TrackList = ({ tracks, websites }) =>
       </Col>
     )}
     <Col md={6} sm={12}>
-      <Panel className="text-center add-track-panel" header={<a><h4>Add a website to track</h4></a>}>
+      <Panel className="text-center add-track-panel" header={
+        <OverlayTrigger
+          trigger="click"
+          placement="bottom" 
+          rootClose
+          overlay={websitesPopover}
+        >
+          <a><h4>Add a website to track</h4></a>
+        </OverlayTrigger>
+      }>
         <OverlayTrigger
           trigger="click"
           placement="left" 
           rootClose
-          overlay={
-            <Popover
-              id="popover-new-websites"
-              title="New websites to be added in the next release"
-            >
-              You can choose to track other websites in the future, including YouTube, Wikipedia, 
-              Yahoo!, Amazon, Reddit, 9GAG, or&nbsp;
-              <a href="mailto:amaury.martiny@gmail.com?subject=Add a new website to track&body=Hello, please add the following website to be tracked: ">
-                any website you would like to see tracked
-              </a>.
-            </Popover>
-          }
+          overlay={websitesPopover}
         >
           <Glyphicon glyph="ban-circle" />
         </OverlayTrigger>
