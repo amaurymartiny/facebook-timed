@@ -27,6 +27,10 @@ function myApiMiddleware(store) {
     if (!isRSAA(action)) {
       return next(action)
     }
+    // abort if not authenticated
+    if (!store.getState().auth.isAuthenticated) {
+      return next(action)
+    }
     const callApi = action[CALL_API]
     // prepend API_ROOT to all endpoints
     callApi.endpoint = API_ROOT + callApi.endpoint
