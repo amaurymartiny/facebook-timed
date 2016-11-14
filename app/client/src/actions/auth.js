@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router'
+import { push } from 'react-router-redux'
 import AuthService from '../utils/AuthService'
 
 // ======================================================
@@ -22,10 +22,9 @@ export function loginRequest() {
 }
 
 export function loginSuccess(profile) {
-  browserHistory.push('/')
-  return {
-    type: LOGIN_SUCCESS,
-    profile
+  return (dispatch) => {
+    dispatch({ type: LOGIN_SUCCESS, profile: profile })
+    dispatch(push('/dashboard'))
   }
 }
 
@@ -48,7 +47,7 @@ export function checkLogin() {
         }
         AuthService.setToken(authResult.idToken) // static method
         AuthService.setProfile(profile) // static method
-        return dispatch(loginSuccess(profile))
+        dispatch(loginSuccess(profile))
       })
     })
     // Add callback for lock's `authorization_error` event
@@ -58,8 +57,8 @@ export function checkLogin() {
 
 export function logoutSuccess() {
   authService.logout()
-  browserHistory.push('/')
-  return {
-    type: LOGOUT_SUCCESS
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_SUCCESS })
+    dispatch(push('/'))
   }
 }
