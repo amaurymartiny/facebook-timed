@@ -17,9 +17,10 @@ export function resetErrorMessage() {
   }
 }
 
-function receiveExtensionMessage() {
+function receiveExtensionMessage(payload) {
   return {
-    type: RECEIVE_EXTENSION_MESSAGE
+    type: RECEIVE_EXTENSION_MESSAGE,
+    payload: payload
   }
 }
 
@@ -48,7 +49,7 @@ export function checkExtensionMessages() {
       }
 
       // dispatch the fact that we can communicat with the extension
-      dispatch(receiveExtensionMessage())
+      dispatch(receiveExtensionMessage(event.data))
 
       switch(event.data.action) {
         case 'UPDATE_TRACKED_TIME':
