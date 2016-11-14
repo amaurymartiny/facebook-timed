@@ -19,10 +19,8 @@ extension/.tmp
 extension/temp
 extension/dist
 extension/.sass-cache
-extension/app/bower_components
-extension/test/bower_components
 extension/package
-extension/app/scripts
+extension/src/scripts
 
 ##############################
 # app

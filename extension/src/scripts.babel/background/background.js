@@ -127,7 +127,6 @@ function sendToAllPorts() {
   for (let i = ports.length - 1; i >= 0; i--) {
     ports[i].postMessage({
       action: 'UPDATE_TRACKED_TIME',
-      installDate: localStorage.getItem('installDate'),
       trackObject: trackObject
     });
   }
