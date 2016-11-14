@@ -1,3 +1,25 @@
+@import "~bootswatch/yeti/variables";
+
+.add-track-panel {
+  .panel-body {
+    height: 283px;
+    background-color: @gray-lighter;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+
+    .glyphicon {
+      color: darken(@gray-lighter, 10%);
+      font-size: 120px;
+    }
+
+    .glyphicon:hover {
+      color: darken(@gray-lighter, 20%);
+      cursor: pointer;
+    }
+  }
+}
+
 .track {
   font-size: 22px;
   font-family: 'Roboto', 'Open Sans';

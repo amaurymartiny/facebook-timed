@@ -7,7 +7,7 @@ const Header = () =>
   <Navbar collapseOnSelect fluid>
     <Navbar.Header>
       <Navbar.Brand>Timed</Navbar.Brand>
-      <Navbar.Toggle />
+      {/*<Navbar.Toggle />*/}
     </Navbar.Header>
     <Nav pullRight>
       <LoginContainer />

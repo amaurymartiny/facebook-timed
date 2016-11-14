@@ -1,6 +1,9 @@
 import React from 'react'
 import Col from 'react-bootstrap/lib/Col'
 import Panel from 'react-bootstrap/lib/Panel'
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger'
+import Popover from 'react-bootstrap/lib/Popover'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import './TrackList.less'
 
 /**
@@ -33,6 +36,29 @@ const TrackList = ({ tracks, websites }) =>
         </Panel>
       </Col>
     )}
+    <Col md={6} sm={12}>
+      <Panel className="text-center add-track-panel" header={<a><h4>Add a website to track</h4></a>}>
+        <OverlayTrigger
+          trigger="click"
+          placement="left" 
+          rootClose
+          overlay={
+            <Popover
+              id="popover-new-websites"
+              title="New websites to be added in the next release"
+            >
+              You can choose to track other websites in the future, including YouTube, Wikipedia, 
+              Yahoo!, Amazon, Reddit, 9GAG, or&nbsp;
+              <a href="mailto:amaury.martiny@gmail.com?subject=Add a new website to track&body=Hello, please add the following website to be tracked: ">
+                any website you would like to see tracked
+              </a>.
+            </Popover>
+          }
+        >
+          <Glyphicon glyph="ban-circle" />
+        </OverlayTrigger>
+      </Panel>
+    </Col>
   </div>
 
 TrackList.propTypes = {
