@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Col from 'react-bootstrap/lib/Col'
 import Jumbotron from 'react-bootstrap/lib/Jumbotron'
 import Button from 'react-bootstrap/lib/Button'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import { Link } from 'react-router'
 import { loginRequest } from '../../actions'
 import './HomePage.less'
@@ -12,18 +13,22 @@ const HomePage = ({ isAuthenticated, isExtensionConnected, loginRequest }) =>
     <Jumbotron>
       <h1>Track the time spent<br />on your favorite websites.</h1>
       <p>With a simple Chrome extension. No configuration, no sign-up necessary, and all for free.</p>
-      <p className="text-center">
+      <div className="text-center">
         {
           isExtensionConnected ? 
-            isAuthenticated ?
-              <Link to="/dashboard">
-                <Button bsSize="large" bsStyle="success">Go to my Dashboard</Button>
-              </Link>
-            :
-              <Button onClick={loginRequest} bsSize="large" bsStyle="primary">Log In or Sign Up</Button>
+            <div className="cta">
+              <span><Glyphicon className="text-success" glyph="ok-sign" /> The Chrome extension is correctly installed.<br /></span>
+              {isAuthenticated ?
+                  <Link to="/dashboard">
+                    <Button bsSize="large" bsStyle="success">Go to my Dashboard</Button>
+                  </Link>
+              :
+                <Button onClick={loginRequest} bsSize="large" bsStyle="primary">Log In or Sign Up</Button>
+              }
+            </div>
           : <Button href="http://todo.com" bsSize="large" bsStyle="primary">Download the Chrome Extension</Button>
         }
-      </p>
+      </div>
     </Jumbotron>
   </Col>
 

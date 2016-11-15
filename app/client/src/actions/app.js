@@ -35,11 +35,16 @@ function receiveTrackMessage(trackObject) {
 export function checkExtensionMessages() {
   return (dispatch) => {
     // send message to get lastest tracked times
-    window.postMessage({ action: 'GET_TRACKED_TIME' }, '*')
+    window.postMessage({ action: 'GET_TRACKED_TIME', source: 'webapp' }, process.env.HOST)
 
     window.addEventListener('message', (event) => {
-      // We only accept messages from ourselves
-      if (event.source !== window) {
+      // We only accept messages from our window
+      if (event.origin !== process.env.HOST) {
+        return
+      }
+
+      // we abort if the webapp itself sent the message
+      if (!event.data || event.data.source === 'webapp') {
         return
       }
 

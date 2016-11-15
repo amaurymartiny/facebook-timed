@@ -9,7 +9,7 @@ const Login = ({ isAuthenticated, profile, onLoginClick, onLogoutClick }) => {
   if (isAuthenticated) {
     return (
       <NavDropdown title={profile.name} id="login-nav-dropdown">
-        <MenuItem disabled>Profile</MenuItem>
+        {/*<MenuItem disabled>Profile</MenuItem>*/}
         <MenuItem onClick={onLogoutClick}>Sign out</MenuItem>
       </NavDropdown>
     )
