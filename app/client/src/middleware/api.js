@@ -29,7 +29,7 @@ function myApiMiddleware(store) {
     }
     // abort if not authenticated
     if (!store.getState().auth.isAuthenticated) {
-      return next(action)
+      return
     }
     const callApi = action[CALL_API]
     // prepend API_ROOT to all endpoints

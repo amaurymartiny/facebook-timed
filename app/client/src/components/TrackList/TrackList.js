@@ -46,7 +46,7 @@ const websitesPopover = (
 
 const TrackList = ({ tracks, websites }) =>
   <div>
-    {Object.keys(tracks).map(key =>
+    {Object.keys(websites).length && Object.keys(tracks).map(key => // only do the map if the websites object is loaded
       <Col key={key} md={6} sm={12}>
         <Panel
           header={<a href={websites[tracks[key].website].url} target="_blank"><h4>{websites[tracks[key].website].name}</h4></a>}
