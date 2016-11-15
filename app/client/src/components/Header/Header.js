@@ -1,12 +1,15 @@
 import React from 'react'
 import Navbar from 'react-bootstrap/lib/Navbar'
 import Nav from 'react-bootstrap/lib/Nav'
+import { Link } from 'react-router'
 import { LoginContainer } from '../../containers'
 
 const Header = () =>
   <Navbar collapseOnSelect fluid>
     <Navbar.Header>
-      <Navbar.Brand>Timed</Navbar.Brand>
+      <Link to="/">
+        <Navbar.Brand>Timed</Navbar.Brand>
+      </Link>
       {/*<Navbar.Toggle />*/}
     </Navbar.Header>
     <Nav pullRight>
