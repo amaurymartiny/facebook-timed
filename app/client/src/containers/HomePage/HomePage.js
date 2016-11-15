@@ -17,7 +17,7 @@ const HomePage = ({ isAuthenticated, isExtensionConnected, loginRequest }) =>
           isExtensionConnected ? 
             isAuthenticated ?
               <Link to="/dashboard">
-                <Button href="http://todo.com" bsSize="large" bsStyle="success">Go to my Dashboard</Button>
+                <Button bsSize="large" bsStyle="success">Go to my Dashboard</Button>
               </Link>
             :
               <Button onClick={loginRequest} bsSize="large" bsStyle="primary">Log In or Sign Up</Button>
