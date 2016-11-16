@@ -1,8 +1,6 @@
 {
   "rules": {
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "comma-dangle": 0,
-    "no-underscore-dangle": 0
+    "comma-dangle": 0
   },
   "env": {
     "node": true,
@@ -12,5 +10,5 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "airbnb-base"]
+  "extends": ["airbnb-base"]
 }

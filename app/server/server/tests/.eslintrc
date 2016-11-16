@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "import/no-extraneous-dependencies": 0,
+    "no-underscore-dangle": [2, { "allow": ["_id"]}]
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  }
+}
