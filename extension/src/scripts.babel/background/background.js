@@ -140,7 +140,7 @@ function sendToAllPorts() {
  */
 function createXHR(method, endpoint, data, callback) {
   let xhr = new XMLHttpRequest();
-  xhr.open(method, 'http://localhost:8080/api' + endpoint, true);
+  xhr.open(method, '/* @echo API_ROOT */' + endpoint, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   if (localStorage.getItem('id_token'))
     xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('id_token'));

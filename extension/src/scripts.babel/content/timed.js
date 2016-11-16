@@ -12,7 +12,7 @@ port.onMessage.addListener(msg => {
     case 'UPDATE_TRACKED_TIME':
       // checks also that the trackObject has a track id
       if (msg.trackObject._id)
-        window.postMessage(msg, 'http://localhost:3000');
+        window.postMessage(msg, '/* @echo WEBAPP */');
   }    
 });
 

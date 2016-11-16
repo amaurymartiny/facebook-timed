@@ -46,5 +46,8 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "gulp-preprocess": "^2.0.0"
   }
 }

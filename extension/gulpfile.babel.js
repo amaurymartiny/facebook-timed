@@ -4,6 +4,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
+import config from './src/config'
 
 const $ = gulpLoadPlugins();
 
@@ -63,6 +64,7 @@ gulp.task('html',  () => {
 
 gulp.task('chromeManifest', () => {
   return gulp.src('src/manifest.json')
+    .pipe($.preprocess({ context: config }))
     .pipe($.chromeManifest({
       buildnumber: true,
       background: {
@@ -81,6 +83,7 @@ gulp.task('chromeManifest', () => {
 
 gulp.task('babel', () => {
   return gulp.src('src/scripts.babel/**/*.js')
+      .pipe($.preprocess({ context: config }))
       .pipe($.babel({
         presets: ['es2015', 'stage-0']
       }))
