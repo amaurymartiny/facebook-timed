@@ -1,7 +1,6 @@
 import Auth0Lock from 'auth0-lock'
 import jwtDecode from 'jwt-decode'
-
-// import LogoImg from 'images/test-icon.png';
+import brandLogo from '../../assets/watch.svg'
 
 export default class AuthService {
   constructor(clientId, domain) {
@@ -11,10 +10,10 @@ export default class AuthService {
         redirectUrl: `${process.env.HOST}/callback`,
         responseType: 'token'
       },
-      // theme: {
-      //   logo: LogoImg,
-      //   primaryColor: "#b81b1c"
-      // },
+      theme: {
+        logo: brandLogo,
+        primaryColor: '#008cba'
+      },
       languageDictionary: {
         title: 'Timed'
       }

@@ -6,7 +6,7 @@ const Footer = () =>
   <footer className="text-center">
     Made with <Glyphicon glyph="heart" /> by Amaury Martiny.
     Send <a href="mailto:amaury.martiny@gmail.com">an email</a> to say hi.
-    View <a href="https://github.com/amaurymartiny/timed"> source code</a>.
+    View <a href="https://github.com/amaurymartiny/timed" target="_blank" rel="noopener noreferrer"> source code</a>.
   </footer>
 
 export default Footer
