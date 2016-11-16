@@ -1,6 +1,6 @@
 {
-  "name": "timed",
-  "description": "Track time spent on Facebook",
+  "name": "timed-extension",
+  "description": "Track the time spent on Facebook and your other favorite websites.",
   "main": "src/scripts/background/background.js",
   "authors": [
     "Amaury Martiny <amaury.martiny@gmail.com>"

@@ -1,6 +1,12 @@
 {
-  "name": "timed",
+  "name": "timed-extension",
+  "description": "Track the time spent on Facebook and your other favorite websites.",
   "private": true,
+  "keywords": [
+    "time",
+    "track",
+    "facebook"
+  ],
   "engines": {
     "node": ">=0.8.0"
   },

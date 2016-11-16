@@ -1,18 +1,18 @@
 {
   "name": "timedapp-client",
-  "version": "0.1.0",
-  "description": "A boilerplate for running a Webpack workflow in Node express",
+  "version": "1.0.0",
+  "description": "Track the time spent on Facebook and your other favorite websites.",
   "main": "server.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/amaurymartiny/timed.git"
   },
   "keywords": [
-    "express",
-    "webpack",
-    "node"
+    "time",
+    "track",
+    "facebook"
   ],
-  "author": "Amaury",
+  "author": "Amaury Martiny",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/amaurymartiny/timed/issues"
