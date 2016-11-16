@@ -29,7 +29,7 @@ const formatDate = (dateString) => {
   const d = date.getDate()
   const m = date.getMonth() + 1 // months are 0-11
   const y = date.getFullYear()
-  return `${d < 10 ? '0' + d : d}/${m < 10 ? '0' + m : m}/${y}`
+  return `${d < 10 ? '0' + d : d}/${m < 10 ? '0' + m : m}/${y}` // eslint-disable-line prefer-template
 }
 
 /**
