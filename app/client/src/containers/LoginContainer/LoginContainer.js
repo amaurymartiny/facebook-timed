@@ -9,7 +9,7 @@ const Login = ({ isAuthenticated, profile, onLoginClick, onLogoutClick }) => {
   if (isAuthenticated) {
     return (
       <NavDropdown title={profile.name} id="login-nav-dropdown">
-        {/*<MenuItem disabled>Profile</MenuItem>*/}
+        {/* <MenuItem disabled>Profile</MenuItem>*/}
         <MenuItem onClick={onLogoutClick}>Sign out</MenuItem>
       </NavDropdown>
     )
@@ -32,12 +32,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoginClick: () => dispatch(loginRequest()),
-    onLogoutClick: () => dispatch(logoutSuccess())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  onLoginClick: () => dispatch(loginRequest()),
+  onLogoutClick: () => dispatch(logoutSuccess())
+})
 
 const LoginContainer = connect(
   mapStateToProps,

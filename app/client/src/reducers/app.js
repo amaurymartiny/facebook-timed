@@ -7,7 +7,7 @@ import * as AppActions from '../actions/app'
  * @return {Object}        Next state
  */
 export default function app(state = {
-  isLoading: false, //TODO not implemented yet
+  isLoading: false, // TODO not implemented yet
   isExtensionConnected: false,
   errorMessage: null
 }, action) {

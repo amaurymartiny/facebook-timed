@@ -8,8 +8,8 @@ describe('(Component) <Header />', () => {
     const wrapper = shallow(
       <Header
         isAuthenticated={false}
-        onLoginClick={ () => {} }
-        onLogoutClick={ () => {} }
+        onLoginClick={() => {}}
+        onLogoutClick={() => {}}
       />
     )
     expect(wrapper.find('h1').text()).to.equal('Timed')

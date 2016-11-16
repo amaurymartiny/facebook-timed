@@ -23,10 +23,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    resetErrorMessage: () => dispatch(resetErrorMessage())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  resetErrorMessage: () => dispatch(resetErrorMessage())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorContainer)

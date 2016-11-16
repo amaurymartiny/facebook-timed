@@ -57,7 +57,7 @@ export default class AuthService {
     localStorage.setItem('profile', JSON.stringify(profile))
 
     // Send profile to chrome extension
-    window.postMessage({ action: 'SET_NEW_PROFILE', profile: profile }, process.env.HOST)
+    window.postMessage({ action: 'SET_NEW_PROFILE', profile }, process.env.HOST)
   }
 
   static setToken(idToken) {

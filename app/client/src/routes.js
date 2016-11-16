@@ -14,11 +14,11 @@ const requireAuth = store => (nextState, replace) => {
 
 export default function createRoutes(store) {
   return (
-    <Route path='/' component={App}>
+    <Route path="/" component={App}>
       <IndexRoute component={HomePage} />
-      <Route path='/dashboard' component={DashboardPage} onEnter={requireAuth(store)} />
-      <Route path='/callback' component={CallbackPage} />
-      <Route path='*' component={HomePage} />
+      <Route path="/dashboard" component={DashboardPage} onEnter={requireAuth(store)} />
+      <Route path="/callback" component={CallbackPage} />
+      <Route path="*" component={HomePage} />
     </Route>
   )
 }

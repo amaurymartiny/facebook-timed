@@ -2,9 +2,9 @@ process.env.NODE_ENV = 'test'
 
 require('babel-register')()
 
-let jsdom = require('jsdom').jsdom
+const jsdom = require('jsdom').jsdom
 
-let exposedProperties = ['window', 'navigator', 'document']
+const exposedProperties = ['window', 'navigator', 'document']
 
 global.document = jsdom('')
 global.window = document.defaultView

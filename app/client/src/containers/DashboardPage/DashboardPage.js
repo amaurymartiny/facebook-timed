@@ -40,11 +40,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchTracks: () => dispatch(fetchTracks()),
-    checkTrackMessage: () => dispatch(checkTrackMessage())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  fetchTracks: () => dispatch(fetchTracks()),
+  checkTrackMessage: () => dispatch(checkTrackMessage())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)

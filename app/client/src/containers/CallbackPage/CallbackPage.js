@@ -36,11 +36,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkLogin: () => dispatch(checkLogin()),
-    loginSuccess: (profile) => dispatch(loginSuccess(profile))
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  checkLogin: () => dispatch(checkLogin()),
+  loginSuccess: profile => dispatch(loginSuccess(profile))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(CallbackPage)

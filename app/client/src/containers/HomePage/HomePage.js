@@ -15,15 +15,15 @@ const HomePage = ({ isAuthenticated, isExtensionConnected, loginRequest }) =>
       <p>With a simple Chrome extension. No configuration, no sign-up necessary, and all for free.</p>
       <div className="text-center">
         {
-          isExtensionConnected ? 
+          isExtensionConnected ?
             <div className="cta">
               <ExtensionConnected isExtensionConnected={isExtensionConnected} />
               {isAuthenticated ?
-                  <Link to="/dashboard">
-                    <Button bsSize="large" bsStyle="success">Go to my Dashboard</Button>
-                  </Link>
+                <Link to="/dashboard">
+                  <Button bsSize="large" bsStyle="success">Go to my Dashboard</Button>
+                </Link>
               :
-                <Button onClick={loginRequest} bsSize="large" bsStyle="primary">Log In or Sign Up</Button>
+              <Button onClick={loginRequest} bsSize="large" bsStyle="primary">Log In or Sign Up</Button>
               }
             </div>
           : <Button href="http://todo.com" bsSize="large" bsStyle="primary">Download the Chrome Extension</Button>
@@ -47,11 +47,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginRequest: () => dispatch(loginRequest())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  loginRequest: () => dispatch(loginRequest())
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
 

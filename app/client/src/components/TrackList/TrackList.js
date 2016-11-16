@@ -11,14 +11,14 @@ import './TrackList.less'
  * Transform seconds to hh:mm:ss format
  */
 const readableTime = (totalSec) => {
-  const hours = parseInt( totalSec / 3600 ) % 24
-  const minutes = parseInt( totalSec / 60 ) % 60
+  const hours = parseInt(totalSec / 3600) % 24
+  const minutes = parseInt(totalSec / 60) % 60
   const seconds = totalSec % 60
-  return <div className="track">
-    <span className="big-number">{(hours < 10 ? '0' + hours : hours)}</span>h
-    <span className="big-number">{(minutes < 10 ? '0' + minutes : minutes)}</span>m
-    <span className="big-number">{(seconds  < 10 ? '0' + seconds : seconds)}</span>s
-  </div>
+  return (<div className="track">
+    <span className="big-number">{(hours < 10 ? `0${hours}` : hours)}</span>h
+    <span className="big-number">{(minutes < 10 ? `0${minutes}` : minutes)}</span>m
+    <span className="big-number">{(seconds < 10 ? `0${seconds}` : seconds)}</span>s
+  </div>)
 }
 
 /**
@@ -26,7 +26,7 @@ const readableTime = (totalSec) => {
  */
 const formatDate = (dateString) => {
   const date = new Date(dateString)
-  //TODO: 01/11/2016 instead of 1/11/2016, too lazy now
+  // TODO: 01/11/2016 instead of 1/11/2016, too lazy now
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` // months are 0-11
 }
 
@@ -35,7 +35,7 @@ const formatDate = (dateString) => {
  */
 const websitesPopover = (
   <Popover id="popover-new-websites" title="New websites to be added in the next release">
-    You can choose to track other websites in the future, including YouTube, Wikipedia, 
+    You can choose to track other websites in the future, including YouTube, Wikipedia,
     Yahoo!, Amazon, Reddit, 9GAG, or&nbsp;
     <a href="mailto:amaury.martiny@gmail.com?subject=Add a new website to track&body=Hello, please add the following website to be tracked: ">
       any website you would like to see tracked
@@ -68,19 +68,21 @@ const TrackList = ({ tracks, websites }) =>
       </Col>
     )}
     <Col md={6} sm={12}>
-      <Panel className="text-center add-track-panel" header={
+      <Panel
+        className="text-center add-track-panel" header={
+          <OverlayTrigger
+            trigger="click"
+            placement="bottom"
+            rootClose
+            overlay={websitesPopover}
+          >
+            <a><h4>Add a website to track</h4></a>
+          </OverlayTrigger>
+      }
+      >
         <OverlayTrigger
           trigger="click"
-          placement="bottom" 
-          rootClose
-          overlay={websitesPopover}
-        >
-          <a><h4>Add a website to track</h4></a>
-        </OverlayTrigger>
-      }>
-        <OverlayTrigger
-          trigger="click"
-          placement="left" 
+          placement="left"
           rootClose
           overlay={websitesPopover}
         >

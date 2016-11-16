@@ -39,7 +39,7 @@ function myApiMiddleware(store) {
     // normalize data on SUCCESS
     const type = typeof callApi.types[1] === 'string' ? callApi.types[1] : callApi.types[1].type // 0 is REQUEST, 1 is SUCCESS and 2 is FAILURE
     callApi.types[1] = {
-      type: type,
+      type,
       payload: (payloadAction, state, res) => {
         const entity = type.substring(type.indexOf('_') + 1, type.lastIndexOf('_')) // entity can be TRACK(S), WEBSITE(S)
         // the following switch can be done in one line, but for clarity I prefer this

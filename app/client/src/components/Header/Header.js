@@ -10,12 +10,12 @@ const Header = () =>
       <Link to="/">
         <Navbar.Brand>Timed</Navbar.Brand>
       </Link>
-      {/*<Navbar.Toggle />*/}
+      {/* <Navbar.Toggle />*/}
     </Navbar.Header>
     <Nav pullRight>
       <LoginContainer />
     </Nav>
-    {/*<Navbar.Collapse></Navbar.Collapse>*/}
+    {/* <Navbar.Collapse></Navbar.Collapse>*/}
   </Navbar>
 
 export default Header

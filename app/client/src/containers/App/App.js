@@ -38,10 +38,8 @@ App.propTypes = {
 //   }
 // }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkExtensionMessages: () => dispatch(checkExtensionMessages())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  checkExtensionMessages: () => dispatch(checkExtensionMessages())
+})
 
 export default connect(null, mapDispatchToProps)(App)

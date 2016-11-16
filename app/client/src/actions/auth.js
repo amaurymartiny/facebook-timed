@@ -23,7 +23,7 @@ export function loginRequest() {
 
 export function loginSuccess(profile) {
   return (dispatch) => {
-    dispatch({ type: LOGIN_SUCCESS, profile: profile })
+    dispatch({ type: LOGIN_SUCCESS, profile })
     dispatch(push('/dashboard'))
   }
 }
