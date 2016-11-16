@@ -1,7 +1,9 @@
-body {
+/**
+ * General styles
+ */
+body{
   width: 300px;
   padding: 20px;
-  text-align: center;
   font-family: "Roboto", "Open Sans", "Arial";
   font-weight: 300;
   color: #333;
@@ -16,6 +18,13 @@ strong {
   font-weight: 300;
 }
 
+a {
+  outline: none:
+}
+
+/**
+ * Custom styles
+ */
 .time-tracked {
   font-size: 22px;
 }
@@ -27,4 +36,58 @@ strong {
 
 .time-tracked-label {
   margin-bottom: 0;
+}
+
+#cta {
+  margin-top: 20px;
+}
+
+/**
+ * Utilities (Bootstrap-like)
+ */
+.text-center {
+  text-align: center;
+}
+
+/**
+ * Button styles (Bootstrap-like)
+ */
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 0;
+  white-space: nowrap;
+  padding: 8px 12px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: 0;
+  outline-offset: -2px;
+}
+
+.btn-lg {
+  padding: 16px 20px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #008cba;
+  border-color: #0079a1;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #006687;
+  border-color: #004b63;
 }

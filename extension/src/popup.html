@@ -1,20 +1,25 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <!-- build:css styles/popup-vendor.css -->
-    <!-- endbuild -->
-    <!-- build:css styles/popup.css -->
-    <link href="styles/popup/popup.css" rel="stylesheet">
-    <!-- endbuild -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+  <meta charset="utf-8">
+  <!-- build:css styles/popup-vendor.css -->
+  <!-- endbuild -->
+  <!-- build:css styles/popup.css -->
+  <link href="styles/popup/popup.css" rel="stylesheet">
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
   </head>
-  <body>
+  <body class="text-center">
     <h1>Facebook<strong>Timed</strong></h1>
     <p class="time-tracked-label">Today:</p>
     <div class="time-tracked"><span id="time-tracked-today-label"></span></div>
     <p class="time-tracked-label">Since the beginning:</p>
     <div class="time-tracked"><span id="time-tracked-total-label"></span></div>
+    <div id="cta">
+      <a class="btn btn-primary" href="<!-- @echo WEBAPP -->" target="_blank">
+        Log In or Sign Up
+      </a>
+    </div>
 
     <!--[if IE 8]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.2.5/ie8.js"></script>

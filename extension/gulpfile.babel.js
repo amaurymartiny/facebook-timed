@@ -53,6 +53,7 @@ gulp.task('images', () => {
 
 gulp.task('html',  () => {
   return gulp.src('src/*.html')
+    .pipe($.preprocess({ context: config }))
     .pipe($.useref({searchPath: ['.tmp', 'src', '.']}))
     .pipe($.sourcemaps.init())
     .pipe($.if('*.js', $.uglify()))
@@ -64,7 +65,6 @@ gulp.task('html',  () => {
 
 gulp.task('chromeManifest', () => {
   return gulp.src('src/manifest.json')
-    .pipe($.preprocess({ context: config }))
     .pipe($.chromeManifest({
       buildnumber: true,
       background: {

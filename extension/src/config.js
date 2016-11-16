@@ -6,8 +6,8 @@ const config =
     }
   :
     {
-      'API_ROOT': 'http://localhost:8080/api',
-      'WEBAPP': 'http://localhost:3000'
+      API_ROOT: 'http://localhost:8080/api',
+      WEBAPP: 'http://localhost:3000'
     }
 ;
 
