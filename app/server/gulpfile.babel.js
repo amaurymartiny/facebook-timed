@@ -4,13 +4,12 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import path from 'path';
 import del from 'del';
-import runSequence from 'run-sequence';
 
 const plugins = gulpLoadPlugins();
 
 const paths = {
   js: ['./**/*.js', '!dist/**', '!node_modules/**', '!coverage/**'],
-  nonJs: ['./package.json', './.gitignore'],
+  nonJs: ['./package.json', './.gitignore', './Procfile'],
   tests: './server/tests/*.js'
 };
 
@@ -20,14 +19,14 @@ gulp.task('clean', () =>
 );
 
 // Copy non-js files to dist
-gulp.task('copy', () =>
+gulp.task('copy', ['clean'], () =>
   gulp.src(paths.nonJs)
     .pipe(plugins.newer('dist'))
     .pipe(gulp.dest('dist'))
 );
 
 // Compile ES6 to ES5 and copy to dist
-gulp.task('babel', () =>
+gulp.task('babel', ['clean'], () =>
   gulp.src([...paths.js, '!gulpfile.babel.js'], { base: '.' })
     .pipe(plugins.newer('dist'))
     .pipe(plugins.sourcemaps.init())
@@ -52,11 +51,18 @@ gulp.task('nodemon', ['copy', 'babel'], () =>
 );
 
 // gulp serve for development
-gulp.task('serve', ['clean'], () => runSequence('nodemon'));
+gulp.task('serve', ['nodemon']);
 
 // default task: clean dist, compile js files and copy non-js files.
-gulp.task('default', ['clean'], () => {
-  runSequence(
-    ['copy', 'babel']
-  );
-});
+gulp.task('default', ['clean', 'copy', 'babel']);
+
+// deploy on heroku
+// IMPORTANT: heroku toolbelt needs to be installed, and logged in via heroku login
+gulp.task('heroku', ['default'], plugins.shell.task([
+  'git init',
+  'heroku git:remote -a timed-server',
+  'git commit -am "Deploy to heroku"',
+  'git push --force heroku master'
+], {
+  cwd: 'dist/' // current working directory
+}));
