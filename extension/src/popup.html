@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <!-- build:css styles/popup-vendor.css -->
   <!-- endbuild -->
+  <link href="bower_components/tipsy/src/stylesheets/tipsy.css" rel="stylesheet"></link>
   <!-- build:css styles/popup.css -->
   <link href="styles/popup/popup.css" rel="stylesheet">
   <!-- endbuild -->
@@ -12,11 +13,22 @@
   <body class="text-center">
     <h1>Facebook<strong>Timed</strong></h1>
     <p class="time-tracked-label">Today:</p>
-    <div class="time-tracked"><span id="time-tracked-today-label"></span></div>
-    <p class="time-tracked-label">Since the beginning:</p>
-    <div class="time-tracked"><span id="time-tracked-total-label"></span></div>
+    <div class="time-tracked"><span id="today"></span></div>
+    <p class="time-tracked-label">
+      Since the <span id="startDate">beginning:</span>
+    </p>
+    <div class="time-tracked"><span id="total"></span></div>
     <div id="cta">
-      <a class="btn btn-primary" href="<!-- @echo WEBAPP -->" target="_blank">
+      <a
+        class="btn btn-primary"
+        href="<!-- @echo WEBAPP -->"
+        target="_blank"
+        title="
+          <p class='text-lg'>For now, logging in will save your tracked times in case of extension crash/reinstall.</p>
+          <p class='text-lg'>In the future, you will be able to access more detailed analytics after login, as
+          well as add other websites to track.</p>
+        "
+      >
         Log In or Sign Up
       </a>
     </div>
@@ -32,6 +44,11 @@
 
     <!-- build:js scripts/popup-vendor.js -->
     <!-- endbuild -->
+
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <script src="bower_components/tipsy/src/javascripts/jquery.tipsy.js"></script>
 
     <!-- build:js scripts/popup.js -->
     <script src="scripts/popup/popup.js"></script>

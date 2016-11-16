@@ -1,0 +1,28 @@
+{
+  "name": "timed",
+  "description": "Track time spent on Facebook",
+  "main": "src/scripts/background/background.js",
+  "authors": [
+    "Amaury Martiny <amaury.martiny@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "time",
+    "track",
+    "facebook"
+  ],
+  "homepage": "https://github.com/amaurymartiny/timed",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "tipsy": "^0.1.7"
+  }
+}

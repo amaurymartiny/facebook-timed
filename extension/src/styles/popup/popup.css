@@ -49,6 +49,9 @@ a {
   text-align: center;
 }
 
+.text-lg {
+  font-size: 1.3em;
+}
 /**
  * Button styles (Bootstrap-like)
  */
