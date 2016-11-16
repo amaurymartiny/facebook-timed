@@ -26,8 +26,10 @@ const readableTime = (totalSec) => {
  */
 const formatDate = (dateString) => {
   const date = new Date(dateString)
-  // TODO: 01/11/2016 instead of 1/11/2016, too lazy now
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` // months are 0-11
+  const d = date.getDate()
+  const m = date.getMonth() + 1 // months are 0-11
+  const y = date.getFullYear()
+  return `${d < 10 ? '0' + d : d}/${m < 10 ? '0' + m : m}/${y}`
 }
 
 /**
