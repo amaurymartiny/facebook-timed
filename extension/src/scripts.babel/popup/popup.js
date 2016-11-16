@@ -46,4 +46,4 @@ $('#startDate').tipsy({gravity: 's'});
 /**
  * Add tooltip for CTA button
  */
-$('#cta .btn').tipsy({gravity: 'sw', html: true, opacity: 1 });
+$('#cta a').tipsy({gravity: 'sw', html: true, opacity: 1 });
