@@ -11,8 +11,8 @@ import './TrackList.less'
  * Transform seconds to hh:mm:ss format
  */
 const readableTime = (totalSec) => {
-  const hours = parseInt(totalSec / 3600) % 24
-  const minutes = parseInt(totalSec / 60) % 60
+  const hours = parseInt(totalSec / 3600, 10) % 24 // 10 is the radix
+  const minutes = parseInt(totalSec / 60, 10) % 60
   const seconds = totalSec % 60
   return (<div className="track">
     <span className="big-number">{(hours < 10 ? `0${hours}` : hours)}</span>h
@@ -46,10 +46,13 @@ const websitesPopover = (
 
 const TrackList = ({ tracks, websites }) =>
   <div>
-    {Object.keys(websites).length && Object.keys(tracks).map(key => // only do the map if the websites object is loaded
+    {/* only do the map if the websites object is loaded */}
+    {Object.keys(websites).length && Object.keys(tracks).map(key =>
       <Col key={key} md={6} sm={12}>
         <Panel
-          header={<a href={websites[tracks[key].website].url} target="_blank"><h4>{websites[tracks[key].website].name}</h4></a>}
+          header={<a href={websites[tracks[key].website].url} target="_blank" rel="noopener noreferrer">
+            <h4>{websites[tracks[key].website].name}</h4>
+          </a>}
           className="text-center"
         >
           <span>Today:</span>

@@ -47,7 +47,7 @@ export function checkLogin() {
         }
         AuthService.setToken(authResult.idToken) // static method
         AuthService.setProfile(profile) // static method
-        dispatch(loginSuccess(profile))
+        return dispatch(loginSuccess(profile))
       })
     })
     // Add callback for lock's `authorization_error` event
@@ -56,7 +56,7 @@ export function checkLogin() {
 }
 
 export function logoutSuccess() {
-  authService.logout()
+  AuthService.logout()
   return (dispatch) => {
     dispatch({ type: LOGOUT_SUCCESS })
     dispatch(push('/'))

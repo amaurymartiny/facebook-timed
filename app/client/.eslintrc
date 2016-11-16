@@ -1,10 +1,14 @@
 {
+  "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
     "semi": [2, "never"],
     "comma-dangle": 0,
+    "no-underscore-dangle": [2, { "allow": ["_id"]}],
+    "react/forbid-prop-types": 0
   },
   env: {
+    "browser": true,
     "mocha": true
   }
 }

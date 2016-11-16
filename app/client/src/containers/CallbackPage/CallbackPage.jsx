@@ -9,7 +9,7 @@ class CallbackPage extends React.Component {
       return this.props.loginSuccess(this.props.profile)
     }
     // check if Auth0 lock is authenticating after login callback
-    this.props.checkLogin()
+    return this.props.checkLogin()
   }
 
   render() {

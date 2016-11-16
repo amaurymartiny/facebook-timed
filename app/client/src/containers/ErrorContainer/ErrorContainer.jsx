@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Alert from 'react-bootstrap/lib/Alert'
-import { resetErrorMessage } from '../../actions'
+import { resetErrorMessage as resetErrorMessageAction } from '../../actions'
 import './ErrorContainer.less'
 
 const ErrorContainer = ({ errorMessage, resetErrorMessage }) =>
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  resetErrorMessage: () => dispatch(resetErrorMessage())
+  resetErrorMessage: () => dispatch(resetErrorMessageAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorContainer)

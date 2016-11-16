@@ -31,15 +31,15 @@ export default class AuthService {
     this.lock.show()
   }
 
-  logout() {
+  // ======================================================
+  // Static methods
+  // ======================================================
+  static logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token')
     localStorage.removeItem('profile')
   }
 
-  // ======================================================
-  // Static methods
-  // ======================================================
   static isAuthenticated() {
     // Checks if there is a saved token and it's still valid
     const token = AuthService.getToken()

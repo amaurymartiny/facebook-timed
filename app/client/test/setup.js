@@ -19,7 +19,7 @@ global.navigator = {
   userAgent: 'node.js'
 }
 
-documentRef = document
+// documentRef = document // what is that
 
 // Prevent mocha from interpreting CSS @import files
 function noop() {

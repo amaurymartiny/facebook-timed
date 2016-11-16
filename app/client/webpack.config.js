@@ -1,20 +1,25 @@
-'use strict';
+/* eslint-disable import/no-extraneous-dependencies */
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var DotenvPlugin = require('webpack-dotenv-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const DotenvPlugin = require('webpack-dotenv-plugin')
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'src/index.js')
+    path.join(__dirname, 'src/index.jsx')
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: '[name].js',
     publicPath: '/'
+  },
+  // Be able to write: import Header from './Header' if we have Header.jsx
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -53,7 +58,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          "presets": ["react", "es2015", "stage-0"]
+          presets: ['react', 'es2015', 'stage-0']
         }
       },
       // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -93,6 +98,6 @@ module.exports = {
     ]
   },
   postcss: [
-    require('autoprefixer')
+    autoprefixer
   ]
-};
+}

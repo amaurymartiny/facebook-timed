@@ -24,7 +24,7 @@
     "clean": "rimraf dist",
     "prebuild": "clean",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "lint": "eslint ."
+    "lint": "eslint --ext js --ext jsx ."
   },
   "dependencies": {
     "auth0-lock": "^10.4.0",

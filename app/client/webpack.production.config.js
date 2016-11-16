@@ -1,19 +1,24 @@
-'use strict';
+/* eslint-disable import/no-extraneous-dependencies */
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var DotenvPlugin = require('webpack-dotenv-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const DotenvPlugin = require('webpack-dotenv-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: [
-    path.join(__dirname, 'src/index.js')
+    path.join(__dirname, 'src/index.jsx')
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: '[name]-[hash].min.js',
     publicPath: '/'
+  },
+  // Be able to write: import Header from './Header' if we have Header.jsx
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -36,7 +41,7 @@ module.exports = {
     }),
     // CSS files from the extract-text-plugin loader
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-    new ExtractTextPlugin('[name]-[chunkhash].css', {allChunks: true}),
+    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -62,7 +67,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          "presets": ["es2015", "stage-0", "react"]
+          presets: ['es2015', 'stage-0', 'react']
         }
       },
       // The notation here is somewhat confusing.
@@ -115,6 +120,6 @@ module.exports = {
     ]
   },
   postcss: [
-    require('autoprefixer')
+    autoprefixer
   ]
-};
+}
