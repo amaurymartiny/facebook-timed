@@ -13,6 +13,7 @@ port.onMessage.addListener(msg => {
       // checks also that the trackObject has a track id
       if (msg.trackObject._id)
         window.postMessage(msg, '/* @echo WEBAPP */');
+      break;
   }    
 });
 
@@ -21,6 +22,9 @@ port.onMessage.addListener(msg => {
  */
 window.addEventListener('message', (event) => {
   switch (event.data.action) {
+    case 'CONNECTION_REQUEST':
+      window.postMessage({action: 'CONNECTION_SUCCESS', ok: true}, '/* @echo WEBAPP */');
+      break;
     case 'GET_TRACKED_TIME':
       // get trackObject from background.js
       port.postMessage({action: event.data.action});

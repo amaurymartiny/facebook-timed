@@ -29,6 +29,7 @@ app/server/node_modules
 app/server/dist
 app/server/lib-cov
 app/server/coverage
+app/server/config/env/development.js
 app/client/node_modules
 app/client/dist
 app/client/.env

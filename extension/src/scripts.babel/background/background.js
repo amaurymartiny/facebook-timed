@@ -173,14 +173,19 @@ function getTrackObject() {
   callAPI.get('/websites/find?url=' + query, (res) => {
     let websiteId = res[0]._id;
     callAPI.get('/tracks/find?website=' + websiteId, (res) => {
-      // don't update today and total
-      trackObject._id = res[0]._id;
-      trackObject.auth0Id = res[0].auth0Id;
-      trackObject.website = res[0].website;
-      trackObject.startDate = res[0].startDate;
+      if (res) {
+        // update info from server
+        // but don't update today and total
+        trackObject._id = res[0]._id;
+        trackObject.auth0Id = res[0].auth0Id;
+        trackObject.website = res[0].website;
+        trackObject.startDate = res[0].startDate;
 
-      // we save these data to localStorage
-      localStorage.setItem('trackObject', JSON.stringify(trackObject))
+        // we save these data to localStorage
+        localStorage.setItem('trackObject', JSON.stringify(trackObject))
+      } else {
+        // do nothing if there's no res?
+      }
     })
   });
 }
