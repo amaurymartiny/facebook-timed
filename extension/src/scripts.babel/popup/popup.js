@@ -1,7 +1,7 @@
 const port = chrome.runtime.connect({name: 'Popup'}); // start a long-lived connection with background for time tracking
 
 // get trackedTime from background
-port.postMessage({action: 'GET_TRACKED_TIME'});
+port.postMessage({action: 'GET_TRACK_OBJECT'});
 
 /**
  * Update time in popup when receiving a message from background

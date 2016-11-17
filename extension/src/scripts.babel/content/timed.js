@@ -10,9 +10,7 @@ const port = chrome.runtime.connect({name: 'Timed'}); // start a long-lived conn
 port.onMessage.addListener(msg => {
   switch (msg.action) {
     case 'UPDATE_TRACKED_TIME':
-      // checks also that the trackObject has a track id
-      if (msg.trackObject._id)
-        window.postMessage(msg, '/* @echo WEBAPP */');
+      window.postMessage({...msg, source: 'extension'}, '/* @echo WEBAPP */');
       break;
   }    
 });
@@ -23,18 +21,14 @@ port.onMessage.addListener(msg => {
 window.addEventListener('message', (event) => {
   switch (event.data.action) {
     case 'CONNECTION_REQUEST':
-      window.postMessage({action: 'CONNECTION_SUCCESS', ok: true}, '/* @echo WEBAPP */');
+      window.postMessage({action: 'CONNECTION_SUCCESS', ok: true, source: 'extension'}, '/* @echo WEBAPP */');
       break;
-    case 'GET_TRACKED_TIME':
-      // get trackObject from background.js
-      port.postMessage({action: event.data.action});
-      break;
+    case 'SET_TRACK_OBJECT':
+    case 'GET_TRACK_OBJECT':
     case 'SET_NEW_TOKEN':
-      port.postMessage({action: event.data.action, id_token: event.data.id_token});
-
-      break;
     case 'SET_NEW_PROFILE':
-      port.postMessage({action: event.data.action, profile: event.data.profile})
+      // transfer the action to the background script
+      port.postMessage(event.data)
       break;
   } 
 });
