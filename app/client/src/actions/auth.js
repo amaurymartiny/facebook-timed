@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux'
 import AuthService from '../utils/AuthService'
+import { postAuthMessage } from '../utils/MessageService'
 
 // ======================================================
 // Actions
@@ -23,6 +24,7 @@ export function loginRequest() {
 
 export function loginSuccess(profile) {
   return (dispatch) => {
+    postAuthMessage()
     dispatch({ type: LOGIN_SUCCESS, profile })
     dispatch(push('/dashboard'))
   }

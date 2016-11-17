@@ -1,4 +1,5 @@
 import { createTrack, updateTrack } from './track'
+import * as MessageService from '../utils/MessageService'
 
 // ======================================================
 // Actions
@@ -34,41 +35,25 @@ function receiveExtensionTrackMessage(trackObject) {
 // Listen to new messages coming from the content script
 export function checkExtensionMessages() {
   return (dispatch) => {
-    // send message to check the connection between webapp and extension (content script)
-    window.postMessage({ action: 'CONNECTION_REQUEST', source: 'webapp' }, process.env.HOST)
+    // initialize the communication to make sure everything is ok (optional)
+    MessageService.init()
 
-    window.addEventListener('message', (event) => {
-      // We only accept messages from our window
-      if (event.origin !== process.env.HOST) {
-        return
+    // listen to incoming messages
+    MessageService.listen({
+      CONNECTION_RESPONSE: () => {
+        dispatch(receiveExtensionMessage(event.data))
+      },
+      UPDATE_TRACKED_TIME: (data) => {
+        if (!data.trackObject._id) {
+          // create a new track object on the server is if the first time
+          dispatch(createTrack(data.trackObject))
+          // we'll also need to get the
+        } else {
+          // update the track object
+          dispatch(receiveExtensionTrackMessage(data.trackObject))
+          dispatch(updateTrack(data.trackObject))
+        }
       }
-
-      // we abort if the webapp itself sent the message
-      if (!event.data || event.data.source !== 'extension') {
-        return
-      }
-
-      // we abort if there's no action
-      if (!event.data.action) {
-        return
-      }
-
-      switch (event.data.action) {
-        case 'UPDATE_TRACKED_TIME':
-          if (!event.data.trackObject._id) {
-            // create a new track object on the server is if the first time
-            dispatch(createTrack(event.data.trackObject))
-            // we'll also need to get the
-          } else {
-            // update the track object
-            dispatch(receiveExtensionTrackMessage(event.data.trackObject))
-            dispatch(updateTrack(event.data.trackObject))
-          }
-          break
-        default:
-          // dispatch the fact that we can communicate with the extension
-          dispatch(receiveExtensionMessage(event.data))
-      }
-    }, false)
+    })
   }
 }
