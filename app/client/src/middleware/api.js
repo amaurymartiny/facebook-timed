@@ -42,6 +42,8 @@ function myApiMiddleware(store) {
       type,
       payload: (payloadAction, state, res) => {
         const entity = type.substring(type.indexOf('_') + 1, type.lastIndexOf('_')) // entity can be TRACK(S), WEBSITE(S)
+
+        // get the schema relative to the entity
         // the following switch can be done in one line, but for clarity I prefer this
         let schema
         switch (entity) {
@@ -53,6 +55,9 @@ function myApiMiddleware(store) {
             break
           case 'WEBSITE':
             schema = websiteSchema
+            break
+          case 'WEBSITES':
+            schema = arrayOf(websiteSchema)
             break
           default:
             schema = null
