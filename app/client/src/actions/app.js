@@ -1,4 +1,4 @@
-import { createTrack, updateTrack } from './track'
+import { createTrackAndSetExtensionTrackObject, updateTrack } from './track'
 import * as MessageService from '../utils/MessageService'
 
 // ======================================================
@@ -39,6 +39,7 @@ export function checkExtensionMessages() {
     MessageService.init()
 
     // listen to incoming messages
+    // TODO: use symbols
     MessageService.listen({
       CONNECTION_RESPONSE: () => {
         dispatch(receiveExtensionMessage(event.data))
@@ -46,7 +47,7 @@ export function checkExtensionMessages() {
       UPDATE_TRACKED_TIME: (data) => {
         if (!data.trackObject._id) {
           // create a new track object on the server is if the first time
-          dispatch(createTrack(data.trackObject))
+          dispatch(createTrackAndSetExtensionTrackObject(data.trackObject))
           // we'll also need to get the
         } else {
           // update the track object

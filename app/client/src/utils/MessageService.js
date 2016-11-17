@@ -8,11 +8,23 @@ import AuthService from './AuthService'
 export const CONNECTION_REQUEST = 'CONNECTION_REQUEST'
 export const SET_NEW_TOKEN = 'SET_NEW_TOKEN'
 export const SET_NEW_PROFILE = 'SET_NEW_PROFILE'
+export const GET_TRACK_OBJECT = 'GET_TRACK_OBJECT'
+export const SET_TRACK_OBJECT = 'SET_TRACK_OBJECT'
 
+/**
+ * Sends the message to the content script
+ * @param  {string} action  One of the above actions
+ * @param  {object} payload Any object to add to the message
+ * @return {[type]}         [description]
+ */
 export function postMessage(action, payload) {
   window.postMessage({ ...payload, action, source: 'webapp' }, process.env.HOST)
 }
 
+/**
+ * Helper function to send idToken and profile
+ * @return {[type]} [description]
+ */
 export function postAuthMessage() {
   postMessage(SET_NEW_TOKEN, { id_token: AuthService.getToken() }, process.env.HOST)
   postMessage(SET_NEW_PROFILE, { profile: AuthService.getProfile() }, process.env.HOST)

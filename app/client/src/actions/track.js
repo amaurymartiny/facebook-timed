@@ -1,4 +1,7 @@
 import { CALL_API } from '../middleware/api'
+import { findWebsite } from './website'
+import * as MessageService from '../utils/MessageService'
+import AuthService from '../utils/AuthService'
 
 // ======================================================
 // Actions
@@ -76,7 +79,7 @@ export function updateTrack(trackObject) {
  * But only after we have done a fetch track
  * @return {[type]} [description]
  */
-export function getExtensionTrackMessage() {
+export function fetchTracksAndGetExtensionTrackObject() {
   return async (dispatch) => {
     const actionResponse = await dispatch(fetchTracks())
 
@@ -87,8 +90,50 @@ export function getExtensionTrackMessage() {
     }
 
     // send message to extension to get the track object when the tracks are fetched
-    if (!actionResponse.error) {
-      window.postMessage({ action: 'GET_TRACKED_TIME', source: 'webapp' }, process.env.HOST)
+    MessageService.postMessage(MessageService.GET_TRACK_OBJECT)
+  }
+}
+
+/**
+ * Create track and send message to extension
+ * @param {object} trackObject The track object to be put in the server
+ * This track object only has today, total and startDate properties
+ * We need to add auth0Id and website properties
+ * Here's the flow:
+ * - Get the website id (knowing the url), async
+ * - Get the auth0Id from AuthService, sync
+ * - Then create a track on the server, aysnc
+ * - Then send the newly created track object to the extension
+ */
+export function createTrackAndSetExtensionTrackObject(trackObject) {
+  return async (dispatch) => {
+    const findWebsiteActionResponse = await dispatch(findWebsite('https://facebook.com')) // TODO replace fb
+
+    if (findWebsiteActionResponse.error) {
+      // the last dispatched action has errored, break out of the promise chain.
+      return
     }
+
+    // we take the id of the first website found, and put it inside trackObject.website
+    trackObject.website = Object.keys(findWebsiteActionResponse.payload.entities.websites)[0] // eslint-disable-line
+    // we also put the auth0Id from AuthService
+    trackObject.auth0Id = AuthService.getProfile().user_id // eslint-disable-line no-param-reassign
+
+    // now we're ready to create the object
+    const createTrackActionResponse = await dispatch(createTrack(trackObject))
+
+    if (createTrackActionResponse.error) {
+      // the last dispatched action has errored, break out of the promise chain.
+      return
+    }
+
+    // retrieve the newly created track object
+    const t = createTrackActionResponse.payload.entities.tracks // shorthand for next line
+    const newTrackObject = t[Object.keys(t)[0]]
+
+    // send message to extension to get the track object when the tracks are fetched
+    MessageService.postMessage(MessageService.SET_TRACK_OBJECT, {
+      trackObject: newTrackObject
+    })
   }
 }
