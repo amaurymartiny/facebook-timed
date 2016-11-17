@@ -29,7 +29,6 @@ function create(req, res, next) {
   const track = new Track(req.body);
 
   track.save()
-    .populate('website')
     .then(savedtrack => res.json(savedtrack))
     .catch(e => next(e));
 }
