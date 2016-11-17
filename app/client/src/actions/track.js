@@ -7,6 +7,10 @@ export const FETCH_TRACKS_REQUEST = 'FETCH_TRACKS_REQUEST'
 export const FETCH_TRACKS_SUCCESS = 'FETCH_TRACKS_SUCCESS'
 export const FETCH_TRACKS_FAILURE = 'FETCH_TRACKS_FAILURE'
 
+export const CREATE_TRACK_REQUEST = 'CREATE_TRACK_REQUEST'
+export const CREATE_TRACK_SUCCESS = 'CREATE_TRACK_SUCCESS'
+export const CREATE_TRACK_FAILURE = 'CREATE_TRACK_FAILURE'
+
 export const UPDATE_TRACK_REQUEST = 'UPDATE_TRACK_REQUEST'
 export const UPDATE_TRACK_SUCCESS = 'UPDATE_TRACK_SUCCESS'
 export const UPDATE_TRACK_FAILURE = 'UPDATE_TRACK_FAILURE'
@@ -24,6 +28,26 @@ export function fetchTracks() {
       endpoint: '/tracks',
       method: 'GET',
       types: [FETCH_TRACKS_REQUEST, FETCH_TRACKS_SUCCESS, FETCH_TRACKS_FAILURE]
+    }
+  }
+}
+
+/**
+ * Create a new track on the server (first-time only)
+ */
+export function createTrack(trackObject) {
+  return {
+    [CALL_API]: {
+      endpoint: '/tracks',
+      method: 'POST',
+      body: JSON.stringify({
+        auth0Id: trackObject.auth0Id,
+        today: trackObject.today,
+        total: trackObject.total,
+        startDate: trackObject.startDate,
+        website: trackObject.website
+      }),
+      types: [CREATE_TRACK_REQUEST, CREATE_TRACK_SUCCESS, CREATE_TRACK_FAILURE]
     }
   }
 }

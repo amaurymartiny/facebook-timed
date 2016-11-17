@@ -1,4 +1,4 @@
-import { updateTrack } from './track'
+import { createTrack, updateTrack } from './track'
 
 // ======================================================
 // Actions
@@ -44,7 +44,7 @@ export function checkExtensionMessages() {
       }
 
       // we abort if the webapp itself sent the message
-      if (!event.data || event.data.source === 'webapp') {
+      if (!event.data || event.data.source !== 'extension') {
         return
       }
 
@@ -55,8 +55,15 @@ export function checkExtensionMessages() {
 
       switch (event.data.action) {
         case 'UPDATE_TRACKED_TIME':
-          dispatch(receiveExtensionTrackMessage(event.data.trackObject))
-          dispatch(updateTrack(event.data.trackObject))
+          if (!event.data.trackObject._id) {
+            // create a new track object on the server is if the first time
+            dispatch(createTrack(event.data.trackObject))
+            // we'll also need to get the
+          } else {
+            // update the track object
+            dispatch(receiveExtensionTrackMessage(event.data.trackObject))
+            dispatch(updateTrack(event.data.trackObject))
+          }
           break
         default:
           // dispatch the fact that we can communicate with the extension
