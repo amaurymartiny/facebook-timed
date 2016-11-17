@@ -47,7 +47,7 @@ function update(req, res, next) {
   track.set('total', req.body.total, { strict: false });
   track.set('startDate', req.body.startDate, { strict: false });
   track.save()
-    .populate('website')
+    // .populate('website') //TODO not working
     .then(savedtrack => res.json(savedtrack))
     .catch(e => next(e));
 }
