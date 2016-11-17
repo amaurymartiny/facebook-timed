@@ -53,15 +53,14 @@ export function checkExtensionMessages() {
         return
       }
 
-      // dispatch the fact that we can communicate with the extension
-      dispatch(receiveExtensionMessage(event.data))
-
       switch (event.data.action) {
         case 'UPDATE_TRACKED_TIME':
           dispatch(receiveExtensionTrackMessage(event.data.trackObject))
           dispatch(updateTrack(event.data.trackObject))
           break
         default:
+          // dispatch the fact that we can communicate with the extension
+          dispatch(receiveExtensionMessage(event.data))
       }
     }, false)
   }
