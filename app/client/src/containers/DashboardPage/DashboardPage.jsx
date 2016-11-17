@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchTracks } from '../../actions'
+import { getExtensionTrackMessage } from '../../actions'
 import { TrackList, ExtensionConnected } from '../../components'
 
 class DashboardPage extends React.Component {
   componentWillMount() {
     // fetch tracks from the server
-    this.props.fetchTracks()
+    this.props.getExtensionTrackMessage()
   }
 
   render() {
@@ -26,7 +26,7 @@ DashboardPage.propTypes = {
   isExtensionConnected: React.PropTypes.bool.isRequired,
   tracks: React.PropTypes.object.isRequired,
   websites: React.PropTypes.object.isRequired,
-  fetchTracks: React.PropTypes.func.isRequired
+  getExtensionTrackMessage: React.PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchTracks: () => dispatch(fetchTracks())
+  getExtensionTrackMessage: () => dispatch(getExtensionTrackMessage())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)

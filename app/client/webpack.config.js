@@ -9,6 +9,7 @@ const autoprefixer = require('autoprefixer')
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
+    'babel-polyfill',
     'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, 'src/index.jsx')
   ],

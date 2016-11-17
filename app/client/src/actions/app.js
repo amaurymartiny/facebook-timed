@@ -24,7 +24,7 @@ function receiveExtensionMessage(payload) {
   }
 }
 
-function receiveTrackMessage(trackObject) {
+function receiveExtensionTrackMessage(trackObject) {
   return {
     type: RECEIVE_EXTENSION_TRACK_MESSAGE,
     payload: trackObject
@@ -34,8 +34,8 @@ function receiveTrackMessage(trackObject) {
 // Listen to new messages coming from the content script
 export function checkExtensionMessages() {
   return (dispatch) => {
-    // send message to get lastest tracked times
-    window.postMessage({ action: 'GET_TRACKED_TIME', source: 'webapp' }, process.env.HOST)
+    // send message to check the connection between webapp and extension (content script)
+    window.postMessage({ action: 'CONNECTION_REQUEST', source: 'webapp' }, process.env.HOST)
 
     window.addEventListener('message', (event) => {
       // We only accept messages from our window
@@ -53,12 +53,12 @@ export function checkExtensionMessages() {
         return
       }
 
-      // dispatch the fact that we can communicat with the extension
+      // dispatch the fact that we can communicate with the extension
       dispatch(receiveExtensionMessage(event.data))
 
       switch (event.data.action) {
         case 'UPDATE_TRACKED_TIME':
-          dispatch(receiveTrackMessage(event.data.trackObject))
+          dispatch(receiveExtensionTrackMessage(event.data.trackObject))
           dispatch(updateTrack(event.data.trackObject))
           break
         default:

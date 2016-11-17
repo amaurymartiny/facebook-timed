@@ -9,6 +9,7 @@ const autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: [
+    'babel-polyfill',
     path.join(__dirname, 'src/index.jsx')
   ],
   output: {

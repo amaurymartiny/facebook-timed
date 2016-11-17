@@ -46,3 +46,25 @@ export function updateTrack(trackObject) {
     }
   }
 }
+
+/**
+ * Request the track object from the extension
+ * But only after we have done a fetch track
+ * @return {[type]} [description]
+ */
+export function getExtensionTrackMessage() {
+  return async (dispatch) => {
+    const actionResponse = await dispatch(fetchTracks())
+
+    if (actionResponse.error) {
+      // the last dispatched action has errored, break out of the promise chain.
+      // throw new Error("Promise flow received action error", actionResponse);
+      return
+    }
+
+    // send message to extension to get the track object when the tracks are fetched
+    if (!actionResponse.error) {
+      window.postMessage({ action: 'GET_TRACKED_TIME', source: 'webapp' }, process.env.HOST)
+    }
+  }
+}
