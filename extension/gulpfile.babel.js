@@ -16,7 +16,7 @@ gulp.task('extras', () => {
     '!src/*.json',
     '!src/*.html',
     // bower files
-    'src/bower_components/jquery/dist/jquery.slim.min.js',
+    'src/bower_components/jquery/dist/jquery.js',
     'src/bower_components/tipsy/src/javascripts/jquery.tipsy.js',
     'src/bower_components/tipsy/src/stylesheets/tipsy.css',
   ], {

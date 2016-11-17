@@ -10,7 +10,7 @@ const port = chrome.runtime.connect({name: 'Timed'}); // start a long-lived conn
 port.onMessage.addListener(msg => {
   switch (msg.action) {
     case 'UPDATE_TRACKED_TIME':
-      window.postMessage({...msg, source: 'extension'}, '/* @echo WEBAPP */');
+      window.postMessage({action: msg.action, trackObject: msg.trackObject, source: 'extension'}, '/* @echo WEBAPP */');
       break;
   }    
 });
