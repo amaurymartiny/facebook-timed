@@ -22,7 +22,7 @@ export default {
   createTrack: {
     body: {
       auth0Id: Joi.string().required(),
-      websiteId: Joi.string().hex().required(),
+      website: Joi.string().hex().required(),
       today: Joi.number().required(),
       total: Joi.number().required(),
       startDate: Joi.date().required()

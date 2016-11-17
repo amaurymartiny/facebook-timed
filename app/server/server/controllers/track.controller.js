@@ -26,11 +26,10 @@ function get(req, res) {
  * @returns {Track}
  */
 function create(req, res, next) {
-  const track = new Track({
-    auth0Id: req.body.auth0Id
-  });
+  const track = new Track(req.body);
 
   track.save()
+    .populate('website')
     .then(savedtrack => res.json(savedtrack))
     .catch(e => next(e));
 }
@@ -48,6 +47,7 @@ function update(req, res, next) {
   track.set('total', req.body.total, { strict: false });
   track.set('startDate', req.body.startDate, { strict: false });
   track.save()
+    .populate('website')
     .then(savedtrack => res.json(savedtrack))
     .catch(e => next(e));
 }
