@@ -23,7 +23,7 @@
     "start": "node server",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "export NODE_ENV=production && webpack --define process.env.NODE_ENV='\"production\"' --config ./webpack.production.config.js --progress --profile --colors",
+    "build": "export NODE_ENV=production && webpack --config ./webpack.production.config.js --progress --profile --colors",
     "lint": "eslint --ext js --ext jsx .",
     "predeploy": "npm run build",
     "deploy": "firebase deploy"

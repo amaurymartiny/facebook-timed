@@ -2,8 +2,6 @@ import { CALL_API, apiMiddleware, isRSAA, getJSON } from 'redux-api-middleware'
 import { Schema, arrayOf, normalize } from 'normalizr'
 import AuthService from '../utils/AuthService'
 
-const API_ROOT = process.env.API_ROOT
-
 // ======================================================
 // Define schemas for normalizr
 // ======================================================
@@ -33,7 +31,8 @@ function myApiMiddleware(store) {
     }
     const callApi = action[CALL_API]
     // prepend API_ROOT to all endpoints
-    callApi.endpoint = API_ROOT + callApi.endpoint
+
+    callApi.endpoint = process.env.API_ROOT + callApi.endpoint
     // add Authorization header with token
     callApi.headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${AuthService.getToken()}` }
     // normalize data on SUCCESS
@@ -71,4 +70,4 @@ function myApiMiddleware(store) {
 
 export { myApiMiddleware as apiMiddleware }
 
-export { CALL_API, getJSON } from 'redux-api-middleware'
+export { CALL_API } from 'redux-api-middleware'
