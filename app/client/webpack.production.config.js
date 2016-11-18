@@ -38,7 +38,7 @@ module.exports = {
     // Otherwise React will be compiled in the very slow development mode.
     new DotenvPlugin({
       sample: './.env.example',
-      path: './.env'
+      path: './.env.production'
     }),
     // CSS files from the extract-text-plugin loader
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
@@ -84,7 +84,7 @@ module.exports = {
       // use the "style" loader inside the async code so CSS from them won't be
       // in the main CSS file.
       {
-        test: /\.css$/,
+        test: /\.less$/,
         // "?-autoprefixer" disables autoprefixer in css-loader itself:
         // https://github.com/webpack/css-loader/issues/281
         // We already have it thanks to postcss. We only pass this flag in

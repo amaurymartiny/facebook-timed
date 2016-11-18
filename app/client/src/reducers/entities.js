@@ -10,7 +10,7 @@ export default function entities(state = {
   if (action.payload && action.payload.entities) {
     return {
       ...state,
-      ...action.payload.entities
+      ...action.payload.entities // TODO not good, we should add entity into array of entities
     }
   }
 

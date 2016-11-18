@@ -22,9 +22,11 @@
     "test": "mocha --require mock-local-storage --require test/setup.js \"src/**/*.spec.js\"",
     "start": "node server",
     "clean": "rimraf dist",
-    "prebuild": "clean",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "lint": "eslint --ext js --ext jsx ."
+    "prebuild": "npm run clean",
+    "build": "export NODE_ENV=production && webpack --define process.env.NODE_ENV='\"production\"' --config ./webpack.production.config.js --progress --profile --colors",
+    "lint": "eslint --ext js --ext jsx .",
+    "predeploy": "npm run build",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "auth0-lock": "^10.4.0",

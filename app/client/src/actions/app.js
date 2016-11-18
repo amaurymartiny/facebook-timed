@@ -41,7 +41,7 @@ export function checkExtensionMessages() {
     // listen to incoming messages
     // TODO: use symbols
     MessageService.listen({
-      CONNECTION_RESPONSE: () => {
+      CONNECTION_SUCCESS: () => {
         dispatch(receiveExtensionMessage(event.data))
       },
       UPDATE_TRACKED_TIME: (data) => {
