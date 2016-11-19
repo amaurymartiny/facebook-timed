@@ -29,7 +29,7 @@ const HomePage = ({ isAuthenticated, isExtensionConnected, loginRequest }) =>
               <Button onClick={loginRequest} bsSize="large" bsStyle="primary">Log In or Sign Up</Button>
               }
             </div>
-          : <Button href="http://todo.com" bsSize="large" bsStyle="primary">
+          : <Button href={process.env.CHROME_EXTENSION_URL} bsSize="large" bsStyle="primary">
             Download the Chrome Extension
           </Button>
         }
