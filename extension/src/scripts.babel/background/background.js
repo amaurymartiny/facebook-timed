@@ -60,7 +60,7 @@ function updateTime() {
   trackObject.total = trackObject.total + 1;
 
   // reset time tracked today if day changed
-  const todayDay = (new Date()).getUTCDate(); // what day is today?
+  const todayDay = (new Date()).getDate(); // what day is today?
   if (lastUsedDay != todayDay) { // reset tracker is todayDay is not last used day
     trackObject.today = 0;
     lastUsedDay = todayDay;
