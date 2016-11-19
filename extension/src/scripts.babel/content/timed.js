@@ -1,7 +1,5 @@
 // Content script to be inject on timed.com
 
-console.log('content script loaded');
-
 const port = chrome.runtime.connect({name: 'Timed'}); // start a long-lived connection with background
 
 /**

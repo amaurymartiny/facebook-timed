@@ -8,6 +8,7 @@
     "128": "images/watch_128.png"
   },
   "default_locale": "en",
+  "author": "Amaury Martiny",
   "background": {
     "scripts": [
       "scripts/utils/chromereload.js",
