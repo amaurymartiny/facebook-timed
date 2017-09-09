@@ -1,36 +1,8 @@
-##############################
-# general
-##############################
+
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-Thumbs.db
+
+node_modules
 npm-debug.log
-*.zip
 
-##############################
-# extension
-##############################
-extension/node_modules
-extension/.tmp
-extension/temp
-extension/dist
-extension/.sass-cache
-extension/package
-extension/src/scripts
-
-##############################
-# app
-##############################
-app/server/node_modules
-app/server/dist
-app/server/lib-cov
-app/server/coverage
-app/server/config/env/development.js
-app/client/node_modules
-app/client/dist
-app/client/.env
+dist/
+packages/

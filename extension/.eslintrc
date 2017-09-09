@@ -1,9 +1,0 @@
-{
-  "env": {
-    "node": true,
-    "browser": true
-  },
-  "globals": {
-    "chrome": true
-  }
-}
