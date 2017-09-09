@@ -6,8 +6,8 @@
   "manifest_version": 2,
   "default_locale": "en",
   "icons": {
-    "16": "images/watch-16.png",
-    "128": "images/watch-128.png"
+    "16": "images/watch_16.png",
+    "128": "images/watch_128.png"
   },
   "background": {
     "scripts": [
@@ -16,8 +16,8 @@
   },
   "page_action": {
     "default_icon": {
-      "19": "images/watch-24.png",
-      "38": "images/watch-54.png"
+      "19": "images/watch_32.png",
+      "38": "images/watch_64.png"
     },
     "default_title": "__MSG_browserActionTitle__",
     "default_popup": "pages/popup.html"
