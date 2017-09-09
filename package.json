@@ -15,9 +15,9 @@
     "dev:firefox": "gulp --watch --vendor=firefox",
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
-    "lint": "standard"
+    "lint": "semistandard"
   },
-  "standard": {
+  "semistandard": {
     "globals": [
       "chrome"
     ]
@@ -50,7 +50,7 @@
     "gulp-util": "3.x.x",
     "gulp-zip": "^4.x.x",
     "require-dir": "0.x.x",
-    "standard": "^10.0.2",
+    "semistandard": "^11.0.0",
     "vinyl-named": "1.x.x",
     "webpack": "3.x.x",
     "webpack-stream": "3.x.x",
