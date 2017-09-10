@@ -1,15 +1,21 @@
-// Enable chromereload by uncommenting this line:
+// ======================================================
+// Content script to be injected on the tracked website
+// ======================================================
 import 'chromereload/devonly';
+import * as label from './contentscript/label';
+import { trackableWebsites } from './config';
 
-// Content script to be injected on the tracked website (i.e. facebook or reddit...)
+// Name of this website in our config file
+const name = 'facebook';
 
+// Start a long-lived connection with background for time tracking
+const port = chrome.runtime.connect({ name });
+
+// ======================================================
+// Time tracking event detection
+// ======================================================
 let idleTimer; // the 5s timer that checks idleness of user
-let isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook
-const port = chrome.runtime.connect({ name: 'facebook' }); // start a long-lived connection with background for time tracking
 
-// ======================================================
-// Time tracking with event detection
-// ======================================================
 /**
  * Resets the idle timer, triggered when a user event (e.g. click, mousemove) is detected
  */
@@ -38,6 +44,7 @@ window.addEventListener('beforeunload', () => {
 // ======================================================
 // Communication with background script
 // ======================================================
+let isTrackingTime = false; // Variable to check if app is currently tracking time spent on facebook
 /**
  * Sends a message to background to start tracking time
  */
@@ -55,37 +62,14 @@ const stopTrackingTime = () => {
   port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
 };
 
-// ======================================================
-// Showing time on label
-// ======================================================
-/**
- * Modify Facebook DOM to add label with time tracked
- */
-(function () {
-  let el = document.querySelector('[role="navigation"]');
-  timeLabel = document.createElement('div');
-  timeLabel.id = 'timed-label';
-  timeLabel.innerHTML = '00:00:00';
-  el.insertBefore(timeLabel, el.firstChild);
-})();
-
 /**
  * Update time on facebook page when receiving a message from background
  */
 port.onMessage.addListener(msg => {
-  if (msg.action === 'UPDATE_TRACKED_TIME')
-    updateLabel(msg.trackObject.today);
+  if (msg.action === 'UPDATE_TRACKED_TIME') {
+    label.update(msg.trackObject.today);
+  }
 });
 
-/**
- * Update time shown on label with updated value
- */
-function updateLabel(timeTrackedToday) {
-  // update time label with hh:mm:ss format
-  var hours = parseInt(timeTrackedToday / 3600) % 24;
-  var minutes = parseInt(timeTrackedToday / 60) % 60;
-  var seconds = timeTrackedToday % 60;
-  var hhmmss = (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds  < 10 ? '0' + seconds : seconds);
-  timeLabel.innerHTML = hhmmss;
-}
-
+// Initialize a label on the DOM
+label.init(name);

@@ -1,7 +1,7 @@
 // ======================================================
 // Tracks
 // ======================================================
-import { trackableWebsites } from '../config/config';
+import { trackableWebsites } from '../config';
 
 // Object storing all the tracked times on all websites
 const tracks = {};
