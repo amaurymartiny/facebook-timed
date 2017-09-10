@@ -7,3 +7,20 @@ body {
 h1 strong {
   font-weight: 400;
 }
+
+form {
+  margin-top: 30px;
+
+  .notification-example {
+    margin-top: 5px;
+
+    a {
+      text-decoration: none;
+      color: #777;
+    }
+  }
+}
+
+.footer {
+  margin-top: 50px;
+}

@@ -21,7 +21,8 @@ const capitalize = (s) => s.replace(/\b\w/g, l => l.toUpperCase());
 const readableTime = (sec) => {
   const hours = parseInt(sec / 3600) % 24;
   const minutes = parseInt(sec / 60) % 60;
-  return `${hours > 0 ? hours + 'hours' : ''}${minutes} minutes`;
+  return (hours > 0 ? hours + ' hour' + (hours > 1 ? 's' : '') + (minutes > 0 ? ' ' : '') : '') +
+    (minutes > 0 ? minutes + ' minute' + (minutes > 1 ? 's' : '') : '');
 };
 
 export const getNotificationPeriod = () => notificationPeriod;
@@ -30,7 +31,7 @@ export const createNotification = (name, track) => {
   chrome.notifications.create({
     type: 'basic',
     title: `${capitalize(name)}Timed`,
-    message: `You've been browsing on ${capitalize(name)} for ${readableTime(track.today)} today.`,
+    message: `You've been browsing ${capitalize(name)} for ${readableTime(track.today)} today.`,
     iconUrl: 'images/watch_128_padding16.png'
   });
 };

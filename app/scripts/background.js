@@ -3,6 +3,7 @@ import 'chromereload/devonly';
 
 import * as timer from './background/timer';
 import * as tracks from './background/tracks';
+import { createNotification } from './background/notifications';
 
 // ======================================================
 // Communication via long-lived connection
@@ -53,6 +54,11 @@ chrome.runtime.onConnect.addListener((port) => {
       }
     } else if (message.action === 'GET_TIME') {
       sendToAllPorts();
+    } else if (message.action === 'SHOW_NOTIFICATION') {
+      // Create a fake notification
+      createNotification('facebook', {
+        today: Math.floor(Math.random() * 20) * 60 * 20
+      });
     }
   });
 

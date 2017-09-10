@@ -57,7 +57,7 @@ export const updateTime = (name) => {
   tracks[name].lastUsedDate = (new Date()).toISOString();
 
   // If we passed a notification period, then show notification
-  if (getNotificationPeriod() && tracks[name].today % (getNotificationPeriod() * 60) === 0) {
+  if (getNotificationPeriod() && tracks[name].today && tracks[name].today % (getNotificationPeriod() * 60) === 0) {
     createNotification(name, tracks[name]);
   }
 
