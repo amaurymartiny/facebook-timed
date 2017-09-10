@@ -49,6 +49,8 @@ chrome.runtime.onConnect.addListener((port) => {
  * Update time on content scripts label to be shown on the website DOM
  */
 const updateTime = () => {
+  console.log(`${ports.length} ports currently open`);
+
   // Get all active ports without duplicates
   // https://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
   const portsWithoutDups = [...new Set(ports.filter(p => p.isActive).map(p => p.name))];

@@ -45,6 +45,11 @@ export const updateTime = (name) => {
   // Increment the time spent on website
   tracks[name].today = tracks[name].today + 1;
   tracks[name].total = tracks[name].total + 1;
+
+  // Reset time tracked today if day changed
+  if ((new Date(tracks[name].lastUsedDate)).getDate() !== (new Date()).getDate()) {
+    tracks[name].today = 0;
+  }
   tracks[name].lastUsedDate = new Date();
 
   // Save to localStorage
