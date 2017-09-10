@@ -61,4 +61,10 @@ port.onMessage.addListener((message) => {
 const init = () => {
   $('#template-name').text(name);
   // $('#template-start-date').tipsy({gravity: 's'});
+  port.postMessage({ action: 'GET_TIME' });
+
+  // Disconnect port on leave
+  window.addEventListener('beforeunload', () => {
+    port.disconnect();
+  });
 };

@@ -22,7 +22,9 @@ chrome.runtime.onConnect.addListener((port) => {
   port.isActive = null;
 
   // Show page action on tab
-  chrome.pageAction.show(port.sender.tab.id);
+  if (!['popup', 'options'].includes(port.name)) {
+    chrome.pageAction.show(port.sender.tab.id);
+  }
 
   // Everytime we receive a message from the content script of this port, we
   // update the port to set if it's active or not
@@ -36,6 +38,8 @@ chrome.runtime.onConnect.addListener((port) => {
       } else {
         timer.stop();
       }
+    } else if (message.action === 'GET_TIME') {
+      sendToAllPorts();
     }
   });
 
@@ -60,6 +64,13 @@ const updateTime = () => {
 
   portsWithoutDups.forEach(tracks.updateTime);
 
+  sendToAllPorts();
+};
+
+/**
+ * Send newest info to all ports
+ */
+const sendToAllPorts = () => {
   // Send on all active ports their newly updated time
   ports.filter(p => p.isActive).map((port) => {
     port.postMessage({
