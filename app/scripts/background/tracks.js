@@ -49,4 +49,4 @@ export const updateTimeOnTrack = (name) => {
 
 export const getTracks = () => {
   return tracks;
-}
+};

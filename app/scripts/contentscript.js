@@ -1,44 +1,41 @@
 // Enable chromereload by uncommenting this line:
-import 'chromereload/devonly'
+import 'chromereload/devonly';
 
-// Content script to be injected on the tracked website (facebook.com)
+// Content script to be injected on the tracked website (i.e. facebook or reddit...)
 
 let idleTimer; // the 5s timer that checks idleness of user
 let isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook
-const trackingTimePort = chrome.runtime.connect({ name: 'facebook' }); // start a long-lived connection with background for time tracking
-let timeLabel; // DOM element that contains the time spent on facebook
+const port = chrome.runtime.connect({ name: 'facebook' }); // start a long-lived connection with background for time tracking
 
 // ======================================================
 // Time tracking with event detection
 // ======================================================
-/**
- * Reset idleness on the following events
- */
-window.addEventListener('load', resetIdleTimer, false);
-window.addEventListener('mousemove', resetIdleTimer, false);
-window.addEventListener('mousedown', resetIdleTimer, false);
-window.addEventListener('keypress', resetIdleTimer, false);
-window.addEventListener('DOMMouseScroll', resetIdleTimer, false);
-window.addEventListener('mousewheel', resetIdleTimer, false);
-window.addEventListener('touchmove', resetIdleTimer, false);
-window.addEventListener('MSPointerMove', resetIdleTimer, false);
+// Reset idleness on the following events
+window.addEventListener('load', resetIdleTimer);
+window.addEventListener('mousemove', resetIdleTimer);
+window.addEventListener('mousedown', resetIdleTimer);
+window.addEventListener('keypress', resetIdleTimer);
+window.addEventListener('DOMMouseScroll', resetIdleTimer);
+window.addEventListener('mousewheel', resetIdleTimer);
+window.addEventListener('touchmove', resetIdleTimer);
+window.addEventListener('MSPointerMove', resetIdleTimer);
 
 /**
- * Stop counting time when the page closes and disconnect port
+ * Stop counting time when the page closes, and disconnect port
  */
 window.addEventListener('beforeunload', () => {
   stopTrackingTime();
-  trackingTimePort.disconnect();
-}, false);
+  port.disconnect();
+});
 
 /**
- * Resets the idle timer, triggered when a user event (click, mousemove) is detected
+ * Resets the idle timer, triggered when a user event (e.g. click, mousemove) is detected
  */
 function resetIdleTimer () {
   clearTimeout(idleTimer);
   startTrackingTime();
   idleTimer = setTimeout(stopTrackingTime, 5000); // 1000 millisec = 1 sec
-};
+}
 
 /**
  * Sends a message to background to start tracking time
@@ -46,9 +43,8 @@ function resetIdleTimer () {
 function startTrackingTime () {
   if (isTrackingTime) return; // if we're already tracking time then do nothing
   isTrackingTime = true;
-  // chrome.runtime.sendMessage({action: 'startTrackingTime'}, function(response) {});
-  trackingTimePort.postMessage({action: 'START_TRACKING_TIME'});
-  // console.log('start tracking time');
+  port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
+  console.log('startTrackingTime');
 }
 
 /**
@@ -56,9 +52,7 @@ function startTrackingTime () {
  */
 function stopTrackingTime () {
   isTrackingTime = false;
-  trackingTimePort.postMessage({action: 'STOP_TRACKING_TIME'});
-  // chrome.runtime.sendMessage({action: 'stopTrackingTime'}, function(response) {});
-  // console.log('stop tracking time');
+  port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
 }
 
 // ======================================================
@@ -78,7 +72,7 @@ function stopTrackingTime () {
 /**
  * Update time on facebook page when receiving a message from background
  */
-trackingTimePort.onMessage.addListener(msg => {
+port.onMessage.addListener(msg => {
   if (msg.action === 'UPDATE_TRACKED_TIME')
     updateLabel(msg.trackObject.today);
 });
