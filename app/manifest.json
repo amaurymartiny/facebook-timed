@@ -9,6 +9,9 @@
     "16": "images/watch_16.png",
     "128": "images/watch_128.png"
   },
+  "permissions": [
+    "activeTab"
+  ],
   "background": {
     "scripts": [
       "scripts/background.js"

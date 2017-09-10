@@ -2,6 +2,22 @@
 import $ from 'jquery';
 // import * from 'jquery.tipsy';
 import 'chromereload/devonly';
+import { trackableWebsites } from './config';
+
+let name;
+chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+  // Since there can only be one active tab in one active window,
+  // the array has only one element
+  var tab = tabs[0];
+
+  // To find the name of this website, we match the tab url
+  // to the corresponding regex in our config file
+  name = Object.keys(trackableWebsites).find((key) => {
+    return trackableWebsites[key].regex.test(tab.url);
+  });
+
+  init();
+});
 
 // Start a long-lived connection with background for time tracking
 const port = chrome.runtime.connect({ name: 'popup' });
@@ -32,7 +48,6 @@ const readableDate = (dateString) => {
  */
 port.onMessage.addListener((message) => {
   if (message.action === 'UPDATE_TIME') {
-    $('#template-name').text(message.payload.name);
     $('#template-today').html(readableTime(message.payload.today));
     $('#template-total').html(readableTime(message.payload.total));
     // Add popup for startDate
@@ -41,6 +56,9 @@ port.onMessage.addListener((message) => {
 });
 
 /**
- * Add tooltip for startDate
+ * Initialize template
  */
-// $('#template-start-date').tipsy({gravity: 's'});
+const init = () => {
+  $('#template-name').text(name);
+  // $('#template-start-date').tipsy({gravity: 's'});
+};
