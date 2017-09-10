@@ -23,6 +23,7 @@ const addTrack = (name) => {
     return;
   }
   tracks[name] = {
+    name,
     today: 0,
     total: 0,
     startDate: new Date(),
@@ -72,4 +73,8 @@ export const get = (name) => {
     return;
   }
   return tracks[name];
+};
+
+export const getAll = () => {
+  return tracks;
 };

@@ -1,0 +1,41 @@
+@import './main';
+
+// ======================================================
+// Custom styles
+// ======================================================
+.time-tracked {
+  font-size: 22px;
+}
+
+.time-tracked-number {
+  font-size: 50px;
+  font-weight: 100;
+}
+
+.time-tracked-label {
+  margin-bottom: 0;
+}
+
+#cta {
+  margin-top: 20px;
+}
+
+#cta > a {
+  color: #777;
+  outline: 0
+}
+
+// ======================================================
+// Utilities (Bootstrap-like)
+// ======================================================
+.text-center {
+  text-align: center;
+}
+
+.pull-right {
+  text-align: right;
+}
+
+.text-lg {
+  font-size: 1.3em;
+}

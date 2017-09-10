@@ -1,0 +1,27 @@
+// ======================================================
+// General styles
+// ======================================================
+body{
+  width: 300px;
+  padding: 20px;
+  font-family: "Roboto", "Open Sans", "Arial";
+  font-weight: 300;
+  color: #333;
+}
+
+h1 {
+  font-weight: 100;
+  font-size: 22px;
+}
+
+strong {
+  font-weight: 300;
+}
+
+a {
+  outline: none;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

@@ -21,6 +21,9 @@ chrome.runtime.onConnect.addListener((port) => {
   // Add an additional field to know if the current port is active or not
   port.isActive = null;
 
+  // Show page action on tab
+  chrome.pageAction.show(port.sender.tab.id);
+
   // Everytime we receive a message from the content script of this port, we
   // update the port to set if it's active or not
   port.onMessage.addListener((message) => {
@@ -62,6 +65,15 @@ const updateTime = () => {
     port.postMessage({
       action: 'UPDATE_TIME',
       payload: tracks.get(port.name)
+    });
+  });
+
+  // Get all ports that correspond to popups
+  const popupPorts = ports.filter(p => p.name === 'popup');
+  popupPorts.forEach((port) => {
+    port.postMessage({
+      action: 'UPDATE_TIME',
+      payload: tracks.get(ports.find(p => p.isActive).name)
     });
   });
 };

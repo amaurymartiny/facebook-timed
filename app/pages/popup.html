@@ -1,14 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title>Popup</title>
-  <link rel="stylesheet" type="text/css" href="../styles/popup.css">
-</head>
-<body>
+  <head>
+  <meta charset="utf-8">
+  <link href="../styles/popup.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <h1><span id="template-name" class="capitalize"></span><strong>Timed</strong></h1>
+    <p class="time-tracked-label">Today:</p>
+    <div class="time-tracked"><span id="template-today"></span></div>
+    <p class="time-tracked-label">
+      Since the <span id="template-startDate">beginning:</span>
+    </p>
+    <div class="time-tracked"><span id="template-total"></span></div>
 
-  <h1>Popup</h1>
-
-  <script src="../scripts/popup.js"></script>
-</body>
+    <script src="../scripts/popup.js"></script>
+  </body>
 </html>
