@@ -4,7 +4,7 @@
 import { trackableWebsites } from '../config';
 
 // Object storing all the tracked times on all websites
-const tracks = {};
+const tracks = JSON.parse(window.localStorage.getItem('tracks')) || {};
 
 const isTrackableWebsite = (name) => {
   if (Object.keys(trackableWebsites).includes(name)) {
@@ -45,6 +45,17 @@ export const updateTime = (name) => {
   // Increment the time spent on website
   tracks[name].today = tracks[name].today + 1;
   tracks[name].total = tracks[name].total + 1;
+  tracks[name].lastUsedDate = new Date();
+
+  // Save to localStorage
+  saveToLocalStorage();
+};
+
+/**
+ * Save the tracks object to localStorage
+ */
+const saveToLocalStorage = () => {
+  window.localStorage.setItem('tracks', JSON.stringify(tracks));
 };
 
 /**

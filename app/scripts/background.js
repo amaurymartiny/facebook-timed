@@ -55,8 +55,6 @@ const updateTime = () => {
 
   portsWithoutDups.forEach(tracks.updateTime);
 
-  console.log('ticking')
-
   // Send on all active ports their newly updated time
   ports.filter(p => p.isActive).map((port) => {
     port.postMessage({
