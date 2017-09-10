@@ -17,15 +17,15 @@
  * @return {Object}
  */
 export default function applyBrowserPrefixesFor (_vendor) {
-  vendor = _vendor
-  return iterator
-};
+  vendor = _vendor;
+  return iterator;
+}
 
 /**
  * Vendor key
  * @type {String}
  */
-var vendor = ''
+var vendor = '';
 
 /**
  * Recursive iterator over all object keys
@@ -34,20 +34,20 @@ var vendor = ''
  */
 function iterator (obj) {
   Object.keys(obj).forEach((key) => {
-    let match = key.match(/^__(chrome|firefox|opera|edge)__(.*)/)
+    let match = key.match(/^__(chrome|firefox|opera|edge)__(.*)/);
     if (match) {
         // Swap key with non prefixed name
       if (match[1] === vendor) {
-        obj[match[2]] = obj[key]
+        obj[match[2]] = obj[key];
       }
 
         // Remove the prefixed key
         // so it won't cause warings
-      delete obj[key]
+      delete obj[key];
     } else {    // no match? try deeper
         // Recurse over object's inner keys
-      if (typeof (obj[key]) === 'object') iterator(obj[key])
+      if (typeof (obj[key]) === 'object') iterator(obj[key]);
     }
-  })
-  return obj
+  });
+  return obj;
 }

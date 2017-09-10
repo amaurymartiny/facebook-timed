@@ -1,4 +1,4 @@
-import yargs from 'yargs'
+import yargs from 'yargs';
 
 const args = yargs
 
@@ -31,12 +31,12 @@ const args = yargs
     describe: 'Force the creation of sourcemaps'
   })
 
-  .argv
+  .argv;
 
 // Use production flag for sourcemaps
 // as a fallback
 if (typeof args.sourcemaps === 'undefined') {
-  args.sourcemaps = !args.production
+  args.sourcemaps = !args.production;
 }
 
-export default args
+export default args;

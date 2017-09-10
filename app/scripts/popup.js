@@ -29,7 +29,7 @@ const readableTime = (sec) => {
   const hours = parseInt(sec / 3600) % 24;
   const minutes = parseInt(sec / 60) % 60;
   const seconds = sec % 60;
-  return '<span class="time-tracked-number">' + (hours < 10 ? '0' + hours : hours) + '</span>h<span class="time-tracked-number">' + (minutes < 10 ? '0' + minutes : minutes) + '</span>m<span class="time-tracked-number">' + (seconds  < 10 ? '0' + seconds : seconds) + '</span>s';
+  return '<span class="time-tracked-number">' + (hours < 10 ? '0' + hours : hours) + '</span>h<span class="time-tracked-number">' + (minutes < 10 ? '0' + minutes : minutes) + '</span>m<span class="time-tracked-number">' + (seconds < 10 ? '0' + seconds : seconds) + '</span>s';
 };
 
 /**
