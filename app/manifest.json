@@ -35,8 +35,9 @@
   "content_scripts": [
     {
       "matches": [
-        "*://www.facebook.com/*",
-        "*://www.reddit.com/*"
+        "*://*.facebook.com/*",
+        "*://*.reddit.com/*",
+        "*://*.twitter.com/*"
       ],
       "css": [
         "styles/contentscript.css"
