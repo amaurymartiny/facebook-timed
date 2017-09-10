@@ -34,7 +34,7 @@ const addTrack = (name) => {
  * Update the time on Track <name>
  * @param {String} name
  */
-export const updateTimeOnTrack = (name) => {
+export const updateTime = (name) => {
   if (!tracks[name]) {
     addTrack(name);
   }
@@ -47,6 +47,13 @@ export const updateTimeOnTrack = (name) => {
   tracks[name].total = tracks[name].total + 1;
 };
 
-export const getTracks = () => {
-  return tracks;
+/**
+ * Get the Track object of <name>
+ * @param {String} name
+ */
+export const get = (name) => {
+  if (!isTrackableWebsite(name)) {
+    return;
+  }
+  return tracks[name];
 };

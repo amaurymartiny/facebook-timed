@@ -65,9 +65,9 @@ const stopTrackingTime = () => {
 /**
  * Update time on facebook page when receiving a message from background
  */
-port.onMessage.addListener(msg => {
-  if (msg.action === 'UPDATE_TRACKED_TIME') {
-    label.update(msg.trackObject.today);
+port.onMessage.addListener((message) => {
+  if (message.action === 'UPDATE_TIME') {
+    label.update(message.payload.today);
   }
 });
 

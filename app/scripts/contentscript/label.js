@@ -19,7 +19,7 @@ export const init = (name) => {
 /**
  * Update time shown on label with updated value
  */
-export const updateLabel = (time) => {
+export const update = (time) => {
   // Update time label with hh:mm:ss format
   var hours = parseInt(time / 3600) % 24;
   var minutes = parseInt(time / 60) % 60;

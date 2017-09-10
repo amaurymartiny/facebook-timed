@@ -53,6 +53,15 @@ const updateTime = () => {
   // https://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
   const portsWithoutDups = [...new Set(ports.filter(p => p.isActive).map(p => p.name))];
 
-  portsWithoutDups.forEach(tracks.updateTimeOnTrack);
-  console.log(tracks.getTracks());
+  portsWithoutDups.forEach(tracks.updateTime);
+
+  console.log('ticking')
+
+  // Send on all active ports their newly updated time
+  ports.filter(p => p.isActive).map((port) => {
+    port.postMessage({
+      action: 'UPDATE_TIME',
+      payload: tracks.get(port.name)
+    });
+  });
 };
