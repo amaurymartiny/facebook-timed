@@ -35,6 +35,7 @@
   "content_scripts": [
     {
       "matches": [
+        "*://*.9gag.com/*",
         "*://*.facebook.com/*",
         "*://*.reddit.com/*",
         "*://*.twitter.com/*"
