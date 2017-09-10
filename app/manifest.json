@@ -30,7 +30,8 @@
   "content_scripts": [
     {
       "matches": [
-        "*://www.facebook.com/*"
+        "*://www.facebook.com/*",
+        "*://www.reddit.com/*"
       ],
       "css": [
         "styles/contentscript.css"
