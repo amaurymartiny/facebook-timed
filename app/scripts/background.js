@@ -78,13 +78,6 @@ const updateTime = () => {
   portsWithoutDups.forEach(tracks.updateTime);
 
   sendToAllPorts();
-
-  chrome.notifications.create({
-    type: 'basic',
-    title: 'Timed',
-    message: 'New',
-    iconUrl: 'images/watch_128_padding16.png'
-  });
 };
 
 /**

@@ -11,7 +11,8 @@
   },
   "permissions": [
     "activeTab",
-    "notifications"
+    "notifications",
+    "storage"
   ],
   "background": {
     "scripts": [

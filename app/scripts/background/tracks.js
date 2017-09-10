@@ -2,6 +2,7 @@
 // Tracks
 // ======================================================
 import { trackableWebsites } from '../config';
+import { createNotification, notificationPeriod } from './notifications';
 
 // Object storing all the tracked times on all websites
 const tracks = JSON.parse(window.localStorage.getItem('tracks')) || {};
@@ -51,6 +52,11 @@ export const updateTime = (name) => {
     tracks[name].today = 0;
   }
   tracks[name].lastUsedDate = new Date();
+
+  // If we passed a notification period, then show notification
+  if (tracks[name].today % (notificationPeriod * 60) === 0) {
+    createNotification(name, tracks[name]);
+  }
 
   // Save to localStorage
   saveToLocalStorage();
