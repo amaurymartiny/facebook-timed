@@ -15,6 +15,7 @@ let ports = []; // List of open ports
 
 /**
  * Generate a UUID for each port
+ * https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
  */
 const uuidv4 = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
