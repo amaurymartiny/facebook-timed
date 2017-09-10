@@ -26,9 +26,9 @@ const port = chrome.runtime.connect({ name: 'popup' });
  * Format seconds to hh:mm:ss format
  */
 const readableTime = (sec) => {
-  let hours = parseInt(sec / 3600) % 24;
-  let minutes = parseInt(sec / 60) % 60;
-  let seconds = sec % 60;
+  const hours = parseInt(sec / 3600) % 24;
+  const minutes = parseInt(sec / 60) % 60;
+  const seconds = sec % 60;
   return '<span class="time-tracked-number">' + (hours < 10 ? '0' + hours : hours) + '</span>h<span class="time-tracked-number">' + (minutes < 10 ? '0' + minutes : minutes) + '</span>m<span class="time-tracked-number">' + (seconds  < 10 ? '0' + seconds : seconds) + '</span>s';
 };
 
