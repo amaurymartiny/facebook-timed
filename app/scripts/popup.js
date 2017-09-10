@@ -63,7 +63,7 @@ const init = () => {
   // $('#template-start-date').tipsy({gravity: 's'});
   port.postMessage({ action: 'GET_TIME' });
 
-  // Disconnect port on leave
+  // Disconnect port on exit
   window.addEventListener('beforeunload', () => {
     port.disconnect();
   });

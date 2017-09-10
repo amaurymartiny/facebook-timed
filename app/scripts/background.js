@@ -14,12 +14,24 @@ import * as tracks from './background/tracks';
 let ports = []; // List of open ports
 
 /**
+ * Generate a UUID for each port
+ */
+const uuidv4 = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+
+/**
  * Keep track of all our open ports
  */
 chrome.runtime.onConnect.addListener((port) => {
   ports.push(port);
-  // Add an additional field to know if the current port is active or not
+  // Add an additional field to know if the current port is active or not, and a uuid
   port.isActive = null;
+  port.uuid = uuidv4();
 
   // Show page action on tab
   if (!['popup', 'options'].includes(port.name)) {
@@ -45,7 +57,7 @@ chrome.runtime.onConnect.addListener((port) => {
 
   // Delete the port from the ports object on disconnect
   port.onDisconnect.addListener((port) => {
-    ports = ports.filter(p => p.sender.id !== port.sender.id);
+    ports = ports.filter(p => p.uuid !== port.uuid);
   });
 });
 

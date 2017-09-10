@@ -40,29 +40,25 @@ window.addEventListener('MSPointerMove', resetIdleTimer);
 
 // Stop counting time when the page closes, and disconnect port
 window.addEventListener('beforeunload', () => {
-  stopTrackingTime();
   port.disconnect();
+  stopTrackingTime();
 });
 
 // ======================================================
 // Communication with background script
 // ======================================================
-let isTrackingTime = false; // Variable to check if app is currently tracking time spent on facebook
 /**
  * Sends a message to background to start tracking time
  */
 const startTrackingTime = () => {
-  if (isTrackingTime) return; // if we're already tracking time then do nothing
-  isTrackingTime = true;
-  port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
+  port.postMessage({ action: 'SET_ACTIVE', payload: true });
 };
 
 /**
  * Sends a message to background to stop tracking time
  */
 const stopTrackingTime = () => {
-  isTrackingTime = false;
-  port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
+  port.postMessage({ action: 'SET_ACTIVE', payload: false });
 };
 
 /**
