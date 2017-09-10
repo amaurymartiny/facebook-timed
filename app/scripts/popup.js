@@ -48,10 +48,10 @@ const readableDate = (dateString) => {
  */
 port.onMessage.addListener((message) => {
   if (message.action === 'UPDATE_TIME') {
-    $('#template-today').html(readableTime(message.payload.today));
-    $('#template-total').html(readableTime(message.payload.total));
+    $('#template-today').html(readableTime(message.payload[name].today));
+    $('#template-total').html(readableTime(message.payload[name].total));
     // Add popup for startDate
-    $('#template-start-date').attr('title', readableDate(message.payload.startDate));
+    $('#template-start-date').attr('title', readableDate(message.payload[name].startDate));
   }
 });
 

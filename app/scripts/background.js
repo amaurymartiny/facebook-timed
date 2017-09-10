@@ -73,7 +73,7 @@ const updateTime = () => {
   popupPorts.forEach((port) => {
     port.postMessage({
       action: 'UPDATE_TIME',
-      payload: tracks.get(ports.find(p => p.isActive).name)
+      payload: tracks.getAll()
     });
   });
 };
