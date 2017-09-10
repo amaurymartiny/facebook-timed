@@ -1,4 +1,5 @@
 export default {
+  name: 'Reddit',
   regex: /(?:www.)?reddit.com/,
   addElement: () => {
     const el = document.querySelector('#header-bottom-right');

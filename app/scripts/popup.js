@@ -59,7 +59,7 @@ port.onMessage.addListener((message) => {
  * Initialize template
  */
 const init = () => {
-  $('#template-name').text(name);
+  $('#template-name').text(trackableWebsites[name].name);
   // $('#template-start-date').tipsy({gravity: 's'});
   port.postMessage({ action: 'GET_TIME' });
 

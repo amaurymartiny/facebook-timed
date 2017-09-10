@@ -1,4 +1,5 @@
 export default {
+  name: 'Twitter',
   regex: /(?:www.)?twitter.com/,
   addElement: () => {
     const el = document.querySelector('.global-nav .nav-extras');

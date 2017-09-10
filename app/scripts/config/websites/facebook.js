@@ -1,4 +1,5 @@
 export default {
+  name: 'Facebook',
   regex: /(?:www.)?facebook.com/,
   addElement: () => {
     const el = document.querySelector('[role="navigation"]');
