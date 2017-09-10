@@ -10,6 +10,15 @@ const port = chrome.runtime.connect({ name: 'facebook' }); // start a long-lived
 // ======================================================
 // Time tracking with event detection
 // ======================================================
+/**
+ * Resets the idle timer, triggered when a user event (e.g. click, mousemove) is detected
+ */
+const resetIdleTimer = () => {
+  clearTimeout(idleTimer);
+  startTrackingTime();
+  idleTimer = setTimeout(stopTrackingTime, 5000); // 1000 millisec = 1 sec
+};
+
 // Reset idleness on the following events
 window.addEventListener('load', resetIdleTimer);
 window.addEventListener('mousemove', resetIdleTimer);
@@ -20,40 +29,31 @@ window.addEventListener('mousewheel', resetIdleTimer);
 window.addEventListener('touchmove', resetIdleTimer);
 window.addEventListener('MSPointerMove', resetIdleTimer);
 
-/**
- * Stop counting time when the page closes, and disconnect port
- */
+// Stop counting time when the page closes, and disconnect port
 window.addEventListener('beforeunload', () => {
   stopTrackingTime();
   port.disconnect();
 });
 
-/**
- * Resets the idle timer, triggered when a user event (e.g. click, mousemove) is detected
- */
-function resetIdleTimer () {
-  clearTimeout(idleTimer);
-  startTrackingTime();
-  idleTimer = setTimeout(stopTrackingTime, 5000); // 1000 millisec = 1 sec
-}
-
+// ======================================================
+// Communication with background script
+// ======================================================
 /**
  * Sends a message to background to start tracking time
  */
-function startTrackingTime () {
+const startTrackingTime = () => {
   if (isTrackingTime) return; // if we're already tracking time then do nothing
   isTrackingTime = true;
   port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
-  console.log('startTrackingTime');
-}
+};
 
 /**
  * Sends a message to background to stop tracking time
  */
-function stopTrackingTime () {
+const stopTrackingTime = () => {
   isTrackingTime = false;
   port.postMessage({ action: 'SET_ACTIVE', payload: isTrackingTime });
-}
+};
 
 // ======================================================
 // Showing time on label
