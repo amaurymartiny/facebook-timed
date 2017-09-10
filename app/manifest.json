@@ -10,7 +10,8 @@
     "128": "images/watch_128.png"
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "notifications"
   ],
   "background": {
     "scripts": [
