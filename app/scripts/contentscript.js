@@ -5,7 +5,7 @@ import 'chromereload/devonly'
 
 let idleTimer; // the 5s timer that checks idleness of user
 let isTrackingTime = false; // variable to check if app is currently tracking time spent on facebook
-const trackingTimePort = chrome.runtime.connect({name: 'https://facebook.com'}); // start a long-lived connection with background for time tracking
+const trackingTimePort = chrome.runtime.connect({ name: 'facebook' }); // start a long-lived connection with background for time tracking
 let timeLabel; // DOM element that contains the time spent on facebook
 
 // ======================================================
@@ -34,7 +34,7 @@ window.addEventListener('beforeunload', () => {
 /**
  * Resets the idle timer, triggered when a user event (click, mousemove) is detected
  */
-function resetIdleTimer() {
+function resetIdleTimer () {
   clearTimeout(idleTimer);
   startTrackingTime();
   idleTimer = setTimeout(stopTrackingTime, 5000); // 1000 millisec = 1 sec
@@ -43,7 +43,7 @@ function resetIdleTimer() {
 /**
  * Sends a message to background to start tracking time
  */
-function startTrackingTime() {
+function startTrackingTime () {
   if (isTrackingTime) return; // if we're already tracking time then do nothing
   isTrackingTime = true;
   // chrome.runtime.sendMessage({action: 'startTrackingTime'}, function(response) {});
@@ -54,7 +54,7 @@ function startTrackingTime() {
 /**
  * Sends a message to background to stop tracking time
  */
-function stopTrackingTime() {
+function stopTrackingTime () {
   isTrackingTime = false;
   trackingTimePort.postMessage({action: 'STOP_TRACKING_TIME'});
   // chrome.runtime.sendMessage({action: 'stopTrackingTime'}, function(response) {});
@@ -67,7 +67,7 @@ function stopTrackingTime() {
 /**
  * Modify Facebook DOM to add label with time tracked
  */
-(function() {
+(function () {
   let el = document.querySelector('[role="navigation"]');
   timeLabel = document.createElement('div');
   timeLabel.id = 'timed-label';
@@ -79,7 +79,7 @@ function stopTrackingTime() {
  * Update time on facebook page when receiving a message from background
  */
 trackingTimePort.onMessage.addListener(msg => {
-  if (msg.action == 'UPDATE_TRACKED_TIME')
+  if (msg.action === 'UPDATE_TRACKED_TIME')
     updateLabel(msg.trackObject.today);
 });
 
