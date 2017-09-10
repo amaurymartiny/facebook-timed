@@ -1,5 +1,6 @@
 // Enable chromereload by uncommenting this line:
 import $ from 'jquery';
+// import * from 'jquery.tipsy';
 import 'chromereload/devonly';
 
 // Start a long-lived connection with background for time tracking
@@ -35,6 +36,11 @@ port.onMessage.addListener((message) => {
     $('#template-today').html(readableTime(message.payload.today));
     $('#template-total').html(readableTime(message.payload.total));
     // Add popup for startDate
-    $('#template-startDate').attr('title', readableDate(message.payload.startDate));
+    $('#template-start-date').attr('title', readableDate(message.payload.startDate));
   }
 });
+
+/**
+ * Add tooltip for startDate
+ */
+// $('#template-start-date').tipsy({gravity: 's'});
