@@ -5,8 +5,11 @@ import 'chromereload/devonly';
 import * as label from './contentscript/label';
 import { trackableWebsites } from './config';
 
-// Name of this website in our config file
-const name = 'facebook';
+// To find the name of this website, we match the window.location.host path
+// to the corresponding regex in our config file
+const name = Object.keys(trackableWebsites).find((key) => {
+  return trackableWebsites[key].regex.test(window.location.host);
+});
 
 // Start a long-lived connection with background for time tracking
 const port = chrome.runtime.connect({ name });
