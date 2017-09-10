@@ -6,6 +6,7 @@ export default {
     label.className = `timed-label-facebook`;
     label.innerHTML = '00:00:00';
     el.insertBefore(label, el.firstChild);
+    // Important! Return the label element
     return label;
   }
 };
