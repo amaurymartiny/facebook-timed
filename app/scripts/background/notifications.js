@@ -4,7 +4,7 @@
 let notificationPeriod;
 
 // Get notification period from local storage
-chrome.storage.sync.get('notificationPeriod', (items) => {
+chrome.storage.sync.get({ notificationPeriod: 30 }, (items) => {
   notificationPeriod = items.notificationPeriod;
 });
 
