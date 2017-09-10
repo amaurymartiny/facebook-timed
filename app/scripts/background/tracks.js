@@ -5,7 +5,10 @@ import { trackableWebsites } from '../config';
 import { createNotification, getNotificationPeriod } from './notifications';
 
 // Object storing all the tracked times on all websites
-const tracks = JSON.parse(window.localStorage.getItem('tracks')) || {};
+let tracks;
+chrome.storage.sync.get({ tracks: {} }, (items) => {
+  tracks = items.tracks;
+});
 
 const isTrackableWebsite = (name) => {
   if (Object.keys(trackableWebsites).includes(name)) {
@@ -26,8 +29,8 @@ const addTrack = (name) => {
   tracks[name] = {
     today: 0,
     total: 0,
-    startDate: new Date(),
-    lastUsedDate: new Date()
+    startDate: (new Date()).toISOString(),
+    lastUsedDate: (new Date()).toISOString()
   };
 };
 
@@ -51,7 +54,7 @@ export const updateTime = (name) => {
   if ((new Date(tracks[name].lastUsedDate)).getDate() !== (new Date()).getDate()) {
     tracks[name].today = 0;
   }
-  tracks[name].lastUsedDate = new Date();
+  tracks[name].lastUsedDate = (new Date()).toISOString();
 
   // If we passed a notification period, then show notification
   if (getNotificationPeriod() && tracks[name].today % (getNotificationPeriod() * 60) === 0) {
@@ -66,7 +69,7 @@ export const updateTime = (name) => {
  * Save the tracks object to localStorage
  */
 const saveToLocalStorage = () => {
-  window.localStorage.setItem('tracks', JSON.stringify(tracks));
+  chrome.storage.sync.set({ tracks });
 };
 
 /**

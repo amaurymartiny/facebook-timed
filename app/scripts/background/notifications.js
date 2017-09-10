@@ -10,6 +10,9 @@ chrome.storage.sync.get('notificationPeriod', (items) => {
 
 // Update notification perdion when it gets updated from options
 chrome.storage.onChanged.addListener((changes) => {
+  if (!changes.notificationPeriod) {
+    return;
+  }
   notificationPeriod = changes.notificationPeriod.newValue;
 });
 
