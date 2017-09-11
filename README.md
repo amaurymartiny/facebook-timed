@@ -2,6 +2,10 @@
 
 Track the time spent on Facebook and your other favorite websites.
 
+## Download Extension
+
+Chrome Store: https://chrome.google.com/webstore/detail/timed/elimnnkcljpjbhoaoeimjjfimhjiekbj
+
 ## Installation
 
 	$ npm install
@@ -86,8 +90,9 @@ if(process.env.NODE_ENV === 'development'){
 }
 ```
 
+## Donations
 
-
+If you like this extension, I would really appreciate small donations! My Bitcoin address is: 1MN35ofAhYQVf1oYNmxEeuBiYwD4sdYDRu.
 
 
 
