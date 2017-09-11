@@ -43,7 +43,8 @@
         "*://*.facebook.com/*",
         "*://*.instagram.com/*",
         "*://*.reddit.com/*",
-        "*://*.twitter.com/*"
+        "*://*.twitter.com/*",
+        "*://*.youtube.com/*"
       ],
       "css": [
         "styles/contentscript.css"
