@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="../styles/popup.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <h1><span id="template-name" class="capitalize"></span><strong>Timed</strong></h1>
+
+    <p class="time-tracked-label">Today:</p>
+    <div class="time-tracked"><span id="template-today">...</span></div>
+
+    <p class="time-tracked-label">
+      Since the beginning (<span id="template-start-date"></span>):
+    </p>
+    <div class="time-tracked"><span id="template-total">...</span></div>
+
+    <p class="time-tracked-label">Average per day:</p>
+    <div class="time-tracked"><span id="template-average">...</span></div>
+
+    <script src="../scripts/popup.js"></script>
+  </body>
+</html>

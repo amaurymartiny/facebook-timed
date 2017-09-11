@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Options</title>
+  <link rel="stylesheet" type="text/css" href="../styles/options.css">
+</head>
+<body>
+  <div class="text-center">
+    <h1>Timed<strong>Options</strong></h1>
+    <p>Options are automatically saved when you modify them.</p>
+  </div>
+
+  <form>
+    <label>
+      Show a reminder notification after browsing X minutes on each website:<br />
+      <input id="notificationPeriodInput" type="number" name="notificationPeriod" min="0"> minutes (0 means never show notifications)
+    </label>
+    <div class="notification-example"><a href="#">Show an example notification</a></div>
+  </form>
+
+  <p class="text-center footer">
+    Made with &hearts; by <a href="http://amaurymartiny.com" target="_blank">Amaury Martiny</a>.
+    See <a href="https://github.com/amaurymartiny/timed">source code</a>.<br />
+    Rate on the <a href="https://chrome.google.com/webstore/detail/timed/elimnnkcljpjbhoaoeimjjfimhjiekbj" _target="blank">Chrome Store</a>.<br />
+    <a href="mailto:amaury.martiny@protonmail.com?subject=Add a new website to track for Timed extension&body=I would like to track the following website:">
+      Request
+    </a> a new website to track.
+  </p>
+
+  <script src="../scripts/options.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+// ======================================================
+// General styles
+// ======================================================
+body {
+  width: 300px;
+  padding: 20px;
+  font-family: "Roboto", "Open Sans", "Arial";
+  font-weight: 300;
+  color: #333;
+}
+
+h1 {
+  font-weight: 100;
+  font-size: 22px;
+}
+
+strong {
+  font-weight: 300;
+}
+
+a {
+  outline: none;
+  color: #333;
+}
+
+// ======================================================
+// Utilities (Bootstrap-like)
+// ======================================================
+.text-center {
+  text-align: center;
+}
+
+.pull-right {
+  text-align: right;
+}
+
+.text-lg {
+  font-size: 1.3em;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
