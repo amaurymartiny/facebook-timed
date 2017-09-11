@@ -1,6 +1,6 @@
 // Enable chromereload by uncommenting this line:
 import $ from 'jquery';
-// import * from 'jquery.tipsy';
+// import 'jquery.tipsy';
 import 'chromereload/devonly';
 import { trackableWebsites } from './config';
 
@@ -50,6 +50,9 @@ port.onMessage.addListener((message) => {
   if (message.action === 'UPDATE_TIME') {
     $('#template-today').html(readableTime(message.payload[name].today));
     $('#template-total').html(readableTime(message.payload[name].total));
+    // Calculate average per day
+    const days = Math.ceil(((new Date()) - (new Date(message.payload[name].startDate))) / 1000 / 3600 / 24); // Date diff in days
+    $('#template-average').html(readableTime(Math.floor(message.payload[name].total / days)));
     // Add popup for startDate
     $('#template-start-date').attr('title', readableDate(message.payload[name].startDate));
   }
