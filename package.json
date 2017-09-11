@@ -1,7 +1,7 @@
 {
   "name": "timed",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Track the time spent on Facebook, Instagram, YouTube and your other favorite websites, with notifications.",
   "scripts": {
     "start": "npm run dev:chrome",
