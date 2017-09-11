@@ -8,7 +8,24 @@ Track the time spent on Facebook and your other favorite websites.
 
 ## Usage
 
-Run `$ gulp --watch` and load the `dist`-directory into chrome.
+Run `$ gulp --watch` and load the `dist`-directory into chrome (follow [this tutorial](https://developer.chrome.com/extensions/getstarted#unpacked) to load an unpacked extension).
+
+## Contribute with a new website
+
+Follow the following steps to add a new website to track
+
+- In `./app/config/websites/`, create a new file (let's call it mywebsite.js).
+- In this file, export default an object with the following fields:
+    - `name`: The name of the website
+    - `regex`: A regex matching the url's host of the website (i.e the part after http://)
+    - `addElement`: A function which will manipulate the DOM on mywebsite.com, by adding a label to show the tracked time. Note: it is necessary to return the label's DOM element at the end of the function! Also note that you can add a className to this element.
+- In `./app/config/index.js`, add a line to import the above file.
+- In `./app/manifest.json`, add a line in `"content_scripts" -> "matches"` pointing to mywebsite.com, so that the extension knows on which websites to inject the content scripts.
+- In `./app/styles/websites/`, create a file called mywebsite.scss. Add all the necessary styling you need for the label to blend in nicely into the website. The class name of the label is the one you defined in the `addElement` function.
+- In `./app/styles/contentscript.scss`, import the above .scss file.
+
+Run `$ gulp --watch` and load the `dist`-directory into chrome (if you haven't done it before) and you should see your label on mywebsite.com.
+
 
 ## Entryfiles (bundles)
 
