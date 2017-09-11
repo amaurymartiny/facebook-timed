@@ -50,8 +50,8 @@ port.onMessage.addListener((message) => {
     $('#template-today').html(readableTime(message.payload[name].today));
     $('#template-total').html(readableTime(message.payload[name].total));
     // Calculate average per day
-    const days = Math.ceil(((new Date()) - (new Date(message.payload[name].startDate))) / 1000 / 3600 / 24); // Date diff in days
-    $('#template-average').html(readableTime(Math.floor(message.payload[name].total / days)));
+    const days = Math.ceil((new Date()).setHours(23, 59, 59, 999) - (new Date(message.payload[name].startDate).setHours(0, 0, 0, 0))) / 1000 / 3600 / 24; // Date diff in days
+    $('#template-average').html(readableTime(Math.round(message.payload[name].total / days)));
     // Add popup for startDate
     $('#template-start-date').html(readableDate(message.payload[name].startDate));
   }
