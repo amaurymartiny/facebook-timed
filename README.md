@@ -1,6 +1,6 @@
-# timed
+# Timed
 
-Track the time spent on Facebook and your other favorite websites.
+Track the time spent on Facebook, Instagram, YouTube and your other favorite websites, with notifications.
 
 ## Download Extension
 
