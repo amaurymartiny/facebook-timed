@@ -1,6 +1,5 @@
 // Enable chromereload by uncommenting this line:
 import $ from 'jquery';
-// import 'jquery.tipsy';
 import 'chromereload/devonly';
 import { trackableWebsites } from './config';
 
@@ -54,7 +53,7 @@ port.onMessage.addListener((message) => {
     const days = Math.ceil(((new Date()) - (new Date(message.payload[name].startDate))) / 1000 / 3600 / 24); // Date diff in days
     $('#template-average').html(readableTime(Math.floor(message.payload[name].total / days)));
     // Add popup for startDate
-    $('#template-start-date').attr('title', readableDate(message.payload[name].startDate));
+    $('#template-start-date').html(readableDate(message.payload[name].startDate));
   }
 });
 
@@ -63,7 +62,6 @@ port.onMessage.addListener((message) => {
  */
 const init = () => {
   $('#template-name').text(trackableWebsites[name].name);
-  // $('#template-start-date').tipsy({gravity: 's'});
   port.postMessage({ action: 'GET_TIME' });
 
   // Disconnect port on exit

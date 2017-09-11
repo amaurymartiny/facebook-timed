@@ -57,7 +57,6 @@
     "yargs": "^8.x.x"
   },
   "dependencies": {
-    "jquery": "^3.2.1",
-    "jquery.tipsy": "^1.0.3"
+    "jquery": "^3.2.1"
   }
 }
