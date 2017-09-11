@@ -41,6 +41,7 @@
         "*://*.amazon.de/*",
         "*://*.amazon.fr/*",
         "*://*.facebook.com/*",
+        "*://*.instagram.com/*",
         "*://*.reddit.com/*",
         "*://*.twitter.com/*"
       ],
