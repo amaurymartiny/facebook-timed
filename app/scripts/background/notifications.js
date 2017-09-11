@@ -31,7 +31,7 @@ export const createNotification = (name, track) => {
   chrome.notifications.create({
     type: 'basic',
     title: `${trackableWebsites[name].name}Timed`,
-    message: `You've been browsing ${trackableWebsites[name].name} for ${readableTime(track.today)} today.`,
+    message: `You've been browsing ${trackableWebsites[name].name} for\n${readableTime(track.today)} today.`,
     iconUrl: 'images/watch_128_padding16.png'
   });
 };
