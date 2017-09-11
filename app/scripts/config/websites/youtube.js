@@ -1,5 +1,5 @@
 export default {
-  name: 'Reddit',
+  name: 'YouTube',
   regex: /(?:www.)?youtube.com/,
   addElement: () => {
     const el = document.querySelector('#yt-masthead-user');
